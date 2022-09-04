@@ -1,0 +1,17 @@
+.logo {
+  width: 150px !important;
+  height: 150px !important;
+  align-self: center !important;
+}
+
+h2 {
+  font-size: 1.5rem !important;
+}
+
+.offer-link {
+  cursor: pointer !important
+}
+
+.offer-link:hover {
+  text-decoration: underline;
+}
