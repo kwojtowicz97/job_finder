@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit'
 import thunk, { ThunkDispatch, ThunkAction } from 'redux-thunk'
 
-import { offerListReducer } from './reducers/offerReducers'
+import { offerDetailsReducer, offerListReducer } from './reducers/offerReducers'
 import { ReduxState } from './types/ReduxState'
 
 export type AppDispatch = ThunkDispatch<ReduxState, unknown, Action<string>>
@@ -20,6 +20,7 @@ export type AppThunk = ThunkAction<
 
 const reducer = {
   offerList: offerListReducer,
+  offerDetais: offerDetailsReducer,
 }
 
 const middleware = [thunk]
