@@ -17,8 +17,11 @@ const JobOffer = ({ offer }: Props) => {
   }
   return (
     <Card className='flex-row my-3'>
-      <Card.Img className='logo p-3' src='../uploads/Apple-logo.png' />
-      <Card.Body className='ml-auto'>
+      <Card.Img
+        className='logo m-3 p-0 align-self-start align-self-md-center'
+        src='../uploads/Apple-logo.png'
+      />
+      <Card.Body className='ml-auto ps-0'>
         <Card.Title>
           <LinkContainer to='/offer/:id'>
             <h2 className='link'>{offer.title}</h2>
@@ -38,21 +41,29 @@ const JobOffer = ({ offer }: Props) => {
               <Col sm={12} md={3} className='px-0'>
                 <i className='fas fa-clock' /> {offer.time}
               </Col>
-              <Col sm={12} md={3} className='px-0'>
-                <i className='fas fa-chart-line' /> {offer.experience}
-              </Col>
-              <Col sm={12} md={3} className='px-0 text-end'>
-                {!isSaved && 'Save '}
-                <i
-                  onMouseEnter={() => setIsHover(true)}
-                  onMouseLeave={() => setIsHover(false)}
-                  onClick={clickHandler}
-                  className={`${
-                    isHover || isSaved
-                      ? 'fa-solid fav-star fav-saved'
-                      : 'fa-regular'
-                  } fa-star`}
-                />
+              <Col
+                sm={12}
+                md={6}
+                className='px-0 d-inline-flex justify-content-between'
+              >
+                <span>
+                  <i className='fas fa-chart-line me-auto' /> {offer.experience}
+                </span>
+                <span>
+                  <span className='fav-text'>
+                    {!isSaved ? 'Save ' : 'Saved! '}
+                  </span>
+                  <i
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                    onClick={clickHandler}
+                    className={`${
+                      isHover || isSaved
+                        ? 'fa-solid fav-star fav-saved'
+                        : 'fa-regular'
+                    } fa-star`}
+                  />
+                </span>
               </Col>
             </Row>
           </Container>

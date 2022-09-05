@@ -1,7 +1,6 @@
 .logo {
-  width: 150px !important;
-  height: 150px !important;
-  align-self: center !important;
+  width: 50px !important;
+  height: 50px !important;
 }
 
 h2 {
@@ -22,4 +21,8 @@ h2 {
 
 .fav-saved{
   color: #feb903
+}
+
+.fav-text{
+  color: rgb(178, 178, 178);
 }
