@@ -5,7 +5,7 @@ type RatingProps = {
   color: string
 }
 
-const Rating = ({ value, color = 'yellow' }: RatingProps) => {
+const Rating = ({ value, color = '#feb903' }: RatingProps) => {
   return (
     <>
       <span style={{ marginLeft: '0.5rem' }}>
@@ -73,7 +73,7 @@ const Rating = ({ value, color = 'yellow' }: RatingProps) => {
 }
 
 Rating.defaultProps = {
-  color: '#f8e825',
+  color: '#feb903',
 }
 
 export default Rating
