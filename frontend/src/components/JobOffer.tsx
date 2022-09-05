@@ -26,7 +26,7 @@ const JobOffer = ({ offer }: Props) => {
         <Card.Title>
           <div className='d-flex flex-row align-items-center'>
             <LinkContainer to='/offer/:id'>
-              <h2 className='link'>{offer.title}</h2>
+              <h2 className='link text-info'>{offer.title}</h2>
             </LinkContainer>
             <span
               style={{ color: '#feb903' }}
@@ -36,13 +36,15 @@ const JobOffer = ({ offer }: Props) => {
               <span className='d-none d-sm-inline'>Recommended For You!</span>
             </span>
           </div>
-          <LinkContainer to='/company/:id'>
-            <span className='link'>{offer.company.name} </span>
-          </LinkContainer>
+          <span className='mb-2'>
+            <LinkContainer to='/company/:id'>
+              <span className='link'>{offer.company.name} </span>
+            </LinkContainer>
+          </span>
           <Rating className='d-none d-sm-inline' value={4.5} />
         </Card.Title>
         <Container className='w100 p-0'>
-          <i className='fas fa-location-dot' /> {offer.address}
+          <i className='fas fa-location-dot mb-2' /> {offer.address}
           <Container>
             <Row>
               <Col sm={12} md={3} className='px-0'>
