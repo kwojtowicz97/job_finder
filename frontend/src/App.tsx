@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Header />
       <main className='py-3'>
-        <Container>
+        <Container fluid='lg' className='cnt'>
           <Routes>
             <Route path='/' element={<HomeScreen />} />
           </Routes>
