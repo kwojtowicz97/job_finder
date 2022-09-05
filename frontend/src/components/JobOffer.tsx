@@ -20,6 +20,7 @@ const JobOffer = ({ offer }: Props) => {
       <Card.Img
         className='logo m-3 p-0 align-self-start align-self-md-center'
         src='../uploads/Apple-logo.png'
+        alt={`${offer.company.name} logo`}
       />
       <Card.Body className='ml-auto ps-0'>
         <Card.Title>
