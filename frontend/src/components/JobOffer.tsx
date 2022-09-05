@@ -33,7 +33,7 @@ const JobOffer = ({ offer }: Props) => {
               className='ms-auto fs-6 algin-middle'
             >
               <i className='pe-1 fa-solid fa-circle-exclamation' />
-              Recommended For You!
+              <span className='d-none d-sm-inline'>Recommended For You!</span>
             </span>
           </div>
           <LinkContainer to='/company/:id'>
