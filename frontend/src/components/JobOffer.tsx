@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, Row, Col, Container } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import Rating from './Rating'
@@ -10,6 +10,11 @@ interface Props {
 }
 
 const JobOffer = ({ offer }: Props) => {
+  const [isSaved, setIsSaved] = useState(false)
+  const [isHover, setIsHover] = useState(false)
+  const clickHandler = () => {
+    setIsSaved((state) => !state)
+  }
   return (
     <Card className='flex-row my-3'>
       <Card.Img className='logo p-3' src='../uploads/Apple-logo.png' />
@@ -35,6 +40,19 @@ const JobOffer = ({ offer }: Props) => {
               </Col>
               <Col sm={12} md={3} className='px-0'>
                 <i className='fas fa-chart-line' /> {offer.experience}
+              </Col>
+              <Col sm={12} md={3} className='px-0 text-end'>
+                {!isSaved && 'Save '}
+                <i
+                  onMouseEnter={() => setIsHover(true)}
+                  onMouseLeave={() => setIsHover(false)}
+                  onClick={clickHandler}
+                  className={`${
+                    isHover || isSaved
+                      ? 'fa-solid fav-star fav-saved'
+                      : 'fa-regular'
+                  } fa-star`}
+                />
               </Col>
             </Row>
           </Container>

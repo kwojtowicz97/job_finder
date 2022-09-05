@@ -15,3 +15,11 @@ h2 {
 .link:hover {
   text-decoration: underline;
 }
+
+.fav-star:hover{
+  color: #feb903
+}
+
+.fav-saved{
+  color: #feb903
+}
