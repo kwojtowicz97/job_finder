@@ -23,7 +23,7 @@ const JobOffer = ({ offer }: Props) => {
           </LinkContainer>
           <Rating value={4.5} />
         </Card.Title>
-        <Card.Text>
+        <div className='d-block'>
           <i className='fas fa-location-dot' /> {offer.address}
           <Container>
             <Row>
@@ -38,7 +38,7 @@ const JobOffer = ({ offer }: Props) => {
               </Col>
             </Row>
           </Container>
-        </Card.Text>
+        </div>
       </Card.Body>
     </Card>
   )
