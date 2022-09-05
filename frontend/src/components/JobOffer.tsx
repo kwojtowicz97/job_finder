@@ -12,7 +12,7 @@ interface Props {
 const JobOffer = ({ offer }: Props) => {
   return (
     <Card className='flex-row my-3'>
-      <Card.Img className='logo p-3' src='../images/Apple-logo.png' />
+      <Card.Img className='logo p-3' src='../uploads/Apple-logo.png' />
       <Card.Body className='ml-auto'>
         <Card.Title>
           <LinkContainer to='/offer/:id'>
