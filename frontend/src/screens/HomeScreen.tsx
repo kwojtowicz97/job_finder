@@ -31,7 +31,7 @@ const HomeScreen = () => {
         <ListGroup variant='flush'>
           <ListGroup.Item>
             {offers.map((offer) => (
-              <JobOffer />
+              <JobOffer offer={offer} />
             ))}
           </ListGroup.Item>
         </ListGroup>

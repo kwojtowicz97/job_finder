@@ -10,11 +10,6 @@ const offerSchema = new mongoose.Schema(
     salaryMin: { type: Number, required: false },
     salaryMax: { type: Number, required: false },
     tags: { type: [String] },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
     company: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,

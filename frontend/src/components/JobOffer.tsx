@@ -2,8 +2,14 @@ import React from 'react'
 import { Card, Row, Col, Container } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import Rating from './Rating'
+import { Offer as OfferType } from '../types'
+import { off } from 'process'
 
-const JobOffer = () => {
+interface Props {
+  offer: OfferType
+}
+
+const JobOffer = ({ offer }: Props) => {
   return (
     <Card className='flex-row my-3'>
       <Card.Img
@@ -13,22 +19,25 @@ const JobOffer = () => {
       <Card.Body className='ml-auto'>
         <Card.Title>
           <LinkContainer to='/offer/:id'>
-            <h2 className='offer-link'>Inżynier ds. Sprzedaży</h2>
+            <h2 className='offer-link'>{offer.title}</h2>
           </LinkContainer>
-          Apple Inc. <Rating value={4.5} />
+          <LinkContainer to='/company/:id'>
+            <span>{offer.company.name} </span>
+          </LinkContainer>
+          <Rating value={4.5} />
         </Card.Title>
         <Card.Text>
-          <i className='fas fa-location-dot' /> Cupertino, LA
+          <i className='fas fa-location-dot' /> {offer.address}
           <Container>
             <Row>
               <Col sm={12} md={3} className='px-0'>
-                <i className='fas fa-file-invoice' /> Contract Of Employment
+                <i className='fas fa-file-invoice' /> {offer.contractType}
               </Col>
               <Col sm={12} md={3} className='px-0'>
-                <i className='fas fa-clock' /> Full Time
+                <i className='fas fa-clock' /> {offer.time}
               </Col>
               <Col sm={12} md={3} className='px-0'>
-                <i className='fas fa-chart-line' /> Manager
+                <i className='fas fa-chart-line' /> {offer.experience}
               </Col>
             </Row>
           </Container>

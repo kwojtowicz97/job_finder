@@ -1,5 +1,7 @@
+const id = '6316272e9f757323a2e1124b'
+
 const offers = [
-    {
+  {
     title: 'Sales Manager',
     address: 'Cupertino, LA',
     contractType: 'B2B',
@@ -8,10 +10,9 @@ const offers = [
     salaryMin: 3000,
     salaryMax: 5000,
     tags: ['MS Office'],
-    user: '63068ea7db0f26ca10cb782c',
-    company: '63068ea7db0f26ca10cb782c'
+    company: id,
   },
-    {
+  {
     title: 'Senior Software Engineer',
     address: 'Remote',
     contractType: 'B2B',
@@ -19,11 +20,10 @@ const offers = [
     experience: 'Senior',
     salaryMin: 3000,
     salaryMax: 5000,
-    tags: ["JavaScript", "TypeScript", "HTML", 'React'],
-    user: '63068ea7db0f26ca10cb782c',
-    company: '63068ea7db0f26ca10cb782c'
+    tags: ['JavaScript', 'TypeScript', 'HTML', 'React'],
+    company: id,
   },
-    {
+  {
     title: 'Sales Manager',
     address: 'Cupertino, LA',
     contractType: 'B2B',
@@ -31,10 +31,9 @@ const offers = [
     experience: 'Regular',
     salaryMin: 7000,
     salaryMax: 8000,
-    user: '63068ea7db0f26ca10cb782c',
-    company: '63068ea7db0f26ca10cb782c'
+    company: id,
   },
-    {
+  {
     title: 'Sales Manager',
     address: 'Cupertino, LA',
     contractType: 'B2B',
@@ -42,10 +41,9 @@ const offers = [
     experience: 'Regular',
     salaryMin: 3000,
     salaryMax: 5000,
-    user: '63068ea7db0f26ca10cb782c',
-    company: '63068ea7db0f26ca10cb782c'
+    company: id,
   },
-    {
+  {
     title: 'Sales Manager',
     address: 'Cupertino, LA',
     contractType: 'B2B',
@@ -53,8 +51,7 @@ const offers = [
     experience: 'Regular',
     salaryMin: 3000,
     salaryMax: 5000,
-    user: '63068ea7db0f26ca10cb782c',
-    company: '63068ea7db0f26ca10cb782c'
+    company: id,
   },
 ]
 

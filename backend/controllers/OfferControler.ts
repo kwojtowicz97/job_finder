@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
 
 import Offer from '../models/offerModel'
+require('../models/companyModel')
 
 // @desc    Fetch all offers
 // @route   GET /api/products
@@ -23,6 +24,7 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
   const offers = await Offer.find({ ...keyword })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
+    .populate('company', 'id name city country')
 
   res.json({ offers, page, pages: Math.ceil(count / pageSize) })
 })
