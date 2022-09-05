@@ -9,7 +9,9 @@ const Header = () => {
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>
-              <h1>Job Finder</h1>
+              <h1>
+                <b>Job Finder</b>
+              </h1>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav'></Navbar.Toggle>

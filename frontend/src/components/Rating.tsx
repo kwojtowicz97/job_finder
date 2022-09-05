@@ -8,7 +8,7 @@ type RatingProps = {
 const Rating = ({ value, color = 'yellow' }: RatingProps) => {
   return (
     <>
-      <span>
+      <span style={{ marginLeft: '0.5rem' }}>
         <i
           style={{ color }}
           className={

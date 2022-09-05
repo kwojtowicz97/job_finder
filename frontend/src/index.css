@@ -12,6 +12,6 @@ h2 {
   cursor: pointer !important
 }
 
-.offer-link:hover {
+.link:hover {
   text-decoration: underline;
 }

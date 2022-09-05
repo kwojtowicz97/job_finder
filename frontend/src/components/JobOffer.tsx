@@ -12,17 +12,14 @@ interface Props {
 const JobOffer = ({ offer }: Props) => {
   return (
     <Card className='flex-row my-3'>
-      <Card.Img
-        className='logo p-3'
-        src={require('../images/Apple-logo.png')}
-      />
+      <Card.Img className='logo p-3' src='../images/Apple-logo.png' />
       <Card.Body className='ml-auto'>
         <Card.Title>
           <LinkContainer to='/offer/:id'>
-            <h2 className='offer-link'>{offer.title}</h2>
+            <h2 className='link'>{offer.title}</h2>
           </LinkContainer>
           <LinkContainer to='/company/:id'>
-            <span>{offer.company.name} </span>
+            <span className='link'>{offer.company.name} </span>
           </LinkContainer>
           <Rating value={4.5} />
         </Card.Title>
