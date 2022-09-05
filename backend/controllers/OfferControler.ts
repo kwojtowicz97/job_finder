@@ -28,3 +28,19 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
 
   res.json({ offers, page, pages: Math.ceil(count / pageSize) })
 })
+
+// @desc    Fetch offer by Id
+// @route   GET /api/products/:id
+// @access  Public
+export const getOfferById = asyncHandler(
+  async (req: Request, res: Response) => {
+    const offer = await Offer.findById(req.params.id)
+
+    if (offer) {
+      res.json(offer)
+    } else {
+      res.status(404)
+      throw new Error('Offer not found')
+    }
+  }
+)
