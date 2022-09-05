@@ -3,11 +3,12 @@ import React from 'react'
 type RatingProps = {
   value: number
   color: string
+  className?: string
 }
 
-const Rating = ({ value, color = '#feb903' }: RatingProps) => {
+const Rating = ({ className, value, color = '#feb903' }: RatingProps) => {
   return (
-    <>
+    <span className={className}>
       <span style={{ marginLeft: '0.5rem' }}>
         <i
           style={{ color }}
@@ -68,7 +69,7 @@ const Rating = ({ value, color = '#feb903' }: RatingProps) => {
           }
         ></i>
       </span>
-    </>
+    </span>
   )
 }
 
