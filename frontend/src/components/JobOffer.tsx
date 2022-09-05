@@ -24,9 +24,18 @@ const JobOffer = ({ offer }: Props) => {
       />
       <Card.Body className='ml-auto ps-0'>
         <Card.Title>
-          <LinkContainer to='/offer/:id'>
-            <h2 className='link'>{offer.title}</h2>
-          </LinkContainer>
+          <div className='d-flex flex-row align-items-center'>
+            <LinkContainer to='/offer/:id'>
+              <h2 className='link'>{offer.title}</h2>
+            </LinkContainer>
+            <span
+              style={{ color: '#feb903' }}
+              className='ms-auto fs-6 algin-middle'
+            >
+              <i className='pe-1 fa-solid fa-circle-exclamation' />
+              Recommended For You!
+            </span>
+          </div>
           <LinkContainer to='/company/:id'>
             <span className='link'>{offer.company.name} </span>
           </LinkContainer>
