@@ -1,9 +1,4 @@
-import {
-  Action,
-  combineReducers,
-  configureStore,
-  applyMiddleware,
-} from '@reduxjs/toolkit'
+import { Action, configureStore } from '@reduxjs/toolkit'
 import thunk, { ThunkDispatch, ThunkAction } from 'redux-thunk'
 
 import { offerDetailsReducer, offerListReducer } from './reducers/offerReducers'
