@@ -42,9 +42,9 @@ export const offerDetailsReducer = (
 ) => {
   switch (action.type) {
     case OfferDetailActionTypes.OFFER_DETAIL_REQUEST:
-      return { loading: true, offers: initialOfferListState.offers }
+      return { loading: true, offer: initialOfferDetailsState.offer }
     case OfferDetailActionTypes.OFFER_DETAIL_SUCCESS:
-      return { loading: false, offers: action.payload }
+      return { loading: false, offer: action.payload }
     case OfferDetailActionTypes.OFFER_DETAIL_FAILURE:
       return {
         loading: false,
