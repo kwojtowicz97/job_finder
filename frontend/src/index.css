@@ -9,8 +9,10 @@
 }
 
 .logo {
-  width: 50px !important;
-  height: 50px !important;
+  max-width: 50px !important;
+  max-height: 50px !important;
+  width: auto;
+  height: auto;
 }
 
 h2 {

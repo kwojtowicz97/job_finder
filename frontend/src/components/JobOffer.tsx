@@ -24,7 +24,7 @@ const JobOffer = ({ offer }: Props) => {
       <Card.Body className='ml-auto ps-0'>
         <Card.Title>
           <div className='d-flex flex-row align-items-center'>
-            <LinkContainer to='/offer/:id'>
+            <LinkContainer role='button' to='/offer/:id'>
               <h2 className='link text-info'>{offer.title}</h2>
             </LinkContainer>
             <span
@@ -36,7 +36,7 @@ const JobOffer = ({ offer }: Props) => {
             </span>
           </div>
           <span className='mb-2'>
-            <LinkContainer to='/company/:id'>
+            <LinkContainer role='button' to='/company/:id'>
               <span className='link'>{offer.company.name} </span>
             </LinkContainer>
           </span>
@@ -65,6 +65,7 @@ const JobOffer = ({ offer }: Props) => {
                     {!isSaved ? 'Save ' : 'Saved! '}
                   </span>
                   <i
+                    role='button'
                     onMouseEnter={() => setIsHover(true)}
                     onMouseLeave={() => setIsHover(false)}
                     onClick={clickHandler}
