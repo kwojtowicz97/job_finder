@@ -1,6 +1,5 @@
-import { OfferListState, OfferDetailState } from './'
+import { OfferListState } from './'
 
 export interface ReduxState {
   offerList: OfferListState
-  offerDetails: OfferDetailState
 }
