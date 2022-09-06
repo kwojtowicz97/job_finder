@@ -3,7 +3,6 @@ import { Card, Row, Col, Container } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import Rating from './Rating'
 import { Offer as OfferType } from '../types'
-import { off } from 'process'
 
 interface Props {
   offer: OfferType
@@ -19,7 +18,7 @@ const JobOffer = ({ offer }: Props) => {
     <Card className='flex-row my-3'>
       <Card.Img
         className='logo m-3 p-0 align-self-start align-self-md-center'
-        src='../uploads/Apple-logo.png'
+        src={offer.company.image}
         alt={`${offer.company.name} logo`}
       />
       <Card.Body className='ml-auto ps-0'>

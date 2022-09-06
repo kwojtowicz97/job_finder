@@ -4,6 +4,7 @@ const companySchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
+    image: { type: String, required: false },
     address: { type: String, required: true },
     city: { type: String, required: true },
     country: { type: String, required: true },

@@ -1,6 +1,7 @@
 export interface Company {
   name: string
   user: string
+  image: string
   address: string
   city: string
   country: string

@@ -15,8 +15,17 @@ const importData = async () => {
     await Offer.deleteMany()
     await Company.deleteMany()
 
-    const createdOffers = await Offer.insertMany(offers)
     const createdCompanies = await Company.insertMany(companies)
+
+    offers.forEach(
+      (offer) =>
+        (offer.company =
+          Math.random() > 0.5
+            ? String(createdCompanies[0]._id)
+            : String(createdCompanies[1]._id))
+    )
+
+    await Offer.insertMany(offers)
 
     console.log('Data Imported!')
     process.exit()
