@@ -18,7 +18,7 @@ export interface FetchOfferDetailRequestAction {
 
 export interface FetchOfferDetailSuccessAction {
   type: OfferDetailActionTypes.OFFER_DETAIL_SUCCESS
-  payload: { offer: Offer }
+  payload: Offer
 }
 
 export interface FetchOfferDetailFailureAction {
