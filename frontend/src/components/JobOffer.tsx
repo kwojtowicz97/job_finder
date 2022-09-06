@@ -24,7 +24,7 @@ const JobOffer = ({ offer }: Props) => {
       <Card.Body className='ml-auto ps-0'>
         <Card.Title>
           <div className='d-flex flex-row align-items-center'>
-            <LinkContainer role='button' to='/offer/:id'>
+            <LinkContainer role='button' to={`/offer/${offer._id}`}>
               <h2 className='link text-info'>{offer.title}</h2>
             </LinkContainer>
             <span
