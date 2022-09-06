@@ -24,7 +24,7 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
   const offers = await Offer.find({ ...keyword })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
-    .populate('company', 'id name city image')
+    .populate('company', 'name image rating')
 
   res.json({ offers, page, pages: Math.ceil(count / pageSize) })
 })
