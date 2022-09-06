@@ -44,7 +44,7 @@ export const offerDetailReducer = (
     case OfferDetailActionTypes.OFFER_DETAIL_REQUEST:
       return { loading: true }
     case OfferDetailActionTypes.OFFER_DETAIL_SUCCESS:
-      return { loading: false, offers: action.payload.offer }
+      return { loading: false, offers: action.payload }
     case OfferDetailActionTypes.OFFER_DETAIL_FAILURE:
       return {
         loading: false,
