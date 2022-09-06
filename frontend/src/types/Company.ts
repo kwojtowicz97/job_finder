@@ -9,4 +9,5 @@ export interface Company {
   postalAddress?: string
   phoneNumber?: string
   reviews: Array<string>
+  rating: number
 }

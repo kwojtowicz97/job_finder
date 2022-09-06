@@ -40,7 +40,7 @@ const JobOffer = ({ offer }: Props) => {
               <span className='link'>{offer.company.name} </span>
             </LinkContainer>
           </span>
-          <Rating className='d-none d-sm-inline' value={4.5} />
+          <Rating className='d-none d-sm-inline' value={offer.company.rating} />
         </Card.Title>
         <Container className='w100 p-0'>
           <i className='fas fa-location-dot mb-2' /> {offer.address}

@@ -12,6 +12,7 @@ const companySchema = new mongoose.Schema(
     postalAddress: { type: String, required: false },
     phoneNumber: { type: String, required: false },
     reviews: { type: [String], required: true },
+    rating: { type: Number, required: true },
   },
   { timestamps: true }
 )
