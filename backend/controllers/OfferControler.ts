@@ -34,7 +34,10 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
 // @access  Public
 export const getOfferById = asyncHandler(
   async (req: Request, res: Response) => {
-    const offer = await Offer.findById(req.params.id)
+    const offer = await Offer.findById(req.params.id).populate(
+      'company',
+      'name image rating'
+    )
 
     if (offer) {
       res.json(offer)
