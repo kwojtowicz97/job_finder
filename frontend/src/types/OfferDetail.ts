@@ -1,7 +1,7 @@
 import { Offer } from './Offer'
 
 export interface OfferDetailState {
-  offer: Offer
+  offer?: Offer
   loading: boolean
   error?: undefined
 }

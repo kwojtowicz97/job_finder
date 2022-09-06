@@ -1,4 +1,11 @@
-import { OfferListState, OfferListActionTypes, OfferListAction } from '../types'
+import {
+  OfferListState,
+  OfferListActionTypes,
+  OfferListAction,
+  OfferDetailState,
+  OfferDetailActionTypes,
+  OfferDetailAction,
+} from '../types'
 
 const initialOfferListState: OfferListState = {
   offers: [],
@@ -19,6 +26,29 @@ export const offerListReducer = (
         loading: false,
         error: action.payload,
         offers: initialOfferListState.offers,
+      }
+    default:
+      return state
+  }
+}
+
+const initialOfferDetailState: OfferDetailState = {
+  loading: false,
+}
+
+export const offerDetailReducer = (
+  state: OfferDetailState = initialOfferDetailState,
+  action: OfferDetailAction
+) => {
+  switch (action.type) {
+    case OfferDetailActionTypes.OFFER_DETAIL_REQUEST:
+      return { loading: true }
+    case OfferDetailActionTypes.OFFER_DETAIL_SUCCESS:
+      return { loading: false, offers: action.payload.offer }
+    case OfferDetailActionTypes.OFFER_DETAIL_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
       }
     default:
       return state
