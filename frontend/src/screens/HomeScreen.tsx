@@ -8,7 +8,7 @@ import { ReduxState } from '../types/ReduxState'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
-const HomeScreen = () => {
+const HomeScreen: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   const { offers, loading, error } = useSelector(
