@@ -9,6 +9,11 @@ const offers = [
     experience: 'Regular',
     salaryMin: 3000,
     salaryMax: 5000,
+    responsibilities: [
+      'Creating fullstack web applications',
+      'Designing UI/UX',
+      'Fixing bugs',
+    ],
     tags: ['MS Office'],
     company: id,
   },
@@ -20,6 +25,11 @@ const offers = [
     experience: 'Senior',
     salaryMin: 3000,
     salaryMax: 5000,
+    responsibilities: [
+      'Creating fullstack web applications',
+      'Designing UI/UX',
+      'Fixing bugs',
+    ],
     tags: ['JavaScript', 'TypeScript', 'HTML', 'React'],
     company: id,
   },
@@ -31,6 +41,11 @@ const offers = [
     experience: 'Regular',
     salaryMin: 7000,
     salaryMax: 8000,
+    responsibilities: [
+      'Creating fullstack web applications',
+      'Designing UI/UX',
+      'Fixing bugs',
+    ],
     company: id,
   },
   {
@@ -41,6 +56,11 @@ const offers = [
     experience: 'Regular',
     salaryMin: 3000,
     salaryMax: 5000,
+    responsibilities: [
+      'Creating fullstack web applications',
+      'Designing UI/UX',
+      'Fixing bugs',
+    ],
     company: id,
   },
   {
@@ -51,6 +71,11 @@ const offers = [
     experience: 'Regular',
     salaryMin: 3000,
     salaryMax: 5000,
+    responsibilities: [
+      'Creating fullstack web applications',
+      'Designing UI/UX',
+      'Fixing bugs',
+    ],
     company: id,
   },
 ]

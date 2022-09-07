@@ -10,7 +10,8 @@ export interface Offer {
   experience: string
   salaryMin: number
   salaryMax: number
-  tags: Array<string>
+  responsibilities: Array<string>
+  tags?: Array<string>
   user: string
   company: Company
 }

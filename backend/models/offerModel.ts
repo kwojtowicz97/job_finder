@@ -9,6 +9,7 @@ const offerSchema = new mongoose.Schema(
     experience: { type: String, required: true },
     salaryMin: { type: Number, required: false },
     salaryMax: { type: Number, required: false },
+    responsibilities: { type: [String], required: true },
     tags: { type: [String] },
     company: {
       type: mongoose.Schema.Types.ObjectId,
