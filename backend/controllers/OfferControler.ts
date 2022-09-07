@@ -36,7 +36,7 @@ export const getOfferById = asyncHandler(
   async (req: Request, res: Response) => {
     const offer = await Offer.findById(req.params.id).populate(
       'company',
-      'name image rating'
+      'name image rating city address'
     )
 
     if (offer) {
