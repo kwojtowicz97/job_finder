@@ -10,8 +10,8 @@
 }
 
 .logo {
-  max-width: 50px !important;
-  max-height: 50px !important;
+  max-width: 80px !important;
+  max-height: 80px !important;
   width: auto;
   height: auto;
 }
@@ -38,4 +38,12 @@ h2 {
 
 .fav-text{
   color: rgb(178, 178, 178);
+}
+
+.benefit-item {
+  width: 42px;
+  height: 42px;
+  background: rgb(218, 238, 245);
+    background: linear-gradient(135deg, rgba(218, 238, 245, 1) 50%, rgba(206, 232, 241, 1) 50%);
+  border-radius: 50%;
 }
