@@ -148,14 +148,13 @@ const OfferDetailScreen: React.FC = () => {
                     </Button>
                   </Row>
                   <Row className='text-center'>
-                    <Col className='p-3 border-end'>
-                      <SaveIcon
-                        className='black'
-                        reverse
-                        isSaved={isSaved}
-                        onClick={saveClickHandler}
-                      />
-                    </Col>
+                    <SaveIcon
+                      spanClassName='col-6 p-3 border-end d-block'
+                      className='black'
+                      reverse
+                      isSaved={isSaved}
+                      onClick={saveClickHandler}
+                    />
                     <Col className='p-3 offer-sidebar-button'>
                       <span>
                         <i className='fa-solid fa-print ' />
