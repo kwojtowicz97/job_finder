@@ -39,7 +39,14 @@ export const getOfferById = asyncHandler(
       'name image rating city address'
     )
 
-    if (offer) {
+    if (offer && offer.expiresAt instanceof Date) {
+      const hours =
+        (new Date(offer.expiresAt).getTime() - new Date().getTime()) / 3600000
+
+      offer.expiresIn =
+        hours < 24
+          ? `${Math.round(hours)} hours`
+          : `${Math.round(hours / 24)} days`
       res.json(offer)
     } else {
       res.status(404)
