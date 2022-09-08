@@ -40,10 +40,19 @@ h2 {
   color: rgb(178, 178, 178);
 }
 
+.black {
+  color: black;
+}
+
 .benefit-item {
   width: 42px;
   height: 42px;
   background: rgb(218, 238, 245);
     background: linear-gradient(135deg, rgba(218, 238, 245, 1) 50%, rgba(206, 232, 241, 1) 50%);
   border-radius: 50%;
+}
+
+.offer-sidebar-button:hover {
+  color: var(--bs-info);
+  cursor: pointer;
 }
