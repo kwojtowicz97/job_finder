@@ -10,7 +10,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <main className='py-3'>
+      <main className='py-3 my-auto'>
         <Container fluid='lg' className='cnt'>
           <Routes>
             <Route path='/offer/:id' element={<OfferDetailScreen />} />
