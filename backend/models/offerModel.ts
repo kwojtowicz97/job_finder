@@ -1,4 +1,23 @@
-import mongoose from 'mongoose'
+import mongoose, { ObjectId } from 'mongoose'
+
+export interface IOffer extends mongoose.Document {
+  title: string
+  address: string
+  contractType: string
+  time: string
+  experience: string
+  salaryMin?: number
+  salaryMax?: number
+  responsibilities: Array<string>
+  requirements: Array<string>
+  benefits: Array<string>
+  tags: Array<string>
+  company: ObjectId
+  expiresAt: Date
+  expiresIn: string
+  createdAt: Date
+  updatedAt: Date
+}
 
 const offerSchema = new mongoose.Schema(
   {
@@ -10,16 +29,19 @@ const offerSchema = new mongoose.Schema(
     salaryMin: { type: Number, required: false },
     salaryMax: { type: Number, required: false },
     responsibilities: { type: [String], required: true },
-    tags: { type: [String] },
+    requirements: { type: [String], required: true },
+    benefits: { type: [String], required: true },
+    tags: { type: [String], required: true },
     company: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'Company',
     },
+    expiresAt: { type: Date, required: true },
+    expiresIn: { type: String, required: true },
   },
   { timestamps: true }
 )
 
-const Offer = mongoose.model('Offer', offerSchema)
-
+const Offer = mongoose.model<IOffer>('Offer', offerSchema)
 export default Offer

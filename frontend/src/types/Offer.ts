@@ -3,15 +3,19 @@ import { Company } from './Company'
 export interface Offer {
   _id: string
   title: string
-  image: string
   address: string
   contractType: string
   time: string
   experience: string
-  salaryMin: number
-  salaryMax: number
+  salaryMin?: number
+  salaryMax?: number
   responsibilities: Array<string>
-  tags?: Array<string>
-  user: string
+  requirements: Array<string>
+  benefits: Array<string>
+  tags: Array<string>
   company: Company
+  expiresAt: Date
+  expiresIn: string
+  createdAt: Date
+  updatedAt: Date
 }
