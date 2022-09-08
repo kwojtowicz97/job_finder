@@ -1,5 +1,11 @@
 const id = '6316272e9f757323a2e1124b'
 
+function addDays(days: number) {
+  var result = new Date()
+  result.setDate(result.getDate() + days)
+  return result
+}
+
 const offers = [
   {
     title: 'Sales Manager',
@@ -14,6 +20,9 @@ const offers = [
       'Designing UI/UX',
       'Fixing bugs',
     ],
+    requirements: ['2+ years of experience', 'JS and React', 'RWD', 'Github'],
+    benefits: ['Private healtcare', 'Company car', 'Budget on courses'],
+    expiresAt: addDays(Math.ceil(Math.random() * 10)),
     tags: ['MS Office'],
     company: id,
   },
@@ -30,6 +39,9 @@ const offers = [
       'Designing UI/UX',
       'Fixing bugs',
     ],
+    requirements: ['2+ years of experience', 'JS and React', 'RWD', 'Github'],
+    benefits: ['Private healtcare', 'Company car', 'Budget on courses'],
+    expiresAt: addDays(Math.ceil(Math.random() * 10)),
     tags: ['JavaScript', 'TypeScript', 'HTML', 'React'],
     company: id,
   },
@@ -46,6 +58,10 @@ const offers = [
       'Designing UI/UX',
       'Fixing bugs',
     ],
+    requirements: ['2+ years of experience', 'JS and React', 'RWD', 'Github'],
+    benefits: ['Private healtcare', 'Company car', 'Budget on courses'],
+    expiresAt: addDays(Math.ceil(Math.random() * 10)),
+    tags: ['JavaScript', 'TypeScript', 'HTML', 'React'],
     company: id,
   },
   {
@@ -61,6 +77,10 @@ const offers = [
       'Designing UI/UX',
       'Fixing bugs',
     ],
+    requirements: ['2+ years of experience', 'JS and React', 'RWD', 'Github'],
+    benefits: ['Private healtcare', 'Company car', 'Budget on courses'],
+    expiresAt: addDays(Math.ceil(Math.random() * 10)),
+    tags: ['JavaScript', 'TypeScript', 'HTML', 'React'],
     company: id,
   },
   {
@@ -76,6 +96,10 @@ const offers = [
       'Designing UI/UX',
       'Fixing bugs',
     ],
+    requirements: ['2+ years of experience', 'JS and React', 'RWD', 'Github'],
+    benefits: ['Private healtcare', 'Company car', 'Budget on courses'],
+    expiresAt: addDays(Math.ceil(Math.random() * 10)),
+    tags: ['JavaScript', 'TypeScript', 'HTML', 'React'],
     company: id,
   },
 ]
