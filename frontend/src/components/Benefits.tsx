@@ -25,7 +25,7 @@ export const Benefits = ({ offer }: Props) => {
         <span className='benefit-item d-flex align-items-center justify-content-center'>
           <i className='fa-solid fa-clock'></i>
         </span>
-        <span className='ms-3'>Expires in 20 days</span>
+        <span className='ms-3'>{`Expires in ${offer.expiresIn}`}</span>
       </Container>
       <Container
         style={{ maxWidth: '30%' }}
