@@ -21,19 +21,21 @@ const HomeScreen: React.FC = () => {
 
   return (
     <>
-      <h2>Newest Job Offers</h2>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <ListGroup variant='flush'>
-          <ListGroup.Item>
-            {offers.map((offer) => (
-              <JobOffer key={offer._id} offer={offer} />
-            ))}
-          </ListGroup.Item>
-        </ListGroup>
+        <>
+          <h2>Newest Job Offers</h2>
+          <ListGroup variant='flush'>
+            <ListGroup.Item>
+              {offers.map((offer) => (
+                <JobOffer key={offer._id} offer={offer} />
+              ))}
+            </ListGroup.Item>
+          </ListGroup>
+        </>
       )}
     </>
   )
