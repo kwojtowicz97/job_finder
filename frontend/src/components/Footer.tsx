@@ -4,9 +4,9 @@ const Footer = () => {
   return (
     <footer
       style={{ minHeight: '50px', background: '#f7f7f7' }}
-      className='w-100 border-top mt-auto'
+      className='w-100 border-top border-bottom mt-auto d-flex justify-content-center align-items-center'
     >
-      Test
+      <p className='m-0 text-center'>&copy; 2022 Kamil Wójtowicz</p>
     </footer>
   )
 }
