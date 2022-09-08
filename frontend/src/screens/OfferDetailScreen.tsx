@@ -40,7 +40,7 @@ const OfferDetailScreen: React.FC = () => {
         offer && (
           <Container>
             <Row>
-              <Col className='col-8'>
+              <Col className='col-12 col-md-8'>
                 {' '}
                 <Container fluid className='border rounded'>
                   <Row>
@@ -101,7 +101,7 @@ const OfferDetailScreen: React.FC = () => {
                         <h3 className='mb-3 ms-2 d-inline'>Requirements</h3>
                       </span>
                       <ul style={{ listStyleType: 'none', padding: '0' }}>
-                        {offer.responsibilities.map((item) => (
+                        {offer.requirements.map((item) => (
                           <li className='my-2'>
                             <span>
                               <i className='fa-solid fa-play me-1' />
@@ -119,7 +119,7 @@ const OfferDetailScreen: React.FC = () => {
                         <h3 className='mb-3 ms-2 d-inline'>We Offer</h3>
                       </span>
                       <ul style={{ listStyleType: 'none', padding: '0' }}>
-                        {offer.responsibilities.map((item) => (
+                        {offer.benefits.map((item) => (
                           <li className='my-2'>
                             <span>
                               <i className='fa-solid fa-play me-1' />
@@ -132,7 +132,7 @@ const OfferDetailScreen: React.FC = () => {
                   </Row>
                 </Container>
               </Col>
-              <Col>
+              <Col className='col-12 col-md-4'>
                 <Container
                   fluid
                   className='border rounded position-sticky'
