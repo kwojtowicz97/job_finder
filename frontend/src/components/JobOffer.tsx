@@ -3,6 +3,7 @@ import { Card, Row, Col, Container } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import Rating from './Rating'
 import { Offer as OfferType } from '../types'
+import SaveIcon from './SaveIcon'
 
 interface Props {
   offer: OfferType
@@ -10,7 +11,6 @@ interface Props {
 
 const JobOffer = ({ offer }: Props) => {
   const [isSaved, setIsSaved] = useState(false)
-  const [isHover, setIsHover] = useState(false)
   const clickHandler = () => {
     setIsSaved((state) => !state)
   }
@@ -60,22 +60,7 @@ const JobOffer = ({ offer }: Props) => {
                 <span>
                   <i className='fas fa-chart-line me-auto' /> {offer.experience}
                 </span>
-                <span>
-                  <span className='fav-text'>
-                    {!isSaved ? 'Save ' : 'Saved! '}
-                  </span>
-                  <i
-                    role='button'
-                    onMouseEnter={() => setIsHover(true)}
-                    onMouseLeave={() => setIsHover(false)}
-                    onClick={clickHandler}
-                    className={`${
-                      isHover || isSaved
-                        ? 'fa-solid fav-star fav-saved'
-                        : 'fa-regular'
-                    } fa-star`}
-                  />
-                </span>
+                <SaveIcon isSaved={isSaved} onClick={clickHandler} />
               </Col>
             </Row>
           </Container>
