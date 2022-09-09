@@ -1,4 +1,5 @@
 export interface Company {
+  _id: string
   name: string
   user: string
   image: string
