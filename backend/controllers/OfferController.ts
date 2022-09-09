@@ -2,7 +2,6 @@ import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
 
 import Offer from '../models/offerModel'
-require('../models/companyModel')
 
 // @desc    Fetch all offers
 // @route   GET /api/products
