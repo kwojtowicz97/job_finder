@@ -36,7 +36,7 @@ const JobOffer = ({ offer }: Props) => {
             </span>
           </div>
           <span className='mb-2'>
-            <LinkContainer role='button' to='/company/:id'>
+            <LinkContainer role='button' to={`/company/${offer.company._id}`}>
               <span className='link'>{offer.company.name} </span>
             </LinkContainer>
           </span>
