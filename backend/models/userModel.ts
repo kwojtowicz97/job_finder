@@ -2,12 +2,17 @@ import { Schema, model, Document, ObjectId } from 'mongoose'
 import { IUser } from '../types/user'
 import bcrypt from 'bcryptjs'
 
-const userSchema = new Schema<IUser>({
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-  isAdmin: Boolean,
-})
+const userSchema = new Schema<IUser>(
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    isAdmin: Boolean,
+    createdAt: Date,
+    updatedAt: Date,
+  },
+  { timestamps: true }
+)
 
 userSchema.methods.matchPassword = async function matchPasswords(
   this: any,
