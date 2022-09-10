@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { FormEvent, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
-import { Button } from 'react-bootstrap'
+import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
 interface UserData {
   name: string
@@ -9,16 +10,90 @@ interface UserData {
   password: string
 }
 const RegisterScreen = () => {
-  const { data, error, isLoading, mutate } = useMutation((user: UserData) =>
-    axios.post('/api/users', user)
+  const navigate = useNavigate()
+
+  const [name, setName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [confirmPassword, setConfirmPassword] = useState<string>('')
+
+  const { data, error, isLoading, mutateAsync } = useMutation(
+    (user: UserData) => axios.post('/api/users', user)
   )
 
-  const user = { name: 'john', email: 'john@example.com', password: '1234' }
+  const submitHandler = async (e: FormEvent) => {
+    e.preventDefault()
+    if (password === confirmPassword) {
+      await mutateAsync({ name, email, password })
+    }
+  }
 
   return (
-    <div>
-      <Button onClick={() => mutate(user)}>Register</Button>
-    </div>
+    <Container>
+      <Row className='border rounded'>
+        <Col className='p-3'>
+          <h2 className='mb-3'>Sing Up</h2>
+          <Form onSubmit={submitHandler}>
+            <Form.Group className='mb-3'>
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                autoComplete='off'
+                type='text'
+                placeholder='Enter name'
+              />
+            </Form.Group>
+            <Form.Group className='mb-3'>
+              <Form.Label>E-mail</Form.Label>
+              <Form.Control
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete='email'
+                type='email'
+                placeholder='Enter e-mail'
+              />
+            </Form.Group>
+            <Form.Group className='mb-3'>
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete='new-password'
+                type='password'
+                placeholder='Enter password'
+              />
+            </Form.Group>
+            <Form.Group className='mb-3'>
+              <Form.Label>Confirm password</Form.Label>
+              <Form.Control
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                autoComplete='new-password'
+                type='password'
+                placeholder='Confirm password'
+              />
+            </Form.Group>
+            <Button
+              type='submit'
+              className={`position-relative w-100 ${
+                isLoading ? 'stripes-active' : ''
+              }`}
+            >
+              <span>Register</span>
+              <div className='stripes'></div>
+            </Button>
+          </Form>
+        </Col>
+        <Col
+          className='rounded-end'
+          style={{
+            backgroundImage: 'url("register-side-photo.jpeg")',
+            backgroundSize: 'cover',
+          }}
+        />
+      </Row>
+    </Container>
   )
 }
 
