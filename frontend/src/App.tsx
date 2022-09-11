@@ -5,6 +5,7 @@ import { Container } from 'react-bootstrap'
 import HomeScreen from './screens/HomeScreen'
 import OfferDetailScreen from './screens/OfferDetailScreen'
 import RegisterScreen from './screens/RegisterScreen'
+import LoginScreen from './screens/LoginScreen'
 import Footer from './components/Footer'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -51,7 +52,6 @@ function App() {
   )
 
   const [toast, setToast] = useState<Toast>({ trigger: false })
-  console.log('re')
   return (
     <userContext.Provider value={{ userInfo, setUserInfo }}>
       <toastContext.Provider value={{ toast, setToast }}>
@@ -64,6 +64,8 @@ function App() {
                   <Route path='/offer/:id' element={<OfferDetailScreen />} />
                   <Route path='/' element={<HomeScreen />} />
                   <Route path='/register' element={<RegisterScreen />} />
+                  <Route path='/register' element={<RegisterScreen />} />
+                  <Route path='/login' element={<LoginScreen />} />
                 </Routes>
               </Container>
             </main>
