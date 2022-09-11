@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import Message from '../components/Message'
-import { errorHandler } from '../actions/errorHandler'
+import { errorHandler } from '../utils/errorHandler'
 
 interface RegisterUserData {
   name: string

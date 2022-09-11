@@ -6,7 +6,7 @@ import Message from '../components/Message'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { Offer } from '../types'
-import { errorHandler } from '../actions/errorHandler'
+import { errorHandler } from '../utils/errorHandler'
 
 interface ListOffersResponse {
   offers: Offer[]
