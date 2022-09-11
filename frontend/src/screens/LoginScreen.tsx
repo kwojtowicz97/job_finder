@@ -76,7 +76,7 @@ const RegisterScreen = () => {
               <Form.Control
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                autoComplete='new-password'
+                autoComplete='password'
                 type='password'
                 placeholder='Enter password'
               />

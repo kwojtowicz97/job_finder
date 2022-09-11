@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { Button } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import { Link } from 'react-router-dom'
 
 interface Props {
   isSaved: boolean
@@ -17,9 +20,8 @@ const SaveIcon = ({
 }: Props) => {
   const [isHover, setIsHover] = useState(false)
   return (
-    <span
-      role='button'
-      className={spanClassName}
+    <button
+      className={spanClassName + ' bg-transparent border-0'}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       onClick={onClick}
@@ -38,7 +40,6 @@ const SaveIcon = ({
       ) : (
         <>
           <i
-            role='button'
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
             onClick={onClick}
@@ -51,7 +52,7 @@ const SaveIcon = ({
           </span>
         </>
       )}
-    </span>
+    </button>
   )
 }
 

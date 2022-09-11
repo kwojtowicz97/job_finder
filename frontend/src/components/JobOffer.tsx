@@ -25,7 +25,9 @@ const JobOffer = ({ offer }: Props) => {
         <Card.Title>
           <div className='d-flex flex-row align-items-center'>
             <LinkContainer role='button' to={`/offer/${offer._id}`}>
-              <h2 className='link text-info'>{offer.title}</h2>
+              <a className='nav-link'>
+                <h2 className='link text-info'>{offer.title}</h2>
+              </a>
             </LinkContainer>
             <span
               style={{ color: '#feb903' }}
@@ -37,7 +39,9 @@ const JobOffer = ({ offer }: Props) => {
           </div>
           <span className='mb-2'>
             <LinkContainer role='button' to={`/company/${offer.company._id}`}>
-              <span className='link'>{offer.company.name} </span>
+              <a className='nav-link'>
+                <p className='link'>{offer.company.name} </p>
+              </a>
             </LinkContainer>
           </span>
           <Rating className='d-none d-sm-inline' value={offer.company.rating} />
