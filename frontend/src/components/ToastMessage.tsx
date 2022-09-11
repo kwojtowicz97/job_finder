@@ -4,21 +4,21 @@ import { toastContext } from '../App'
 
 export const ToastMessage = () => {
   const { toast, setToast } = useContext(toastContext)
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(true)
 
-  setTimeout(() => setShow(true), 500)
+  // setTimeout(() => setShow(true), 500)
 
-  useEffect(() => {
-    return setShow(false)
-  }, [])
+  // useEffect(() => {
+  //   return setShow(false)
+  // }, [])
 
   return show ? (
-    <ToastContainer position='bottom-end' className='position-fixed pe-3'>
+    <ToastContainer position='bottom-end' className='position-fixed p-3'>
       <Toast
         onClose={() => setToast && setToast({ trigger: false })}
         show={toast.trigger}
         delay={5000}
-        animation
+        animation={true}
         autohide
       >
         <Toast.Header>
