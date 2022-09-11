@@ -1,10 +1,12 @@
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { FormEvent, useContext, useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import Message from '../components/Message'
 import { errorHandler } from '../utils/errorHandler'
+import { userContext } from '../App'
+import { UserInfo } from '../types/User'
 
 interface RegisterUserData {
   name: string
@@ -12,14 +14,7 @@ interface RegisterUserData {
   password: string
 }
 
-interface RegisterResponse {
-  _id: string
-  name: string
-  email: string
-  isAdmin: boolean
-  token: boolean
-  message?: string
-}
+interface RegisterResponse extends UserInfo {}
 
 const registerUser = async (user: RegisterUserData) => {
   const { data } = await axios.post('/api/users', user)
@@ -28,6 +23,7 @@ const registerUser = async (user: RegisterUserData) => {
 
 const RegisterScreen = () => {
   const navigate = useNavigate()
+  const { setUserInfo } = useContext(userContext)
 
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
@@ -43,7 +39,6 @@ const RegisterScreen = () => {
   useEffect(() => {
     if (isSuccess) {
       localStorage.setItem('userInfo', JSON.stringify(data))
-      navigate('/')
     }
   }, [isSuccess, data, navigate])
 
