@@ -10,6 +10,7 @@ import { Benefits } from '../components/Benefits'
 import SaveIcon from '../components/SaveIcon'
 import axios from 'axios'
 import { Offer } from '../types'
+import { errorHandler } from '../actions/errorHandler'
 
 const listOfferDetails = async (id: string) => {
   const { data } = await axios.get(`/api/offers/${id}`)
@@ -47,7 +48,7 @@ const OfferDetailScreen: React.FC = () => {
       {isLoading ? (
         <Loader />
       ) : isError ? (
-        <Message variant='danger'>{error.message}</Message>
+        <Message variant='danger'>{errorHandler(error)}</Message>
       ) : (
         offer && (
           <Container>

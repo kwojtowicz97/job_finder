@@ -6,6 +6,7 @@ import Message from '../components/Message'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { Offer } from '../types'
+import { errorHandler } from '../actions/errorHandler'
 
 interface ListOffersResponse {
   offers: Offer[]
@@ -29,7 +30,7 @@ const HomeScreen: React.FC = () => {
       {isLoading ? (
         <Loader />
       ) : isError ? (
-        <Message variant='danger'>{error.message}</Message>
+        <Message variant='danger'>{errorHandler(error)}</Message>
       ) : (
         <>
           <h2>Newest Job Offers</h2>
