@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContext } from 'react'
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { userContext } from '../App'
 
@@ -20,12 +20,16 @@ const Header = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav'></Navbar.Toggle>
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
-              <LinkContainer to='/profile'>
-                <Nav.Link>
-                  <i className='fa-solid fa-user'></i>{' '}
-                  {userInfo ? userInfo.name : 'Profile'}
-                </Nav.Link>
-              </LinkContainer>
+              {userInfo ? (
+                <NavDropdown title={userInfo.name}>
+                  <NavDropdown.Item>First</NavDropdown.Item>
+                  <NavDropdown.Item>Second</NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to='/login'>
+                  <a>Login</a>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -35,3 +39,14 @@ const Header = () => {
 }
 
 export default Header
+
+// {
+//   /* <NavDropdown >
+//                 <LinkContainer to={`${userInfo ? '/profile' : '/login'}`}>
+//                   <Nav.Link>
+//                     <i className='fa-solid fa-user'></i>{' '}
+//                     {userInfo ? userInfo.name : 'Login'}
+//                   </Nav.Link>
+//                 </LinkContainer>
+//               </NavDropdown> */
+// }
