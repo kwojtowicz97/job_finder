@@ -1,4 +1,4 @@
-import { Schema, model, Document, ObjectId } from 'mongoose'
+import { Schema, model } from 'mongoose'
 import { IUser } from '../types/user'
 import bcrypt from 'bcryptjs'
 

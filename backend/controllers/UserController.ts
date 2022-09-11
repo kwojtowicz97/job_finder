@@ -35,3 +35,25 @@ export const registerUser = asyncHandler(
     }
   }
 )
+
+export const authUser = asyncHandler(async (req: Request, res: Response) => {
+  const { email, password } = req.body as {
+    email: string
+    password: string
+  }
+
+  const user = await User.findOne({ email })
+
+  if (user && (await user.matchPassword(password))) {
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(String(user._id)),
+    })
+  } else {
+    res.status(400)
+    throw new Error('Invalid login or password')
+  }
+})

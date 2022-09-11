@@ -7,6 +7,7 @@ export interface IUser {
   isAdmin?: boolean
   createdAt: Date
   updatedAt: Date
+  matchPassword: (password: string) => Promise<Boolean>
 }
 
-export interface UserDocument extends Document {}
+export interface UserDocument extends IUser, Document {}
