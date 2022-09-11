@@ -94,7 +94,7 @@ const OfferDetailScreen: React.FC = () => {
                       </span>
                       <ul style={{ listStyleType: 'none', padding: '0' }}>
                         {offer.responsibilities.map((item) => (
-                          <li className='my-2'>
+                          <li key={item} className='my-2'>
                             <span>
                               <i className='fa-solid fa-play me-1' />
                               <p className='d-inline'>{item}</p>
@@ -112,7 +112,7 @@ const OfferDetailScreen: React.FC = () => {
                       </span>
                       <ul style={{ listStyleType: 'none', padding: '0' }}>
                         {offer.requirements.map((item) => (
-                          <li className='my-2'>
+                          <li key={item} className='my-2'>
                             <span>
                               <i className='fa-solid fa-play me-1' />
                               <p className='d-inline'>{item}</p>
@@ -130,7 +130,7 @@ const OfferDetailScreen: React.FC = () => {
                       </span>
                       <ul style={{ listStyleType: 'none', padding: '0' }}>
                         {offer.benefits.map((item) => (
-                          <li className='my-2'>
+                          <li key={item} className='my-2'>
                             <span>
                               <i className='fa-solid fa-play me-1' />
                               <p className='d-inline'>{item}</p>
