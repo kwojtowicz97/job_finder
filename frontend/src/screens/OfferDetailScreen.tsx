@@ -1,20 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Col, Row, Image, Container, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { AppDispatch } from '../store'
-import { ReduxState } from '../types/ReduxState'
-import { listOfferDetails } from '../actions/offerActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Rating from '../components/Rating'
 import Map from '../components/Map'
 import { Benefits } from '../components/Benefits'
 import SaveIcon from '../components/SaveIcon'
+import axios from 'axios'
+import { Offer } from '../types'
+
+const listOfferDetails = async (id: string) => {
+  const { data } = await axios.get(`/api/offers/${id}`)
+  return data
+}
 
 const OfferDetailScreen: React.FC = () => {
   const params = useParams()
-  const dispatch = useDispatch<AppDispatch>()
+
+  const {
+    data: offer,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Offer, Error>(
+    [`listOfferDetails:${params.id || undefined}`],
+    () => listOfferDetails(params.id || '')
+  )
 
   const [isSaved, setIsSaved] = useState(false)
 
@@ -22,20 +35,19 @@ const OfferDetailScreen: React.FC = () => {
     setIsSaved((state) => !state)
   }
 
-  const { offer, loading, error } = useSelector(
-    (state: ReduxState) => state.offerDetail
-  )
-
-  useEffect(() => {
-    params.id && dispatch(listOfferDetails(params.id))
-  }, [params.id, dispatch])
+  const MapCallback = useCallback(() => {
+    if (offer) {
+      return <Map city={offer.company.city} address={offer.company.address} />
+    }
+    return null
+  }, [offer])
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Loader />
-      ) : error ? (
-        <Message variant='danger'>{error}</Message>
+      ) : isError ? (
+        <Message variant='danger'>{error.message}</Message>
       ) : (
         offer && (
           <Container>
@@ -67,10 +79,7 @@ const OfferDetailScreen: React.FC = () => {
                   </Row>
                   <Benefits offer={offer} />
                   <Row className='border-top'>
-                    <Map
-                      city={offer.company.city}
-                      address={offer.company.address}
-                    />
+                    <MapCallback />
                   </Row>
                 </Container>
                 <Container fluid className=' mt-3 border rounded'>

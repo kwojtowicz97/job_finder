@@ -1,14 +1,31 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
+import axios, { Axios, AxiosError } from 'axios'
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import Message from '../components/Message'
+import { errorHandler } from '../actions/errorHandler'
 
-interface UserData {
+interface RegisterUserData {
   name: string
   email: string
   password: string
 }
+
+interface RegisterResponse {
+  _id: string
+  name: string
+  email: string
+  isAdmin: boolean
+  token: boolean
+  message?: string
+}
+
+const registerUser = async (user: RegisterUserData) => {
+  const { data } = await axios.post('/api/users', user)
+  return data
+}
+
 const RegisterScreen = () => {
   const navigate = useNavigate()
 
@@ -17,9 +34,18 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
 
-  const { data, error, isLoading, mutateAsync } = useMutation(
-    (user: UserData) => axios.post('/api/users', user)
-  )
+  const { data, isLoading, isError, isSuccess, error, mutateAsync } =
+    useMutation<RegisterResponse, Error, RegisterUserData>(
+      ['registerResponse'],
+      registerUser
+    )
+
+  useEffect(() => {
+    if (isSuccess) {
+      localStorage.setItem('userInfo', JSON.stringify(data))
+      navigate('/')
+    }
+  }, [isSuccess, data])
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault()
@@ -30,6 +56,7 @@ const RegisterScreen = () => {
 
   return (
     <Container>
+      {isError && <Message variant='danger'>{errorHandler(error)}</Message>}
       <Row className='border rounded'>
         <Col className='p-3'>
           <h2 className='mb-3'>Sing Up</h2>
