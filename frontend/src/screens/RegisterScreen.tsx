@@ -5,7 +5,7 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import Message from '../components/Message'
 import { errorHandler } from '../utils/errorHandler'
-import { userContext } from '../App'
+import { toastContext, userContext } from '../App'
 import { UserInfo } from '../types/User'
 
 interface RegisterUserData {
@@ -24,6 +24,7 @@ const registerUser = async (user: RegisterUserData) => {
 const RegisterScreen = () => {
   const navigate = useNavigate()
   const { setUserInfo } = useContext(userContext)
+  const { setToast } = useContext(toastContext)
 
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
@@ -39,6 +40,9 @@ const RegisterScreen = () => {
   useEffect(() => {
     if (isSuccess) {
       localStorage.setItem('userInfo', JSON.stringify(data))
+      setUserInfo && setUserInfo(data)
+      setToast && setToast({ trigger: true, message: 'Succes!' })
+      navigate('/')
     }
   }, [isSuccess, data, navigate])
 
