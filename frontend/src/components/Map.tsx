@@ -8,6 +8,7 @@ interface Props {
 const Map = ({ city, address }: Props) => {
   return (
     <iframe
+      title='map'
       width='auto'
       height='300px'
       style={{ border: 'none', padding: '0' }}

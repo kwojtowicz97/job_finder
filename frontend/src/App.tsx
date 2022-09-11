@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from './components/Header'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { Container, Toast, ToastContainer } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import HomeScreen from './screens/HomeScreen'
 import OfferDetailScreen from './screens/OfferDetailScreen'
 import RegisterScreen from './screens/RegisterScreen'

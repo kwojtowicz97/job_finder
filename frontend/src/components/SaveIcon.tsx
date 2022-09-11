@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Offer } from '../types'
 
 interface Props {
   isSaved: boolean

@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import axios, { Axios, AxiosError } from 'axios'
-import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
+import axios from 'axios'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import Message from '../components/Message'
 import { errorHandler } from '../actions/errorHandler'
@@ -45,7 +45,7 @@ const RegisterScreen = () => {
       localStorage.setItem('userInfo', JSON.stringify(data))
       navigate('/')
     }
-  }, [isSuccess, data])
+  }, [isSuccess, data, navigate])
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault()
