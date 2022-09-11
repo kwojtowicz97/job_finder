@@ -5,6 +5,7 @@ import OfferRoutes from './routes/OfferRoutes'
 import UserRoutes from './routes/UserRoutes'
 import CompanyRoutes from './routes/CompanyRoutes'
 import path from 'path'
+import { errorHandler, notFound } from './middleware/errorHandler'
 
 dotenv.config()
 connectDB()
@@ -19,6 +20,9 @@ app.use('/api/companies', CompanyRoutes)
 
 const dirname = path.resolve()
 app.use('/uploads', express.static(path.join(dirname, '/uploads')))
+
+app.use(notFound)
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 
