@@ -18,32 +18,61 @@ export type UserContextType = {
   setUserInfo: Dispatch<SetStateAction<UserInfo | null>> | null
 }
 
-export const userContext = createContext<UserContextType>({
-  userInfo: null,
+const userInfoFromLocalStorage = localStorage.getItem('userInfo') || null
+
+const initialUserInfoValue = {
+  userInfo: userInfoFromLocalStorage
+    ? JSON.parse(userInfoFromLocalStorage)
+    : null,
   setUserInfo: null,
+}
+
+export const userContext = createContext<UserContextType>(initialUserInfoValue)
+
+interface Toast {
+  trigger: boolean
+  title?: string
+  message?: string
+}
+
+export type ToastContextType = {
+  toast: Toast
+  setToast: Dispatch<SetStateAction<Toast>> | null
+}
+
+export const toastContext = createContext<ToastContextType>({
+  toast: { trigger: false },
+  setToast: null,
 })
 
 function App() {
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(
+    initialUserInfoValue.userInfo
+  )
+
+  const [toast, setToast] = useState<Toast>({ trigger: false })
+  console.log('re')
   return (
     <userContext.Provider value={{ userInfo, setUserInfo }}>
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <Header />
-          <main className='py-3'>
-            <Container fluid='lg' className='cnt'>
-              <Routes>
-                <Route path='/offer/:id' element={<OfferDetailScreen />} />
-                <Route path='/' element={<HomeScreen />} />
-                <Route path='/register' element={<RegisterScreen />} />
-              </Routes>
-            </Container>
-          </main>
-          <Footer />
-        </Router>
-        <ToastMessage />
-        <ReactQueryDevtools />
-      </QueryClientProvider>
+      <toastContext.Provider value={{ toast, setToast }}>
+        <QueryClientProvider client={queryClient}>
+          <Router>
+            <Header />
+            <main className='py-3'>
+              <Container fluid='lg' className='cnt'>
+                <Routes>
+                  <Route path='/offer/:id' element={<OfferDetailScreen />} />
+                  <Route path='/' element={<HomeScreen />} />
+                  <Route path='/register' element={<RegisterScreen />} />
+                </Routes>
+              </Container>
+            </main>
+            <Footer />
+          </Router>
+          {toast.trigger && <ToastMessage />}
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </toastContext.Provider>
     </userContext.Provider>
   )
 }
