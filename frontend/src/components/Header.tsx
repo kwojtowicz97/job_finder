@@ -2,10 +2,12 @@ import React from 'react'
 import { useContext } from 'react'
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { userContext } from '../App'
+import { toastContext, userContext } from '../App'
 
 const Header = () => {
-  const { userInfo } = useContext(userContext)
+  const { userInfo, setUserInfo } = useContext(userContext)
+  const { setToast } = useContext(toastContext)
+
   return (
     <header>
       <Navbar bg='ligth' expand='lg'>
@@ -22,12 +24,28 @@ const Header = () => {
             <Nav className='ms-auto'>
               {userInfo ? (
                 <NavDropdown title={userInfo.name}>
-                  <NavDropdown.Item>First</NavDropdown.Item>
-                  <NavDropdown.Item>Second</NavDropdown.Item>
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <NavDropdown.Item
+                    onClick={() => {
+                      localStorage.removeItem('userData')
+                      setUserInfo && setUserInfo(null)
+                      setToast &&
+                        setToast({
+                          trigger: true,
+                          message: 'You have been logged out',
+                          title: 'Logout',
+                        })
+                    }}
+                  >
+                    Logout
+                  </NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 <LinkContainer to='/login'>
-                  <a>Login</a>
+                  <a className='text-decoration-none nav-link'>Login</a>
                 </LinkContainer>
               )}
             </Nav>
