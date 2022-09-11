@@ -41,7 +41,12 @@ const RegisterScreen = () => {
     if (isSuccess) {
       localStorage.setItem('userInfo', JSON.stringify(data))
       setUserInfo && setUserInfo(data)
-      setToast && setToast({ trigger: true, message: 'Succes!' })
+      setToast &&
+        setToast({
+          trigger: true,
+          title: `Hello ${name}`,
+          message: 'Your account has beed created!',
+        })
       navigate('/')
     }
   }, [isSuccess, data, navigate])
