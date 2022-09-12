@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
+import { CustomRequest } from '../middleware/authHandler'
 
 import { User } from '../models/userModel'
 import generateToken from '../utils/generateToken'
@@ -57,3 +58,45 @@ export const authUser = asyncHandler(async (req: Request, res: Response) => {
     throw new Error('Invalid login or password')
   }
 })
+
+export const getUserById = asyncHandler(
+  async (req: CustomRequest, res: Response) => {
+    const user = await User.findById(req.user?._id)
+
+    if (user) {
+      res.send({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      })
+    } else {
+      res.status(404)
+      throw new Error('User not found')
+    }
+  }
+)
+
+export const updateUser = asyncHandler(
+  async (req: CustomRequest, res: Response) => {
+    const user = await User.findById(req.user?._id)
+
+    if (user) {
+      user.name = req.body.name || user.name
+      user.email = req.body.email || user.email
+      user.password = req.body.password || user.password
+
+      const updatedUser = await user.save()
+
+      res.json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        isAdmin: updatedUser.isAdmin,
+      })
+    } else {
+      res.status(404)
+      throw new Error('User not found')
+    }
+  }
+)
