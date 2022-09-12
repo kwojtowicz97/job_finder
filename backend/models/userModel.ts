@@ -1,5 +1,16 @@
 import { Schema, model, InferSchemaType, Model } from 'mongoose'
 import bcrypt from 'bcryptjs'
+import { generateKey } from 'crypto'
+import generateToken from '../utils/generateToken'
+
+export interface SendUserData {
+  _id: string
+  name: string
+  email: string
+  isAdmin: boolean
+  saved: Array<string>
+  token: string
+}
 
 export interface IUser {
   name: string
@@ -9,6 +20,7 @@ export interface IUser {
   // createdAt: Date
   // updatedAt: Date
   matchPassword: (password: string) => Promise<Boolean>
+  toJSON: (this: typeof userSchema) => SendUserData
 }
 
 export interface IUserMethods {
@@ -16,6 +28,7 @@ export interface IUserMethods {
     this: typeof userSchema,
     enteredPassword: string
   ): Promise<boolean>
+  toJSON(this: typeof userSchema): SendUserData
 }
 
 type UserModel = Model<IUser, {}, IUserMethods>
@@ -26,8 +39,6 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>(
     email: { type: String, required: true },
     password: { type: String, required: true },
     isAdmin: Boolean,
-    // createdAt: Date,
-    // updatedAt: Date,
   },
   { timestamps: true }
 )
@@ -38,6 +49,18 @@ userSchema.method(
     return await bcrypt.compare(enteredPassword, this.password)
   }
 )
+
+userSchema.method('toJSON', function toJSON(this: any) {
+  const obj = this.toObject()
+  return {
+    _id: obj._id,
+    name: obj.name,
+    email: obj.email,
+    isAdmin: obj.isAdmin,
+    saved: obj.saved,
+    token: generateToken(obj._id),
+  }
+})
 
 userSchema.pre('save', async function (this, next) {
   if (!this.isModified('password')) next()

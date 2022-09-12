@@ -23,13 +23,7 @@ export const registerUser = asyncHandler(
     const user = await User.create({ name, email, password })
 
     if (user) {
-      res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        token: generateToken(String(user._id)),
-      })
+      res.status(201).send(user.toJSON())
     } else {
       res.status(400)
       throw new Error('Invalid user data')
@@ -46,13 +40,7 @@ export const authUser = asyncHandler(async (req: Request, res: Response) => {
   const user = await User.findOne({ email })
 
   if (user && (await user.matchPassword(password))) {
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      token: generateToken(String(user._id)),
-    })
+    res.status(201).send(user.toJSON())
   } else {
     res.status(400)
     throw new Error('Invalid login or password')
@@ -64,12 +52,7 @@ export const getUserById = asyncHandler(
     const user = await User.findById(req.user?._id)
 
     if (user) {
-      res.send({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-      })
+      res.send(user.toJSON())
     } else {
       res.status(404)
       throw new Error('User not found')
@@ -88,12 +71,7 @@ export const updateUser = asyncHandler(
 
       const updatedUser = await user.save()
 
-      res.json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        isAdmin: updatedUser.isAdmin,
-      })
+      res.send(updatedUser.toJSON())
     } else {
       res.status(404)
       throw new Error('User not found')
