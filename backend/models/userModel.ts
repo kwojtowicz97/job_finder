@@ -17,6 +17,7 @@ export interface IUser {
   email: string
   password: string
   isAdmin?: boolean
+  saved: Array<string>
   // createdAt: Date
   // updatedAt: Date
   matchPassword: (password: string) => Promise<Boolean>
@@ -38,7 +39,10 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>(
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    saved: Array<string>,
     isAdmin: Boolean,
+    // createdAt: Date,
+    // updatedAt: Date,
   },
   { timestamps: true }
 )

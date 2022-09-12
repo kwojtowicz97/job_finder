@@ -1,9 +1,8 @@
 import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
 import { CustomRequest } from '../middleware/authHandler'
-
 import { User } from '../models/userModel'
-import generateToken from '../utils/generateToken'
+import Offer from '../models/offerModel'
 
 export const registerUser = asyncHandler(
   async (req: Request, res: Response) => {
@@ -75,6 +74,28 @@ export const updateUser = asyncHandler(
     } else {
       res.status(404)
       throw new Error('User not found')
+    }
+  }
+)
+
+export const addToFavourite = asyncHandler(
+  async (req: CustomRequest, res: Response) => {
+    const user = await User.findById(req.user?._id)
+    const offer = await Offer.findById(req.params.id)
+
+    if (user && offer) {
+      if (user.saved.includes(offer._id)) {
+        user.saved = user.saved.filter((id) => !offer._id.equals(id))
+      } else {
+        user.saved.push(offer._id)
+      }
+
+      const updatedUser = await user.save()
+
+      res.send(updatedUser.toJSON())
+    } else {
+      res.status(404)
+      throw new Error('User or offer not found')
     }
   }
 )
