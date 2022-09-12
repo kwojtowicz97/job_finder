@@ -4,4 +4,5 @@ export interface UserInfo {
   email: string
   isAdmin: boolean
   token: boolean
+  saved: Array<string>
 }
