@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ToastMessage } from './components/ToastMessage'
 import { UserInfo } from './types/User'
+import { usePersistedState } from './hooks/usePersistedState'
 
 const queryClient = new QueryClient()
 
@@ -47,8 +48,9 @@ export const toastContext = createContext<ToastContextType>({
 })
 
 function App() {
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(
-    initialUserInfoValue.userInfo
+  const [userInfo, setUserInfo] = usePersistedState<UserInfo | null>(
+    initialUserInfoValue.userInfo,
+    'userInfo'
   )
 
   const [toast, setToast] = useState<Toast>({ trigger: false })

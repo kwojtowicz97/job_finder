@@ -39,8 +39,7 @@ const RegisterScreen = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      localStorage.setItem('userInfo', JSON.stringify(data))
-      setUserInfo && setUserInfo(data)
+      setUserInfo!(data)
       setToast &&
         setToast({
           trigger: true,
