@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import { Col, Row, Image, Container, Button } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
@@ -11,6 +11,7 @@ import SaveIcon from '../components/SaveIcon'
 import axios from 'axios'
 import { Offer } from '../types'
 import { errorHandler } from '../utils/errorHandler'
+import { userContext } from '../App'
 
 const listOfferDetails = async (id: string) => {
   const { data } = await axios.get(`/api/offers/${id}`)
@@ -19,6 +20,35 @@ const listOfferDetails = async (id: string) => {
 
 const OfferDetailScreen: React.FC = () => {
   const params = useParams()
+
+  const { userInfo, setUserInfo } = useContext(userContext)
+
+  const {
+    data: dataFavourite,
+    isSuccess: isSuccessFavourite,
+    isLoading: isLoadingFavourite,
+    mutateAsync: mutateAsyncFavourite,
+  } = useMutation(async () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo?.token}`,
+      },
+    }
+
+    const { data } = await axios.put(
+      `/api/users/favourites/${offer!._id}`,
+      {},
+      config
+    )
+    return data
+  })
+
+  useEffect(() => {
+    if (isSuccessFavourite) {
+      setUserInfo!(dataFavourite)
+    }
+  }, [isSuccessFavourite])
 
   const {
     data: offer,
@@ -162,8 +192,10 @@ const OfferDetailScreen: React.FC = () => {
                       spanClassName='col-6 p-3 border-end d-block'
                       className='black'
                       reverse
-                      isSaved={isSaved}
-                      onClick={saveClickHandler}
+                      isSaved={
+                        userInfo?.saved.includes(String(offer._id)) || isLoading
+                      }
+                      onClick={mutateAsyncFavourite}
                     />
                     <Col className='p-3 offer-sidebar-button'>
                       <span>
