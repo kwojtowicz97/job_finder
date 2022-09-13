@@ -23,26 +23,48 @@ const Header = () => {
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
               {userInfo ? (
-                <NavDropdown title={userInfo.name}>
-                  <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </LinkContainer>
+                <>
+                  <i className='fa-solid fa-star fav-saved align-self-center fs-5 me-3 position-relative'>
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '55%',
+                        bottom: '50%',
+                        fontSize: '0.6rem',
+                        width: '20px',
+                        height: '20px',
+                        background: 'var(--bs-info)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: '50%',
+                        color: '#000000',
+                      }}
+                    >
+                      {userInfo.saved.length}
+                    </div>
+                  </i>
+                  <NavDropdown title={userInfo.name}>
+                    <LinkContainer to='/profile'>
+                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                    </LinkContainer>
 
-                  <NavDropdown.Item
-                    onClick={() => {
-                      localStorage.removeItem('userData')
-                      setUserInfo && setUserInfo(null)
-                      setToast &&
-                        setToast({
-                          trigger: true,
-                          message: 'You have been logged out',
-                          title: 'Logout',
-                        })
-                    }}
-                  >
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
+                    <NavDropdown.Item
+                      onClick={() => {
+                        localStorage.removeItem('userData')
+                        setUserInfo && setUserInfo(null)
+                        setToast &&
+                          setToast({
+                            trigger: true,
+                            message: 'You have been logged out',
+                            title: 'Logout',
+                          })
+                      }}
+                    >
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </>
               ) : (
                 <LinkContainer to='/login'>
                   <a className='text-decoration-none nav-link'>Login</a>
@@ -57,14 +79,3 @@ const Header = () => {
 }
 
 export default Header
-
-// {
-//   /* <NavDropdown >
-//                 <LinkContainer to={`${userInfo ? '/profile' : '/login'}`}>
-//                   <Nav.Link>
-//                     <i className='fa-solid fa-user'></i>{' '}
-//                     {userInfo ? userInfo.name : 'Login'}
-//                   </Nav.Link>
-//                 </LinkContainer>
-//               </NavDropdown> */
-// }
