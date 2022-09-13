@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='ligth' expand='lg'>
+      <Navbar bg='ligth' expand='lg' className='shadow-sm py-0 '>
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>
