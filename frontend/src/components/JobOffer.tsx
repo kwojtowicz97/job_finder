@@ -15,15 +15,14 @@ interface Props {
 const JobOffer = ({ offer }: Props) => {
   const { userInfo, setUserInfo } = useContext(userContext)
 
-  const { data, isSuccess, mutateAsync } = useMutation(async () => {
-    console.log(userInfo)
+  const { data, isSuccess, isLoading, mutateAsync } = useMutation(async () => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo?.token}`,
       },
     }
-    console.log(config)
+
     const { data } = await axios.put(
       `/api/users/favourites/${offer._id}`,
       {},
@@ -31,10 +30,6 @@ const JobOffer = ({ offer }: Props) => {
     )
     return data
   })
-
-  const clickHandler = () => {
-    mutateAsync()
-  }
 
   useEffect(() => {
     if (isSuccess) {
@@ -92,10 +87,14 @@ const JobOffer = ({ offer }: Props) => {
                 <span>
                   <i className='fas fa-chart-line me-auto' /> {offer.experience}
                 </span>
-                <SaveIcon
-                  isSaved={userInfo?.saved.includes(String(offer._id)) || false}
-                  onClick={clickHandler}
-                />
+                {userInfo && (
+                  <SaveIcon
+                    isSaved={
+                      userInfo?.saved.includes(String(offer._id)) || isLoading
+                    }
+                    onClick={mutateAsync}
+                  />
+                )}
               </Col>
             </Row>
           </Container>
