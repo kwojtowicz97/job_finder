@@ -1,8 +1,5 @@
-import React, { useContext, useState } from 'react'
+import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { Offer } from '../types'
-import axios from 'axios'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import {
@@ -13,56 +10,51 @@ import {
   FormGroup,
   FormLabel,
 } from 'react-bootstrap'
-import { userContext } from '../App'
-
-const listOfferDetails = async (id: string) => {
-  const { data } = await axios.get(`/api/offers/${id}`)
-  return data
-}
+import usePostCV from '../hooks/usePostCV'
+import usePostApplication from '../hooks/usePostApplication'
+import useGetOfferDetails from '../hooks/useGetOfferDetails'
 
 export const ApplyScreen = () => {
-  const { userInfo } = useContext(userContext)
   const navigate = useNavigate()
   const params = useParams()
 
-  const [name, setName] = useState(userInfo?.name)
-  const [email, setEmail] = useState(userInfo?.email)
-  const [phoneNumber, setPhoneNumber] = useState(undefined)
-  const [localization, setLocalization] = useState(undefined)
-  const [experience, setExperience] = useState<string | undefined>(undefined)
-
-  const {
-    data: offer,
-    isLoading,
-    isError,
-    error,
-  } = useQuery<Offer, Error>(
-    [`listOfferDetails:${params.id || undefined}`],
-    () => listOfferDetails(params.id || '')
+  const { applicationStates, submitHandler } = usePostApplication(
+    params.id || ''
   )
+
+  const { sendCvHandler, isSending, isSend } = usePostCV(
+    params.id || '',
+    applicationStates.setCvFile!
+  )
+
+  const getApplicationData = useGetOfferDetails(params.id)
+
   return (
     <>
-      {isLoading ? (
+      {getApplicationData.isLoading ? (
         <Loader />
-      ) : isError ? (
-        <Message variant='danger'>{error.message}</Message>
+      ) : getApplicationData.isError ? (
+        <Message variant='danger'>{getApplicationData.error.message}</Message>
       ) : (
         <Container fluid>
           <Button onClick={() => navigate(-1)}>Back to the offer</Button>
           <h2 className='mt-3 mb-3'>
-            You are applying for the position of <strong>{offer.title}</strong>{' '}
-            in <strong>{offer.company.name}</strong>
+            You are applying for the position of{' '}
+            <strong>{getApplicationData.data.title}</strong> in{' '}
+            <strong>{getApplicationData.data.company.name}</strong>
           </h2>
           <Form
             className='px-3 pt-3 mx-auto mw-sm-100'
             style={{ minWidth: '300px', maxWidth: '50%' }}
+            onSubmit={submitHandler}
           >
             <FormGroup>
               <FormLabel>Name</FormLabel>
               <FormControl
                 type='text'
                 placeholder='Enter your name'
-                value={userInfo?.name}
+                value={applicationStates.name}
+                onChange={(e) => applicationStates.setName(e.target.value)}
               />
             </FormGroup>
             <FormGroup className='mt-3'>
@@ -70,15 +62,19 @@ export const ApplyScreen = () => {
               <FormControl
                 type='text'
                 placeholder='Enter your email'
-                value={userInfo?.email}
+                value={applicationStates.email}
+                onChange={(e) => applicationStates.setEmail(e.target.value)}
               />
             </FormGroup>
             <FormGroup className='mt-3'>
               <FormLabel>Phone Number</FormLabel>
               <FormControl
-                type='tel'
+                type='text'
                 placeholder='Enter your phone number'
-                value={userInfo?.phoneNumber}
+                value={applicationStates.phoneNumber}
+                onChange={(e) =>
+                  applicationStates.setPhoneNumber(e.target.value)
+                }
               />
             </FormGroup>
             <FormGroup className='mt-3'>
@@ -86,7 +82,8 @@ export const ApplyScreen = () => {
               <FormControl
                 type='text'
                 placeholder='Enter your country'
-                value={userInfo?.country}
+                value={applicationStates.country}
+                onChange={(e) => applicationStates.setCountry(e.target.value)}
               />
             </FormGroup>
             <FormGroup className='mt-3'>
@@ -94,14 +91,20 @@ export const ApplyScreen = () => {
               <FormControl
                 type='text'
                 placeholder='Enter your city'
-                value={userInfo?.city}
+                value={applicationStates.city}
+                onChange={(e) => applicationStates.setCity(e.target.value)}
               />
             </FormGroup>
 
             <FormGroup className='mt-3'>
               <FormLabel>Experience</FormLabel>
-              <Form.Select value={experience}>
-                <option disabled selected value={undefined}>
+              <Form.Select
+                value={applicationStates.experience}
+                onChange={(e) =>
+                  applicationStates.setExperience(e.target.value)
+                }
+              >
+                <option disabled value={undefined}>
                   Select your experience
                 </option>
                 <option value='No experience'>No experience</option>
@@ -111,10 +114,17 @@ export const ApplyScreen = () => {
                 <option value='5+ years'>5+ years</option>
               </Form.Select>
             </FormGroup>
-            <FormGroup className='mt-3'>
-              <FormLabel>CV</FormLabel>
-              <FormControl type='file' />
-            </FormGroup>
+            {isSending ? (
+              <Loader />
+            ) : isSend ? (
+              <p>{applicationStates.cvFile}</p>
+            ) : (
+              <FormGroup className='mt-3'>
+                <FormLabel>CV</FormLabel>
+                <FormControl type='file' onChange={(e) => sendCvHandler(e)} />
+              </FormGroup>
+            )}
+
             <Button className='mt-3 w-100' type='submit'>
               Apply
             </Button>
