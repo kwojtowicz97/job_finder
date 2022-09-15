@@ -12,6 +12,7 @@ import axios from 'axios'
 import { Offer } from '../types'
 import { errorHandler } from '../utils/errorHandler'
 import { userContext } from '../App'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const listOfferDetails = async (id: string) => {
   const { data } = await axios.get(`/api/offers/${id}`)
@@ -59,12 +60,6 @@ const OfferDetailScreen: React.FC = () => {
     [`listOfferDetails:${params.id || undefined}`],
     () => listOfferDetails(params.id || '')
   )
-
-  const [isSaved, setIsSaved] = useState(false)
-
-  const saveClickHandler = () => {
-    setIsSaved((state) => !state)
-  }
 
   const MapCallback = useCallback(() => {
     if (offer) {
@@ -179,13 +174,14 @@ const OfferDetailScreen: React.FC = () => {
                   style={{ top: '24px' }}
                 >
                   <Row className='border-bottom'>
-                    <Button
-                      className='mx-auto p-3 my-4'
-                      variant='primary'
+                    <LinkContainer
                       style={{ maxWidth: '80%' }}
+                      to={`/apply/${offer._id}`}
                     >
-                      Apply Now
-                    </Button>
+                      <Button className='mx-auto p-3 my-4' variant='primary'>
+                        Apply Now
+                      </Button>
+                    </LinkContainer>
                   </Row>
                   <Row className='text-center'>
                     <SaveIcon
