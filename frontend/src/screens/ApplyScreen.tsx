@@ -91,7 +91,7 @@ export const ApplyScreen = () => {
             </FormGroup>
             <FormGroup>
               <FormLabel>Experience</FormLabel>
-              <Form.Select value={undefined}>
+              <Form.Select value={experience}>
                 <option disabled selected value={undefined}>
                   Select your experience
                 </option>
