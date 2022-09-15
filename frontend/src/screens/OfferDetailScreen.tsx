@@ -27,7 +27,6 @@ const OfferDetailScreen: React.FC = () => {
   const {
     data: dataFavourite,
     isSuccess: isSuccessFavourite,
-    isLoading: isLoadingFavourite,
     mutateAsync: mutateAsyncFavourite,
   } = useMutation(async () => {
     const config = {

@@ -49,10 +49,7 @@ const ProfileScreen = () => {
 
   const {
     data: dataUpdate,
-    isLoading: isLoadingUpdate,
-    isError: isErrorUpdate,
     isSuccess: isSuccessUpdate,
-    error: errorUpdate,
     mutateAsync,
   } = useMutation(updateProfile)
 
@@ -97,7 +94,7 @@ const ProfileScreen = () => {
       {isError && <Message variant='danger'>{errorHandler(error)}</Message>}
       <Form onSubmit={submitHandler}>
         <Row className='border rounded'>
-          <Col className='p-3 border-end col-6'>
+          <Col className='p-3 pe-5 border-end col-6'>
             <h2 className='mb-3'>Update account</h2>
             <Form.Group className='mb-3'>
               <Form.Label>Name</Form.Label>
