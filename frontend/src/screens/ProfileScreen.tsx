@@ -61,6 +61,10 @@ const ProfileScreen = () => {
       setName(data.name)
       setEmail(data.email)
       setUserInfo!(data)
+      setPhoneNumber(data.phoneNumber)
+      setCountry(data.country)
+      setCity(data.city)
+      setAddress(data.address)
     }
   }, [isSuccess, data])
 
@@ -68,6 +72,10 @@ const ProfileScreen = () => {
     if (isSuccessUpdate) {
       setName(dataUpdate.name)
       setEmail(dataUpdate.email)
+      setPhoneNumber(dataUpdate.phoneNumber)
+      setCountry(dataUpdate.country)
+      setCity(dataUpdate.city)
+      setAddress(dataUpdate.address)
       setUserInfo!(dataUpdate)
       setToast!({
         trigger: true,
@@ -87,10 +95,10 @@ const ProfileScreen = () => {
   ) : (
     <Container>
       {isError && <Message variant='danger'>{errorHandler(error)}</Message>}
-      <Row className='border rounded'>
-        <Col sm={12} className='p-3'>
-          <h2 className='mb-3'>Update account</h2>
-          <Form onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler}>
+        <Row className='border rounded'>
+          <Col className='p-3 border-end col-6'>
+            <h2 className='mb-3'>Update account</h2>
             <Form.Group className='mb-3'>
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -118,7 +126,7 @@ const ProfileScreen = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete='new-password'
                 type='password'
-                placeholder='Enter password'
+                placeholder='Enter new password'
               />
             </Form.Group>
             <Form.Group className='mb-3'>
@@ -128,9 +136,12 @@ const ProfileScreen = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 autoComplete='new-password'
                 type='password'
-                placeholder='Confirm password'
+                placeholder='Confirm new password'
               />
             </Form.Group>
+          </Col>
+          <Col className='p-3 col-6'>
+            <h2 className='mb-3'>Update your personal information</h2>
             <Form.Group className='mb-3'>
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
@@ -140,7 +151,7 @@ const ProfileScreen = () => {
                 placeholder='Enter your country'
               />
             </Form.Group>
-            <Form.Group>
+            <Form.Group className='mb-3'>
               <Form.Label>Country</Form.Label>
               <Form.Select
                 value={country}
@@ -172,25 +183,20 @@ const ProfileScreen = () => {
                 placeholder='Enter your city'
               />
             </Form.Group>
-            <Button
-              type='submit'
-              className={`position-relative w-100 ${
-                isLoading ? 'stripes-active' : ''
-              }`}
-            >
-              <span>Update</span>
-              <div className='stripes'></div>
-            </Button>
-          </Form>
-        </Col>
-        <Col
-          className='rounded-end'
-          style={{
-            backgroundImage: 'url("register-side-photo.jpeg")',
-            backgroundSize: 'cover',
-          }}
-        />
-      </Row>
+          </Col>
+        </Row>
+        <Container className='d-flex justify-content-center align-items-center'>
+          <Button
+            type='submit'
+            className={`position-relative mt-3 ${
+              isLoading ? 'stripes-active' : ''
+            }`}
+          >
+            <span>Update</span>
+            <div className='stripes'></div>
+          </Button>
+        </Container>
+      </Form>
     </Container>
   )
 }
