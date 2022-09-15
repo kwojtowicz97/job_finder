@@ -89,6 +89,14 @@ export const ApplyScreen = () => {
                 value={userInfo?.country}
               />
             </FormGroup>
+            <FormGroup className='mt-3'>
+              <FormLabel>City</FormLabel>
+              <FormControl
+                type='text'
+                placeholder='Enter your city'
+                value={userInfo?.city}
+              />
+            </FormGroup>
 
             <FormGroup className='mt-3'>
               <FormLabel>Experience</FormLabel>
