@@ -7,6 +7,10 @@ export interface SendUserData {
   _id: string
   name: string
   email: string
+  phoneNumber: string
+  country: string
+  city: string
+  address: string
   isAdmin: boolean
   saved: Array<string>
   token: string
@@ -15,11 +19,13 @@ export interface SendUserData {
 export interface IUser {
   name: string
   email: string
-  password: string
+  phoneNumber: string
+  country: string
+  city: string
+  address: string
   isAdmin?: boolean
   saved: Array<string>
-  // createdAt: Date
-  // updatedAt: Date
+  password: string
   matchPassword: (password: string) => Promise<Boolean>
   toJSON: (this: typeof userSchema) => SendUserData
 }
@@ -39,10 +45,12 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>(
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
+    country: { type: String, required: true },
+    city: { type: String, required: true },
+    address: { type: String, required: true },
     saved: Array<string>,
     isAdmin: Boolean,
-    // createdAt: Date,
-    // updatedAt: Date,
   },
   { timestamps: true }
 )
@@ -60,6 +68,10 @@ userSchema.method('toJSON', function toJSON(this: any) {
     _id: obj._id,
     name: obj.name,
     email: obj.email,
+    phoneNumber: obj.phoneNumber,
+    country: obj.country,
+    city: obj.city,
+    adderss: obj.adderss,
     isAdmin: obj.isAdmin,
     saved: obj.saved,
     token: generateToken(obj._id),
