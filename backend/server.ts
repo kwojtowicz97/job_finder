@@ -4,6 +4,7 @@ import { connectDB } from './config/db'
 import OfferRoutes from './routes/OfferRoutes'
 import UserRoutes from './routes/UserRoutes'
 import CompanyRoutes from './routes/CompanyRoutes'
+import JobApplicationRoutes from './routes/JobApplicationRoutes'
 import path from 'path'
 import { errorHandler, notFound } from './middleware/errorHandler'
 
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use('/api/offers', OfferRoutes)
 app.use('/api/users', UserRoutes)
 app.use('/api/companies', CompanyRoutes)
+app.use('/api/applications', JobApplicationRoutes)
 
 const dirname = path.resolve()
 app.use('/uploads', express.static(path.join(dirname, '/uploads')))
