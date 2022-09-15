@@ -13,6 +13,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ToastMessage } from './components/ToastMessage'
 import { UserInfo } from './types/User'
 import { usePersistedState } from './hooks/usePersistedState'
+import { ApplyScreen } from './screens/ApplyScreen'
 
 const queryClient = new QueryClient()
 
@@ -70,6 +71,7 @@ function App() {
                   <Route path='/register' element={<RegisterScreen />} />
                   <Route path='/login' element={<LoginScreen />} />
                   <Route path='/profile' element={<ProfileScreen />} />
+                  <Route path='/apply/:id' element={<ApplyScreen />} />
                 </Routes>
               </Container>
             </main>
