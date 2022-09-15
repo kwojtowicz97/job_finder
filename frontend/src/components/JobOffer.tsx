@@ -62,12 +62,15 @@ const JobOffer = ({ offer }: Props) => {
           </div>
           <span className='mb-2'>
             <LinkContainer role='button' to={`/company/${offer.company._id}`}>
-              <a className='nav-link'>
-                <p className='link'>{offer.company.name} </p>
+              <a className='nav-link d-inline'>
+                <p className='link d-inline'>{offer.company.name} </p>
               </a>
             </LinkContainer>
+            <Rating
+              className='d-none d-sm-inline'
+              value={offer.company.rating}
+            />
           </span>
-          <Rating className='d-none d-sm-inline' value={offer.company.rating} />
         </Card.Title>
         <Container className='w100 p-0'>
           <i className='fas fa-location-dot mb-2' /> {offer.address}
