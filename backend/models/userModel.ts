@@ -71,7 +71,7 @@ userSchema.method('toJSON', function toJSON(this: any) {
     phoneNumber: obj.phoneNumber,
     country: obj.country,
     city: obj.city,
-    adderss: obj.adderss,
+    address: obj.address,
     isAdmin: obj.isAdmin,
     saved: obj.saved,
     token: generateToken(obj._id),
