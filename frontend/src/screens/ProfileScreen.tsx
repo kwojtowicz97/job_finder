@@ -2,29 +2,22 @@ import React, { FormEvent, useContext, useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
 import Message from '../components/Message'
 import { errorHandler } from '../utils/errorHandler'
 import { toastContext, userContext } from '../App'
-import { UserInfo } from '../types/User'
-import { userInfo } from 'os'
 import Loader from '../components/Loader'
+import { countries } from './countries'
 
-interface RegisterUserData {
-  name: string
-  email: string
-  password: string
-}
-
-interface RegisterResponse extends UserInfo {}
-
-const RegisterScreen = () => {
-  const navigate = useNavigate()
+const ProfileScreen = () => {
   const { setUserInfo, userInfo } = useContext(userContext)
   const { setToast } = useContext(toastContext)
 
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+  const [phoneNumber, setPhoneNumber] = useState<string>('')
+  const [country, setCountry] = useState<string | undefined>(undefined)
+  const [city, setCity] = useState<string>('')
+  const [address, setAddress] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
 
@@ -48,7 +41,7 @@ const RegisterScreen = () => {
   const updateProfile = async () => {
     const { data } = await axios.put(
       '/api/users',
-      { email, name, password },
+      { email, name, password, phoneNumber, country, city, address },
       config
     )
     return data
@@ -138,6 +131,47 @@ const RegisterScreen = () => {
                 placeholder='Confirm password'
               />
             </Form.Group>
+            <Form.Group className='mb-3'>
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                type='text'
+                placeholder='Enter your country'
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Country</Form.Label>
+              <Form.Select
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+              >
+                <option disabled selected value={undefined}>
+                  Select your country
+                </option>
+                {countries.map((country) => (
+                  <option value={country.name}>{country.name}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className='mb-3'>
+              <Form.Label>City</Form.Label>
+              <Form.Control
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                type='text'
+                placeholder='Enter your city'
+              />
+            </Form.Group>
+            <Form.Group className='mb-3'>
+              <Form.Label>Address</Form.Label>
+              <Form.Control
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                type='text'
+                placeholder='Enter your city'
+              />
+            </Form.Group>
             <Button
               type='submit'
               className={`position-relative w-100 ${
@@ -161,4 +195,4 @@ const RegisterScreen = () => {
   )
 }
 
-export default RegisterScreen
+export default ProfileScreen
