@@ -95,8 +95,8 @@ const RegisterScreen = () => {
     <Container>
       {isError && <Message variant='danger'>{errorHandler(error)}</Message>}
       <Row className='border rounded'>
-        <Col className='p-3'>
-          <h2 className='mb-3'>Sing Up</h2>
+        <Col sm={12} className='p-3'>
+          <h2 className='mb-3'>Update account</h2>
           <Form onSubmit={submitHandler}>
             <Form.Group className='mb-3'>
               <Form.Label>Name</Form.Label>
@@ -144,7 +144,7 @@ const RegisterScreen = () => {
                 isLoading ? 'stripes-active' : ''
               }`}
             >
-              <span>Register</span>
+              <span>Update</span>
               <div className='stripes'></div>
             </Button>
           </Form>
