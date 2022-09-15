@@ -49,7 +49,7 @@ export const ApplyScreen = () => {
       ) : (
         <Container fluid>
           <Button onClick={() => navigate(-1)}>Back to the offer</Button>
-          <h2 className='mt-5 mb-3'>
+          <h2 className='mt-3 mb-3'>
             You are applying for the position of <strong>{offer.title}</strong>{' '}
             in <strong>{offer.company.name}</strong>
           </h2>
@@ -65,7 +65,7 @@ export const ApplyScreen = () => {
                 value={userInfo?.name}
               />
             </FormGroup>
-            <FormGroup>
+            <FormGroup className='mt-3'>
               <FormLabel>Email</FormLabel>
               <FormControl
                 type='text'
@@ -73,23 +73,24 @@ export const ApplyScreen = () => {
                 value={userInfo?.email}
               />
             </FormGroup>
-            <FormGroup>
+            <FormGroup className='mt-3'>
               <FormLabel>Phone Number</FormLabel>
               <FormControl
                 type='tel'
                 placeholder='Enter your phone number'
-                value={''}
+                value={userInfo?.phoneNumber}
               />
             </FormGroup>
-            <FormGroup>
-              <FormLabel>Localization</FormLabel>
+            <FormGroup className='mt-3'>
+              <FormLabel>Country</FormLabel>
               <FormControl
                 type='text'
-                placeholder='Enter your localization'
-                value={''}
+                placeholder='Enter your country'
+                value={userInfo?.country}
               />
             </FormGroup>
-            <FormGroup>
+
+            <FormGroup className='mt-3'>
               <FormLabel>Experience</FormLabel>
               <Form.Select value={experience}>
                 <option disabled selected value={undefined}>
@@ -102,6 +103,13 @@ export const ApplyScreen = () => {
                 <option value='5+ years'>5+ years</option>
               </Form.Select>
             </FormGroup>
+            <FormGroup className='mt-3'>
+              <FormLabel>CV</FormLabel>
+              <FormControl type='file' />
+            </FormGroup>
+            <Button className='mt-3 w-100' type='submit'>
+              Apply
+            </Button>
           </Form>
         </Container>
       )}
