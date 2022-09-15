@@ -1,12 +1,14 @@
-import express from 'express'
+import express, { application } from 'express'
 import dotenv from 'dotenv'
 import { connectDB } from './config/db'
 import OfferRoutes from './routes/OfferRoutes'
 import UserRoutes from './routes/UserRoutes'
 import CompanyRoutes from './routes/CompanyRoutes'
 import JobApplicationRoutes from './routes/JobApplicationRoutes'
+import FilesRoutes from './routes/FilesRoutes'
 import path from 'path'
 import { errorHandler, notFound } from './middleware/errorHandler'
+import multer from 'multer'
 
 dotenv.config()
 connectDB()
@@ -19,6 +21,7 @@ app.use('/api/offers', OfferRoutes)
 app.use('/api/users', UserRoutes)
 app.use('/api/companies', CompanyRoutes)
 app.use('/api/applications', JobApplicationRoutes)
+app.use('/api/uploads', FilesRoutes)
 
 const dirname = path.resolve()
 app.use('/uploads', express.static(path.join(dirname, '/uploads')))
