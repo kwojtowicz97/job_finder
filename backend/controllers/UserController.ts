@@ -6,11 +6,16 @@ import Offer from '../models/offerModel'
 
 export const registerUser = asyncHandler(
   async (req: Request, res: Response) => {
-    const { name, email, password } = req.body as {
-      name: string
-      email: string
-      password: string
-    }
+    const { name, email, password, phoneNumber, country, city, address } =
+      req.body as {
+        name: string
+        email: string
+        password: string
+        phoneNumber: string
+        country: string
+        city: string
+        address: string
+      }
 
     const isExistingUser = await User.findOne({ email })
 
@@ -19,7 +24,15 @@ export const registerUser = asyncHandler(
       throw new Error('User already exists')
     }
 
-    const user = await User.create({ name, email, password })
+    const user = await User.create({
+      name,
+      email,
+      password,
+      phoneNumber,
+      country,
+      city,
+      address,
+    })
 
     if (user) {
       res.status(201).send(user.toJSON())
@@ -67,6 +80,10 @@ export const updateUser = asyncHandler(
       user.name = req.body.name || user.name
       user.email = req.body.email || user.email
       user.password = req.body.password || user.password
+      user.phoneNumber = req.body.phoneNumber || user.phoneNumber
+      user.country = req.body.country || user.country
+      user.city = req.body.city || user.city
+      user.address = req.body.address || user.address
 
       const updatedUser = await user.save()
 
