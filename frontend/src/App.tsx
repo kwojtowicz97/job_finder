@@ -7,6 +7,7 @@ import OfferDetailScreen from './screens/OfferDetailScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import LoginScreen from './screens/LoginScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import NewOfferScreen from './screens/NewOfferScreen'
 import Footer from './components/Footer'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -71,6 +72,10 @@ function App() {
                   <Route path='/register' element={<RegisterScreen />} />
                   <Route path='/login' element={<LoginScreen />} />
                   <Route path='/profile' element={<ProfileScreen />} />
+                  <Route
+                    path='/company/newoffer'
+                    element={<NewOfferScreen />}
+                  />
                   <Route path='/apply/:id' element={<ApplyScreen />} />
                 </Routes>
               </Container>
