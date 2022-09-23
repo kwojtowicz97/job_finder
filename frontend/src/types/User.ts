@@ -1,3 +1,5 @@
+import { Company } from './Company'
+
 export interface UserInfo {
   _id: string
   name: string
@@ -9,4 +11,5 @@ export interface UserInfo {
   isAdmin: boolean
   token: boolean
   saved: Array<string>
+  company?: Company
 }
