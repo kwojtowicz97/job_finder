@@ -1,8 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import { Request, Response, NextFunction } from 'express'
-import { UserDocument, User } from '../models/userModel'
+import { UserModel as User } from '../models/userModel'
 import jwt, { JwtPayload } from 'jsonwebtoken'
-import { ObjectId } from 'bson'
 import mongoose from 'mongoose'
 
 interface Decoded {
@@ -11,10 +10,10 @@ interface Decoded {
 
 export interface CustomRequest extends Request {
   user?: {
-    _id: mongoose.Types.ObjectId
-    name: string
-    email: string
-    password: string
+    _id?: mongoose.Types.ObjectId
+    name?: string
+    email?: string
+    password?: string
     isAdmin?: boolean
   }
 }

@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
 import { CustomRequest } from '../middleware/authHandler'
-import { User } from '../models/userModel'
+import { UserModel as User } from '../models/userModel'
 import Offer from '../models/offerModel'
 
 export const registerUser = asyncHandler(
@@ -101,10 +101,10 @@ export const addToFavourite = asyncHandler(
     const offer = await Offer.findById(req.params.id)
 
     if (user && offer) {
-      if (user.saved.includes(offer._id)) {
-        user.saved = user.saved.filter((id) => !offer._id.equals(id))
+      if (user.saved!.includes(offer._id)) {
+        user.saved = user.saved!.filter((id) => !offer._id.equals(id))
       } else {
-        user.saved.push(offer._id)
+        user.saved!.push(offer._id)
       }
 
       const updatedUser = await user.save()
