@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -18,9 +18,8 @@ export const ApplyScreen = () => {
   const navigate = useNavigate()
   const params = useParams()
 
-  const { applicationStates, submitHandler } = usePostApplication(
-    params.id || ''
-  )
+  const { applicationStates, submitHandler, postApplication } =
+    usePostApplication(params.id || '')
 
   const { sendCvHandler, isSending, isSend } = usePostCV(
     params.id || '',
@@ -28,6 +27,12 @@ export const ApplyScreen = () => {
   )
 
   const getApplicationData = useGetOfferDetails(params.id)
+
+  useEffect(() => {
+    if (postApplication.isSuccess) {
+      navigate('/profile')
+    }
+  }, [postApplication.isSuccess])
 
   return (
     <>
