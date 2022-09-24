@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { CustomRequest } from '../middleware/authHandler'
 import { JobApplication } from '../models/jobApplicationModel'
 import { UserModel as User } from '../models/userModel'
-import Offer from '../models/offerModel'
+import { OfferModel as Offer } from '../models/offerModel'
 import { ObjectId } from 'mongoose'
 
 export const createJobApplication = asyncHandler(

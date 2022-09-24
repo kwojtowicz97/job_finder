@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
 
-import Offer from '../models/offerModel'
+import { OfferModel as Offer } from '../models/offerModel'
 
 // @desc    Fetch all offers
 // @route   GET /api/products
@@ -33,10 +33,7 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
 // @access  Public
 export const getOfferById = asyncHandler(
   async (req: Request, res: Response) => {
-    const offer = await Offer.findById(req.params.id).populate(
-      'company',
-      'name image rating city address'
-    )
+    const offer = await Offer.findById(req.params.id).populate('company')
 
     if (offer && offer.expiresAt instanceof Date) {
       const hours =

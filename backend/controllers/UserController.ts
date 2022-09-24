@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
 import { CustomRequest } from '../middleware/authHandler'
 import { UserModel as User } from '../models/userModel'
-import Offer from '../models/offerModel'
+import { OfferModel as Offer } from '../models/offerModel'
 
 export const registerUser = asyncHandler(
   async (req: Request, res: Response) => {

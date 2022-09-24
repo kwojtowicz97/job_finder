@@ -8,7 +8,6 @@ import JobApplicationRoutes from './routes/JobApplicationRoutes'
 import FilesRoutes from './routes/FilesRoutes'
 import path from 'path'
 import { errorHandler, notFound } from './middleware/errorHandler'
-import multer from 'multer'
 
 dotenv.config()
 connectDB()
