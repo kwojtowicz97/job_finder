@@ -1,10 +1,8 @@
 import asyncHandler from 'express-async-handler'
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { CustomRequest } from '../middleware/authHandler'
-import { JobApplication } from '../models/jobApplicationModel'
-import { UserModel as User } from '../models/userModel'
+import JobApplication from '../models/jobApplicationModel'
 import { OfferModel as Offer } from '../models/offerModel'
-import { ObjectId } from 'mongoose'
 
 export const createJobApplication = asyncHandler(
   async (req: CustomRequest, res: Response) => {
@@ -26,7 +24,7 @@ export const createJobApplication = asyncHandler(
         cvFile,
       })
       res.status(201)
-      res.send(jobOffer)
+      res.send(jobAppliction)
     } else {
       res.status(400)
       throw new Error('Offer does not found')

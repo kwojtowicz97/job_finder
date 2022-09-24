@@ -16,7 +16,7 @@ import generateToken from '../utils/generateToken'
   this.password = await bcrypt.hash(this.password!, 10)
 })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
-class UserClass {
+export class UserClass {
   @prop()
   public name?: string
 

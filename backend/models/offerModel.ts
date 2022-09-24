@@ -8,7 +8,7 @@ import {
 import { CompanyClass } from './companyModel'
 
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
-class OfferClass {
+export class OfferClass {
   @prop()
   public title?: string
 
