@@ -1,6 +1,6 @@
 import { getModelForClass, prop, Ref } from '@typegoose/typegoose'
 import { OfferClass } from './offerModel'
-import { UserClass } from './userModel'
+import { User } from './userModel'
 
 export interface SendJobApplicationData {
   _id: string
@@ -15,12 +15,12 @@ export interface SendJobApplicationData {
   cvFile: string
 }
 
-export class JobApplicationClass {
+export class JobApplication {
   @prop({ ref: () => OfferClass })
   public offer?: Ref<OfferClass>
 
-  @prop({ ref: () => UserClass })
-  public user?: Ref<UserClass>
+  @prop({ ref: () => User })
+  public user?: Ref<User>
 
   @prop()
   public name?: string
@@ -53,6 +53,6 @@ export class JobApplicationClass {
   public createdAt?: Date
 }
 
-const JobApplicationModel = getModelForClass(JobApplicationClass)
+const JobApplicationModel = getModelForClass(JobApplication)
 
 export default JobApplicationModel

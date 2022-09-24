@@ -5,7 +5,7 @@ import {
   Ref,
   Severity,
 } from '@typegoose/typegoose'
-import { CompanyClass } from './companyModel'
+import { Company } from './companyModel'
 
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class OfferClass {
@@ -42,8 +42,8 @@ export class OfferClass {
   @prop()
   public tags?: Array<string>
 
-  @prop({ ref: () => CompanyClass })
-  public company?: Ref<CompanyClass>
+  @prop({ ref: () => Company })
+  public company?: Ref<Company>
 
   @prop()
   public expiresAt?: Date

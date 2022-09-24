@@ -6,7 +6,7 @@ import {
 } from '@typegoose/typegoose'
 
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
-export class CompanyClass {
+export class Company {
   @prop()
   public name?: string
 
@@ -38,4 +38,4 @@ export class CompanyClass {
   public rating?: string
 }
 
-export const CompanyModel = getModelForClass(CompanyClass)
+export const CompanyModel = getModelForClass(Company)

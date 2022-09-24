@@ -8,15 +8,15 @@ import {
   Ref,
   Severity,
 } from '@typegoose/typegoose'
-import { CompanyClass } from './companyModel'
+import { Company } from './companyModel'
 import generateToken from '../utils/generateToken'
 
-@pre<UserClass>('save', async function (this, next) {
+@pre<User>('save', async function (this, next) {
   if (!this.isModified('password')) next()
   this.password = await bcrypt.hash(this.password!, 10)
 })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
-export class UserClass {
+export class User {
   @prop()
   public name?: string
 
@@ -45,17 +45,17 @@ export class UserClass {
   public password?: string
 
   @prop()
-  public company?: Ref<CompanyClass>
+  public company?: Ref<Company>
 
   public async matchPassword(
-    this: DocumentType<UserClass>,
+    this: DocumentType<User>,
     enteredPassword: string
   ) {
     console.log(enteredPassword, this.password)
     return await bcrypt.compare(enteredPassword, this.password!)
   }
 
-  public toJSON(this: DocumentType<UserClass>) {
+  public toJSON(this: DocumentType<User>) {
     const obj = this.toObject()
     return {
       _id: obj._id,
@@ -72,4 +72,4 @@ export class UserClass {
   }
 }
 
-export const UserModel = getModelForClass(UserClass)
+export const UserModel = getModelForClass(User)
