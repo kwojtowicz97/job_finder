@@ -16,31 +16,16 @@ const storage = multer.diskStorage({
   },
 })
 
-/**
- * Check if a file type matches one of the expected extensions (images only)
- * @param file
- * @param cb
- */
-function checkFileType(
-  file: Express.Multer.File,
-  cb: multer.FileFilterCallback
-) {
-  const filetypes = /jpg|jpeg|png/
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
-  const mimetype = filetypes.test(file.mimetype)
-
-  if (extname && mimetype) {
-    return cb(null, true)
-  } else {
-    cb(Error('Images only!'))
-  }
-}
-
 const upload = multer({
   storage,
 })
 
-router.post('/', upload.single('file'), (req, res) => {
+router.post('/cv', upload.single('file'), (req, res) => {
+  console.log(req.file)
+  res.send(`/${req.file?.path}`)
+})
+
+router.post('/logo', upload.single('file'), (req, res) => {
   console.log(req.file)
   res.send(`/${req.file?.path}`)
 })
