@@ -2,11 +2,16 @@ import {
   getModelForClass,
   modelOptions,
   prop,
+  Ref,
   Severity,
 } from '@typegoose/typegoose'
+import { User } from './userModel'
 
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class Company {
+  // @prop({ ref: () => User })
+  // public user?: Ref<User>
+
   @prop()
   public name?: string
 

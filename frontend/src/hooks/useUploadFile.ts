@@ -1,13 +1,11 @@
 import React, { useContext, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 import { userContext } from '../App'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { FormEvent } from 'react'
 
-const usePostCV = (
-  offerId: string,
-  setCvFile: React.Dispatch<React.SetStateAction<string | undefined>>
+const useUploadFile = (
+  setUploadFile: React.Dispatch<React.SetStateAction<string | undefined>>
 ) => {
   const { userInfo } = useContext(userContext)
   const configFile = {
@@ -22,16 +20,14 @@ const usePostCV = (
     isLoading: isSending,
     isSuccess: isSend,
   } = useMutation<any, Error, FormData>(async (formData) => {
-    const { data } = await axios.post('/api/uploads', formData, configFile)
+    const { data } = await axios.post('/api/uploads/cv', formData, configFile)
     return data
   })
 
-  const sendCvHandler = (e: FormEvent) => {
+  const sendFileHandler = (e: FormEvent) => {
     const target = e.target as HTMLInputElement
-    if (target.files !== null && userInfo?._id && offerId) {
+    if (target.files !== null) {
       const formData = new FormData()
-      formData.append('userId', userInfo?._id)
-      formData.append('offerId', offerId)
 
       const file = target.files[0]
       formData.append('file', file)
@@ -42,11 +38,11 @@ const usePostCV = (
 
   useEffect(() => {
     if (isSend) {
-      setCvFile(dataResponse)
+      setUploadFile(dataResponse)
     }
-  }, [isSend])
+  }, [isSend, dataResponse, setUploadFile])
 
-  return { sendCvHandler, isSending, isSend }
+  return { sendFileHandler, isSending, isSend }
 }
 
-export default usePostCV
+export default useUploadFile

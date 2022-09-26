@@ -15,6 +15,7 @@ import { ToastMessage } from './components/ToastMessage'
 import { UserInfo } from './types/User'
 import { usePersistedState } from './hooks/usePersistedState'
 import { ApplyScreen } from './screens/ApplyScreen'
+import { NewComapnyScreen } from './screens/NewComapnyScreen'
 
 const queryClient = new QueryClient()
 
@@ -77,6 +78,7 @@ function App() {
                     element={<NewOfferScreen />}
                   />
                   <Route path='/apply/:id' element={<ApplyScreen />} />
+                  <Route path='/newcompany' element={<NewComapnyScreen />} />
                 </Routes>
               </Container>
             </main>

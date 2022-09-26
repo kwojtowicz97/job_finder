@@ -1,6 +1,7 @@
 import express from 'express'
 import multer from 'multer'
 import path from 'path'
+import { protect } from '../middleware/authHandler'
 
 const router = express.Router()
 
@@ -20,13 +21,11 @@ const upload = multer({
   storage,
 })
 
-router.post('/cv', upload.single('file'), (req, res) => {
-  console.log(req.file)
+router.post('/cv', protect, upload.single('file'), (req, res) => {
   res.send(`/${req.file?.path}`)
 })
 
-router.post('/logo', upload.single('file'), (req, res) => {
-  console.log(req.file)
+router.post('/logo', protect, upload.single('file'), (req, res) => {
   res.send(`/${req.file?.path}`)
 })
 

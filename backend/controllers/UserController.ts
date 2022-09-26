@@ -49,7 +49,7 @@ export const authUser = asyncHandler(async (req: Request, res: Response) => {
     password: string
   }
 
-  const user = await User.findOne({ email })
+  const user = await User.findOne({ email }).populate('company')
 
   if (user && (await user.matchPassword(password))) {
     res.status(201).send(user.toJSON())

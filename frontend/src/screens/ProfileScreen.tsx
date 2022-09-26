@@ -1,4 +1,4 @@
-import React, { FormEvent, useContext, useEffect, useState } from 'react'
+import { FormEvent, useContext, useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
@@ -7,8 +7,10 @@ import { errorHandler } from '../utils/errorHandler'
 import { toastContext, userContext } from '../App'
 import Loader from '../components/Loader'
 import { countries } from './countries'
+import { useNavigate } from 'react-router-dom'
 
 const ProfileScreen = () => {
+  const navigate = useNavigate()
   const { setUserInfo, userInfo } = useContext(userContext)
   const { setToast } = useContext(toastContext)
 
@@ -63,7 +65,7 @@ const ProfileScreen = () => {
       setCity(data.city)
       setAddress(data.address)
     }
-  }, [isSuccess, data])
+  }, [isSuccess, data, setUserInfo])
 
   useEffect(() => {
     if (isSuccessUpdate) {
@@ -80,7 +82,7 @@ const ProfileScreen = () => {
         message: 'Your profile has been updated!',
       })
     }
-  }, [isSuccessUpdate, dataUpdate])
+  }, [isSuccessUpdate, dataUpdate, setUserInfo, setToast])
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault()
@@ -91,6 +93,15 @@ const ProfileScreen = () => {
     <Loader />
   ) : (
     <Container>
+      <Container className='mb-5 p-3 border rounded'>
+        <p>
+          If you want to add new job offers first you have to create a company
+          profile.
+        </p>
+        <Button onClick={() => navigate('/newcompany')}>
+          Create company profile
+        </Button>
+      </Container>
       {isError && <Message variant='danger'>{errorHandler(error)}</Message>}
       <Form onSubmit={submitHandler}>
         <Row className='border rounded'>

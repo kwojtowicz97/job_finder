@@ -25,16 +25,14 @@ const NewOfferScreen: React.FC = () => {
   }, [])
 
   return (
-    <>
-      <Container>
-        <Form>
-          <Form.Group>
-            <Form.Label>Offer name</Form.Label>
-            <Form.Control type='text'></Form.Control>
-          </Form.Group>
-        </Form>
-      </Container>
-    </>
+    <Container>
+      <Form>
+        <Form.Group>
+          <Form.Label>Offer name</Form.Label>
+          <Form.Control type='text'></Form.Control>
+        </Form.Group>
+      </Form>
+    </Container>
   )
 }
 

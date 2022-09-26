@@ -10,7 +10,7 @@ import {
   FormGroup,
   FormLabel,
 } from 'react-bootstrap'
-import usePostCV from '../hooks/usePostCV'
+import usePostCV from '../hooks/useUploadFile'
 import usePostApplication from '../hooks/usePostApplication'
 import useGetOfferDetails from '../hooks/useGetOfferDetails'
 
@@ -21,8 +21,7 @@ export const ApplyScreen = () => {
   const { applicationStates, submitHandler, postApplication } =
     usePostApplication(params.id || '')
 
-  const { sendCvHandler, isSending, isSend } = usePostCV(
-    params.id || '',
+  const { sendFileHandler, isSending, isSend } = usePostCV(
     applicationStates.setCvFile!
   )
 
@@ -119,17 +118,10 @@ export const ApplyScreen = () => {
                 <option value='5+ years'>5+ years</option>
               </Form.Select>
             </FormGroup>
-            {isSending ? (
-              <Loader />
-            ) : isSend ? (
-              <p>{applicationStates.cvFile}</p>
-            ) : (
-              <FormGroup className='mt-3'>
-                <FormLabel>CV</FormLabel>
-                <FormControl type='file' onChange={(e) => sendCvHandler(e)} />
-              </FormGroup>
-            )}
-
+            <FormGroup className='mt-3'>
+              <FormLabel>CV</FormLabel>
+              <FormControl type='file' onChange={(e) => sendFileHandler(e)} />
+            </FormGroup>
             <Button className='mt-3 w-100' type='submit'>
               Apply
             </Button>

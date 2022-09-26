@@ -44,7 +44,7 @@ export class User {
   @prop()
   public password?: string
 
-  @prop()
+  @prop({ ref: () => Company })
   public company?: Ref<Company>
 
   public async matchPassword(
@@ -68,6 +68,7 @@ export class User {
       isAdmin: obj.isAdmin,
       saved: obj.saved,
       token: generateToken(String(obj._id)),
+      company: obj.company,
     }
   }
 }

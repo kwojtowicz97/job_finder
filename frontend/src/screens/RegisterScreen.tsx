@@ -1,4 +1,4 @@
-import React, { FormEvent, useContext, useEffect, useState } from 'react'
+import { FormEvent, useContext, useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
@@ -8,8 +8,6 @@ import { errorHandler } from '../utils/errorHandler'
 import { toastContext, userContext } from '../App'
 import { UserInfo } from '../types/User'
 import { countries } from './countries'
-import Loader from '../components/Loader'
-import usePostLogo from '../hooks/usePostLogo'
 
 interface RegisterUserData {
   name: string
@@ -19,10 +17,6 @@ interface RegisterUserData {
   country: string | undefined
   city: string
   address: string
-  company?: {
-    image: string | undefined
-    name: string
-  }
 }
 
 interface RegisterResponse extends UserInfo {}
@@ -45,18 +39,8 @@ const RegisterScreen = () => {
   const [country, setCountry] = useState<string | undefined>(undefined)
   const [city, setCity] = useState<string>('')
   const [address, setAddress] = useState<string>('')
-  const [postalAddress, setPostalAddress] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
-  const [type, setType] = useState<string | undefined>(undefined)
-  const [logoFile, setLogoFile] = useState<string | undefined>(undefined)
-  const [companyName, setCompanyName] = useState<string>('')
-
-  const {
-    isLoading: isSending,
-    isSuccess: isSend,
-    sendLogoHandler,
-  } = usePostLogo(setLogoFile)
 
   const { data, isLoading, isError, isSuccess, error, mutateAsync } =
     useMutation<RegisterResponse, Error, RegisterUserData>(
@@ -75,7 +59,7 @@ const RegisterScreen = () => {
         })
       navigate('/')
     }
-  }, [isSuccess, data, navigate])
+  }, [isSuccess, data, name, setToast, setUserInfo, navigate])
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault()
@@ -88,10 +72,6 @@ const RegisterScreen = () => {
         country,
         city,
         address,
-        company: {
-          image: logoFile,
-          name: companyName,
-        },
       })
     }
   }
@@ -109,10 +89,7 @@ const RegisterScreen = () => {
   return (
     <Container>
       {isError && <Message variant='danger'>{errorHandler(error)}</Message>}
-      <Row
-        className='px-3 pt-3 mx-auto mw-sm-100 border rounded'
-        style={{ minWidth: '300px', maxWidth: '50%' }}
-      >
+      <Row className='border rounded'>
         <Col className='p-3'>
           <Row>
             <Form id='form' onSubmit={firstStepSubmitHandler}>
@@ -166,194 +143,86 @@ const RegisterScreen = () => {
                     required
                   />
                 </Form.Group>
-                <Form.Group className='mb-3'>
-                  <Form.Label>Account type</Form.Label>
-                  <Form.Select
-                    value={type}
-                    onChange={(e) => setType(e.target.value)}
-                  >
-                    <option disabled value={undefined}>
-                      Select account type
-                    </option>
-                    <option value='personal'>Personal User</option>
-                    <option value='company'>Company</option>
-                  </Form.Select>
-                </Form.Group>
 
                 <Button type='submit'>Next</Button>
               </Col>
             </Form>
             <Form onSubmit={submitHandler}>
-              {/* Personal user */}
-              {type === 'personal' ? (
-                <Col hidden={!nextStep}>
-                  <h2 className='mb-3'>Your Presonal Data</h2>
-                  <Form.Group className='mb-3'>
-                    <Form.Label>Phone Number</Form.Label>
-                    <Form.Control
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      type='text'
-                      autoComplete='off'
-                      placeholder='Enter your phone number'
-                      required
-                    />
-                  </Form.Group>
-                  <Form.Group className='mb-3'>
-                    <Form.Label>Country</Form.Label>
-                    <Form.Select
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                      required
-                    >
-                      <option disabled value={undefined}>
-                        Select your country
+              <Col hidden={!nextStep}>
+                <h2 className='mb-3'>Your Presonal Data</h2>
+                <Form.Group className='mb-3'>
+                  <Form.Label>Phone Number</Form.Label>
+                  <Form.Control
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    type='text'
+                    autoComplete='off'
+                    placeholder='Enter your phone number'
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className='mb-3'>
+                  <Form.Label>Country</Form.Label>
+                  <Form.Select
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    required
+                  >
+                    <option disabled value={undefined}>
+                      Select your country
+                    </option>
+                    {countries.map((country) => (
+                      <option key={country.name} value={country.name}>
+                        {country.name}
                       </option>
-                      {countries.map((country) => (
-                        <option key={country.name} value={country.name}>
-                          {country.name}
-                        </option>
-                      ))}
-                    </Form.Select>
-                  </Form.Group>
-                  <Form.Group className='mb-3'>
-                    <Form.Label>City</Form.Label>
-                    <Form.Control
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      type='text'
-                      autoComplete='off'
-                      placeholder='Enter your city'
-                      required
-                    />
-                  </Form.Group>
-                  <Form.Group className='mb-3'>
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      type='text'
-                      autoComplete='off'
-                      placeholder='Enter your city'
-                      required
-                    />
-                  </Form.Group>
-                  <Container className='d-flex justify-content-around'>
-                    <Button onClick={() => setNextStep(false)}>Go Back</Button>
-                    <Button
-                      type='submit'
-                      className={`position-relative ${
-                        isLoading ? 'stripes-active' : ''
-                      }`}
-                    >
-                      <span>Register</span>
-                      <div className='stripes'></div>
-                    </Button>
-                  </Container>
-                </Col>
-              ) : (
-                // Company
-                <Col hidden={!nextStep}>
-                  <h2 className='mb-3'>Your Company Data</h2>
-                  <Form.Group className='mb-3'>
-                    <Form.Label>Company's name</Form.Label>
-                    <Form.Control
-                      value={companyName}
-                      onChange={(e) => setCompanyName(e.target.value)}
-                      type='text'
-                      autoComplete='off'
-                      placeholder='Enter your phone number'
-                      required
-                    />
-                  </Form.Group>
-                  <Form.Group className='mb-3'>
-                    <Form.Label>Country</Form.Label>
-                    <Form.Select
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                      required
-                    >
-                      <option disabled value={undefined}>
-                        Select your country
-                      </option>
-                      {countries.map((country) => (
-                        <option key={country.name} value={country.name}>
-                          {country.name}
-                        </option>
-                      ))}
-                    </Form.Select>
-                  </Form.Group>
-                  <Form.Group className='mb-3'>
-                    <Form.Label>City</Form.Label>
-                    <Form.Control
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      type='text'
-                      autoComplete='off'
-                      placeholder='Enter your city'
-                      required
-                    />
-                  </Form.Group>
-                  <Form.Group className='mb-3'>
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      type='text'
-                      autoComplete='off'
-                      placeholder='Enter your city'
-                      required
-                    />
-                  </Form.Group>
-                  <Form.Group className='mb-3'>
-                    <Form.Label>Postal Address</Form.Label>
-                    <Form.Control
-                      value={postalAddress}
-                      onChange={(e) => setPostalAddress(e.target.value)}
-                      type='text'
-                      autoComplete='off'
-                      placeholder='Enter your city'
-                      required
-                    />
-                  </Form.Group>
-                  <Form.Group className='mb-3'>
-                    <Form.Label>Phone Number</Form.Label>
-                    <Form.Control
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      type='text'
-                      autoComplete='off'
-                      placeholder='Enter your city'
-                      required
-                    />
-                  </Form.Group>
-                  {isSending ? (
-                    <Loader />
-                  ) : isSend ? (
-                    <p>{logoFile}</p>
-                  ) : (
-                    <Form.Group className='mb-3'>
-                      <Form.Label>Upload logo</Form.Label>
-                      <Form.Control type='file' onChange={sendLogoHandler} />
-                    </Form.Group>
-                  )}
-                  <Container className='d-flex justify-content-around'>
-                    <Button onClick={() => setNextStep(false)}>Go Back</Button>
-                    <Button
-                      type='submit'
-                      className={`position-relative ${
-                        isLoading ? 'stripes-active' : ''
-                      }`}
-                    >
-                      <span>Register</span>
-                      <div className='stripes'></div>
-                    </Button>
-                  </Container>
-                </Col>
-              )}
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className='mb-3'>
+                  <Form.Label>City</Form.Label>
+                  <Form.Control
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    type='text'
+                    autoComplete='off'
+                    placeholder='Enter your city'
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className='mb-3'>
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    type='text'
+                    autoComplete='off'
+                    placeholder='Enter your city'
+                    required
+                  />
+                </Form.Group>
+                <Container className='d-flex justify-content-around'>
+                  <Button onClick={() => setNextStep(false)}>Go Back</Button>
+                  <Button
+                    type='submit'
+                    className={`position-relative ${
+                      isLoading ? 'stripes-active' : ''
+                    }`}
+                  >
+                    <span>Register</span>
+                    <div className='stripes'></div>
+                  </Button>
+                </Container>
+              </Col>
             </Form>
           </Row>
         </Col>
+        <Col
+          className='rounded-end'
+          style={{
+            backgroundImage: 'url("register-side-photo.jpeg")',
+            backgroundSize: 'cover',
+          }}
+        />
       </Row>
     </Container>
   )

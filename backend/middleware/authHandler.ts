@@ -3,6 +3,8 @@ import { Request, Response, NextFunction } from 'express'
 import { UserModel as User } from '../models/userModel'
 import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose'
+import { Company } from '../models/companyModel'
+import { Ref } from '@typegoose/typegoose'
 
 interface Decoded {
   id: string
@@ -15,6 +17,7 @@ export interface CustomRequest extends Request {
     email?: string
     password?: string
     isAdmin?: boolean
+    company?: Ref<Company>
   }
 }
 
