@@ -61,7 +61,7 @@ export const authUser = asyncHandler(async (req: Request, res: Response) => {
 
 export const getUserById = asyncHandler(
   async (req: CustomRequest, res: Response) => {
-    const user = await User.findById(req.user?._id)
+    const user = await User.findById(req.user?._id).populate('company')
 
     if (user) {
       res.send(user.toJSON())
