@@ -56,3 +56,30 @@ export const createNewCompany = asyncHandler(
     res.send(company)
   }
 )
+
+export const updateCompany = asyncHandler(
+  async (req: CustomRequest, res: Response) => {
+    if (!req.user?.company) {
+      throw new Error("User doesn't have a company")
+    }
+    const company = await CompanyModel.findById(req.user?.company)
+
+    if (company) {
+      company.name = req.body.name || company.name
+      company.image = req.body.image || company.image
+      company.address = req.body.address || company.address
+      company.city = req.body.city || company.city
+      company.country = req.body.country || company.country
+      company.description = req.body.description || company.description
+      company.postalAddress = req.body.postalAddress || company.postalAddress
+      company.phoneNumber = req.body.phoneNumber || company.phoneNumber
+
+      const updatedCompany = await company.save()
+
+      res.send(updatedCompany)
+    } else {
+      res.status(404)
+      throw new Error('Company not found')
+    }
+  }
+)
