@@ -1,3 +1,5 @@
+import { Review } from '../components/Review'
+
 export interface Company {
   _id: string
   name: string
@@ -6,9 +8,9 @@ export interface Company {
   address: string
   city: string
   country: string
-  description?: string
+  description: string
   postalAddress?: string
-  phoneNumber?: string
-  reviews: Array<string>
+  phoneNumber: string
+  reviews: Array<Review>
   rating: number
 }

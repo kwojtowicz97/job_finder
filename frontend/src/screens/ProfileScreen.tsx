@@ -93,15 +93,18 @@ const ProfileScreen = () => {
     <Loader />
   ) : (
     <Container>
-      <Container className='mb-5 p-3 border rounded'>
-        <p>
-          If you want to add new job offers first you have to create a company
-          profile.
-        </p>
-        <Button onClick={() => navigate('/newcompany')}>
-          Create company profile
-        </Button>
-      </Container>
+      {!userInfo?.company && (
+        <Container className='mb-5 p-3 border rounded'>
+          <p>
+            If you want to add new job offers first you have to create a company
+            profile.
+          </p>
+          <Button onClick={() => navigate('/newcompany')}>
+            Create company profile
+          </Button>
+        </Container>
+      )}
+
       {isError && <Message variant='danger'>{errorHandler(error)}</Message>}
       <Form onSubmit={submitHandler}>
         <Row className='border rounded'>
