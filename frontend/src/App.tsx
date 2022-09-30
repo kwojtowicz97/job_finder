@@ -1,4 +1,10 @@
-import React, { createContext, Dispatch, SetStateAction, useState } from 'react'
+import React, {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useRef,
+  useState,
+} from 'react'
 import Header from './components/Header'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
@@ -16,6 +22,7 @@ import { UserInfo } from './types/User'
 import { usePersistedState } from './hooks/usePersistedState'
 import { ApplyScreen } from './screens/ApplyScreen'
 import { NewComapnyScreen } from './screens/NewComapnyScreen'
+import CompanyScreen from './screens/CompanyScreen'
 
 const queryClient = new QueryClient()
 
@@ -57,6 +64,8 @@ function App() {
     'userInfo'
   )
 
+  const portalContainer = useRef<HTMLDivElement>(null)
+
   const [toast, setToast] = useState<Toast>({ trigger: false })
   return (
     <userContext.Provider value={{ userInfo, setUserInfo }}>
@@ -64,13 +73,17 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Router>
             <Header />
-            <main className='py-3'>
+            <div ref={portalContainer} className='portal-container' />
+            <main>
               <Container fluid='lg' className='cnt'>
                 <Routes>
                   <Route path='/offer/:id' element={<OfferDetailScreen />} />
-                  <Route path='/' element={<HomeScreen />} />
+                  <Route
+                    path='/'
+                    element={<HomeScreen portalContainer={portalContainer} />}
+                  />
                   <Route path='/register' element={<RegisterScreen />} />
-                  <Route path='/register' element={<RegisterScreen />} />
+                  <Route path='/company/:id' element={<CompanyScreen />} />
                   <Route path='/login' element={<LoginScreen />} />
                   <Route path='/profile' element={<ProfileScreen />} />
                   <Route
