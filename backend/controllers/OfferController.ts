@@ -9,18 +9,50 @@ import { OfferModel as Offer } from '../models/offerModel'
 export const getOffers = asyncHandler(async (req: Request, res: Response) => {
   const pageSize = 10
   const page = Number(req.query.pageNumber) || 1
+  const { location, position } = req.query
+  console.log(req.query)
 
-  const keyword = req.query.keyword
-    ? {
-        name: {
-          $regex: req.query.keyword,
+  // const keyword = req.query.position
+  //   ? {
+  //       title: {
+  //         $regex: req.query.position,
+  //         $options: 'i',
+  //       },
+  //       address: {
+  //         $regex: req.query.location,
+  //         $options: 'i',
+  //       },
+  //     }
+  //   : {}
+
+  const keyword = {
+    // title: { $regex: req.query.position, $options: 'i' },
+    $or: [
+      {
+        address: {
+          $regex: req.query.location,
           $options: 'i',
         },
-      }
-    : {}
+      },
+      {
+        city: {
+          $regex: req.query.location,
+          $options: 'i',
+        },
+      },
+      {
+        country: {
+          $regex: req.query.location,
+          $options: 'i',
+        },
+      },
+    ],
+  }
 
-  const count = await Offer.countDocuments({ ...keyword })
-  const offers = await Offer.find({ ...keyword })
+  console.log(keyword)
+
+  const count = await Offer.countDocuments(keyword)
+  const offers = await Offer.find(keyword)
     .limit(pageSize)
     .skip(pageSize * (page - 1))
     .populate('company', 'name image rating')
