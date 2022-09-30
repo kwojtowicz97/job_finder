@@ -48,6 +48,11 @@ const Header = () => {
                     <LinkContainer to='/profile'>
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>
+                    {userInfo.company && (
+                      <LinkContainer to={`/company/${userInfo.company._id}`}>
+                        <NavDropdown.Item>Your Company</NavDropdown.Item>
+                      </LinkContainer>
+                    )}
 
                     <NavDropdown.Item
                       onClick={() => {
