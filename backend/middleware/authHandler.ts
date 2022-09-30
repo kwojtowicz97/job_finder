@@ -12,7 +12,7 @@ interface Decoded {
 
 export interface CustomRequest extends Request {
   user?: {
-    _id?: mongoose.Types.ObjectId
+    _id: mongoose.Types.ObjectId
     name?: string
     email?: string
     password?: string
