@@ -98,7 +98,10 @@ const OfferDetailScreen: React.FC = () => {
                         <h2 className='d-inline m-0 fs-5'>
                           {offer.company.name}
                         </h2>
-                        <Rating value={offer.company.rating}></Rating>
+                        <Rating
+                          className='ms-2'
+                          value={offer.company.rating}
+                        ></Rating>
                       </div>
                     </Col>
                   </Row>
