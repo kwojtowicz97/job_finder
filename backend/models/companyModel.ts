@@ -5,13 +5,11 @@ import {
   Ref,
   Severity,
 } from '@typegoose/typegoose'
-import { User } from './userModel'
+import mongoose from 'mongoose'
+import { Review } from './reviewModel'
 
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class Company {
-  // @prop({ ref: () => User })
-  // public user?: Ref<User>
-
   @prop()
   public name?: string
 
@@ -36,8 +34,8 @@ export class Company {
   @prop()
   public phoneNumber?: string
 
-  @prop()
-  public reviews?: Array<string>
+  @prop({ ref: () => Review })
+  public reviews!: Ref<Review>[]
 
   @prop()
   public rating?: string
