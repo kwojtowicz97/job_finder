@@ -1,17 +1,25 @@
 import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
 import { CustomRequest } from '../middleware/authHandler'
-import { Company, CompanyModel } from '../models/companyModel'
-import { User, UserModel } from '../models/userModel'
-import mongoose from 'mongoose'
+import { CompanyModel } from '../models/companyModel'
+import { UserModel } from '../models/userModel'
+import { OfferModel } from '../models/offerModel'
+import { ReviewModel } from '../models/reviewModel'
 
 export const getCompanyById = asyncHandler(
   async (req: Request, res: Response) => {
     const company = await CompanyModel.findById(req.params.id)
 
     if (company) {
+      const offers = await OfferModel.find({ company: company._id }).populate(
+        'company'
+      )
+
       res.status(201)
-      res.json(company)
+      res.json({
+        company,
+        offers,
+      })
     } else {
       throw new Error('Company not found')
     }
@@ -59,7 +67,7 @@ export const createNewCompany = asyncHandler(
 
 export const updateCompany = asyncHandler(
   async (req: CustomRequest, res: Response) => {
-    if (!req.user?.company) {
+    if (!req.user!.company) {
       throw new Error("User doesn't have a company")
     }
     const company = await CompanyModel.findById(req.user?.company)
@@ -80,6 +88,36 @@ export const updateCompany = asyncHandler(
     } else {
       res.status(404)
       throw new Error('Company not found')
+    }
+  }
+)
+
+export const createReview = asyncHandler(
+  async (req: CustomRequest, res: Response) => {
+    const company = await CompanyModel.findById(req.params.id)
+
+    if (!company) {
+      throw new Error('Company not found')
+    }
+
+    if (company.reviews?.some((review) => review === req.user?._id)) {
+      throw new Error('You can only add one review')
+    }
+
+    if (
+      req.user?._id &&
+      req.body.contents &&
+      req.body.rating &&
+      company.reviews
+    ) {
+      const createdReview = await ReviewModel.create({
+        company: company._id,
+        contents: req.body.contents,
+        rating: req.body.rating,
+      })
+      company.reviews?.push(createdReview._id)
+      const savedCompany = await company.save()
+      res.send(savedCompany)
     }
   }
 )
