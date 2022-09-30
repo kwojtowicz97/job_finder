@@ -74,7 +74,7 @@ export const getUserById = asyncHandler(
 
 export const updateUser = asyncHandler(
   async (req: CustomRequest, res: Response) => {
-    const user = await User.findById(req.user?._id)
+    const user = await User.findById(req.user?._id).populate('company')
 
     if (user) {
       user.name = req.body.name || user.name
@@ -85,9 +85,9 @@ export const updateUser = asyncHandler(
       user.city = req.body.city || user.city
       user.address = req.body.address || user.address
 
-      const updatedUser = await user.save()
+      await user.save()
 
-      res.send(updatedUser.toJSON())
+      res.send(user.toJSON())
     } else {
       res.status(404)
       throw new Error('User not found')
@@ -97,7 +97,7 @@ export const updateUser = asyncHandler(
 
 export const addToFavourite = asyncHandler(
   async (req: CustomRequest, res: Response) => {
-    const user = await User.findById(req.user?._id)
+    const user = await User.findById(req.user?._id).populate('company')
     const offer = await Offer.findById(req.params.id)
 
     if (user && offer) {
