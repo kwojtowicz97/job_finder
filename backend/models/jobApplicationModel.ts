@@ -16,11 +16,11 @@ export interface SendJobApplicationData {
 }
 
 export class JobApplication {
-  @prop({ ref: () => OfferClass })
-  public offer?: Ref<OfferClass>
+  @prop({ ref: () => OfferClass, required: true })
+  public offer!: Ref<OfferClass>
 
   @prop({ ref: () => User })
-  public user?: Ref<User>
+  public user!: Ref<User>
 
   @prop()
   public name?: string

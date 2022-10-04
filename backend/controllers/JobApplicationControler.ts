@@ -1,8 +1,16 @@
 import asyncHandler from 'express-async-handler'
-import { Response } from 'express'
+import { application, Response } from 'express'
 import { CustomRequest } from '../middleware/authHandler'
 import JobApplication from '../models/jobApplicationModel'
-import { OfferModel as Offer } from '../models/offerModel'
+import { JobApplication as TJobApplication } from '../models/jobApplicationModel'
+import {
+  OfferClass,
+  OfferModel as Offer,
+  OfferModel,
+} from '../models/offerModel'
+import JobApplicationModel from '../models/jobApplicationModel'
+import { CompanyModel } from '../models/companyModel'
+import mongoose from 'mongoose'
 
 export const createJobApplication = asyncHandler(
   async (req: CustomRequest, res: Response) => {
@@ -29,5 +37,15 @@ export const createJobApplication = asyncHandler(
       res.status(400)
       throw new Error('Offer does not found')
     }
+  }
+)
+
+export const getJobApplications = asyncHandler(
+  async (req: CustomRequest, res: Response) => {
+    const jobApplications = await JobApplicationModel.find({
+      company: req.user?.company,
+    }).populate('offer')
+
+    res.send(jobApplications)
   }
 )
