@@ -26,9 +26,12 @@ import CompanyScreenEditCompany from './CompanyScreenEditCompany'
 const CompanyScreen = () => {
   const params = useParams()
   const { userInfo } = useContext(userContext)
-  const { data, isLoading, isError, error } = useGetCompanyDetails(params.id)
+  const { data, isLoading, isError, error, refetch } = useGetCompanyDetails(
+    params.id
+  )
 
   const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [isReviewAdded, setIsReviewAdded] = useState<boolean>(false)
 
   return isLoading ? (
     <Loader />
@@ -109,9 +112,13 @@ const CompanyScreen = () => {
             </ListGroup>
           </Tab>
           <Tab eventKey='reviews' title='Reviews'>
-            <NewReview />
-            {data.company.reviews.map((review) => (
-              <Review review={review} />
+            {userInfo &&
+              !data.company.reviews.some(
+                (review) => review.user === userInfo?._id
+              ) && <NewReview id={params.id!} refetch={refetch} />}
+            {/* <h2 className='mt-2'>All reviews</h2> */}
+            {data.company.reviews.reverse().map((review) => (
+              <Review key={review._id} review={review} />
             ))}
           </Tab>
         </Tabs>
