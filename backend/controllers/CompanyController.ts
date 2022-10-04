@@ -8,7 +8,9 @@ import { ReviewModel } from '../models/reviewModel'
 
 export const getCompanyById = asyncHandler(
   async (req: Request, res: Response) => {
-    const company = await CompanyModel.findById(req.params.id)
+    const company = await CompanyModel.findById(req.params.id).populate(
+      'reviews'
+    )
 
     if (company) {
       const offers = await OfferModel.find({ company: company._id }).populate(
