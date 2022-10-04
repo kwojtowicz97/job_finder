@@ -23,10 +23,7 @@ const SearchBar = ({ searchBarProps, refetch }: Props) => {
   }
 
   return (
-    <Form
-      onSubmit={submitHandler}
-      className='d-flex py-5 px-3 bg-info shadow mb-3'
-    >
+    <Form onSubmit={submitHandler} className='d-flex py-5 px-3 shadow-sm mb-3'>
       <Row className='w-100 d-flex align-items-center'>
         <Col className='col-2'>
           <h2 className='text-end fs-2'>
