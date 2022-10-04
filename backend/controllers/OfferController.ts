@@ -9,8 +9,6 @@ import { OfferModel as Offer } from '../models/offerModel'
 export const getOffers = asyncHandler(async (req: Request, res: Response) => {
   const pageSize = 10
   const page = Number(req.query.pageNumber) || 1
-  const { location, position } = req.query
-  console.log(req.query)
 
   // const keyword = req.query.position
   //   ? {
@@ -48,8 +46,6 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
       },
     ],
   }
-
-  console.log(keyword)
 
   const count = await Offer.countDocuments(keyword)
   const offers = await Offer.find(keyword)
