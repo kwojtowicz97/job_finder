@@ -31,7 +31,7 @@ const RegisterScreen = () => {
 
   const { data, isLoading, isError, isSuccess, error, mutateAsync } =
     useMutation<LoginResponse, Error, LoginUserData>(
-      ['registerResponse'],
+      ['loginResponse'],
       loginUser
     )
 
