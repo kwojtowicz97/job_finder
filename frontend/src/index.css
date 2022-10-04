@@ -106,3 +106,7 @@ button:not(.stripes-active) .stripes {
 .toast-container {
   padding-bottom: 4rem;
 }
+
+.job-application:last-child {
+  border-bottom: none !important;
+}

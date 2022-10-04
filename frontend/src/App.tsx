@@ -23,6 +23,8 @@ import { usePersistedState } from './hooks/usePersistedState'
 import { ApplyScreen } from './screens/ApplyScreen'
 import { NewComapnyScreen } from './screens/NewComapnyScreen'
 import CompanyScreen from './screens/CompanyScreen'
+import MainNavBar from './components/MainNavBar'
+import RecievedJobApplicationsScreen from './screens/RecievedJobApplicationsScreen'
 
 const queryClient = new QueryClient()
 
@@ -73,8 +75,9 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Router>
             <Header />
+            <MainNavBar />
             <div ref={portalContainer} className='portal-container' />
-            <main>
+            <main className='p-3'>
               <Container fluid='lg' className='cnt'>
                 <Routes>
                   <Route path='/offer/:id' element={<OfferDetailScreen />} />
@@ -92,6 +95,10 @@ function App() {
                   />
                   <Route path='/apply/:id' element={<ApplyScreen />} />
                   <Route path='/newcompany' element={<NewComapnyScreen />} />
+                  <Route
+                    path='/recieved-applications'
+                    element={<RecievedJobApplicationsScreen />}
+                  />
                 </Routes>
               </Container>
             </main>
