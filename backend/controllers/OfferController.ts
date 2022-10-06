@@ -1,7 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
-
-import { OfferModel as Offer } from '../models/offerModel'
+import { OfferModel } from '../models'
 
 // @desc    Fetch all offers
 // @route   GET /api/products
@@ -47,11 +46,11 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
     ],
   }
 
-  const count = await Offer.countDocuments(keyword)
-  const offers = await Offer.find(keyword)
+  const count = await OfferModel.countDocuments(keyword)
+  const offers = await OfferModel.find(keyword)
     .limit(pageSize)
     .skip(pageSize * (page - 1))
-    .populate('company', 'name image rating')
+    .populate({ path: 'company', populate: { path: 'reviews' } })
 
   res.json({ offers, page, pages: Math.ceil(count / pageSize) })
 })
@@ -61,7 +60,10 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
 // @access  Public
 export const getOfferById = asyncHandler(
   async (req: Request, res: Response) => {
-    const offer = await Offer.findById(req.params.id).populate('company')
+    const offer = await OfferModel.findById(req.params.id).populate({
+      path: 'company',
+      populate: { path: 'reviews' },
+    })
 
     if (offer && offer.expiresAt instanceof Date) {
       const hours =
