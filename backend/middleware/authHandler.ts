@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import { Request, Response, NextFunction } from 'express'
-import { UserModel as User } from '../models/userModel'
+import { UserModel as User } from '../models'
 import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose'
 import { Company } from '../models/companyModel'

@@ -51,5 +51,3 @@ export class OfferClass {
   @prop()
   public expiresIn?: string
 }
-
-export const OfferModel = getModelForClass(OfferClass)
