@@ -1,23 +1,18 @@
-import {
-  getModelForClass,
-  modelOptions,
-  prop,
-  Ref,
-  Severity,
-} from '@typegoose/typegoose'
+import { modelOptions, prop, Ref, Severity } from '@typegoose/typegoose'
 import mongoose from 'mongoose'
-import { User } from './userModel'
+import { Company } from './companyModel'
 
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class Review {
   @prop()
-  public user?: mongoose.Types.ObjectId
+  public user!: mongoose.Types.ObjectId
+
+  @prop({ ref: () => Company })
+  public company!: Ref<Company>
 
   @prop()
-  public contents?: string
+  public contents!: string
 
   @prop()
-  public rating?: number
+  public rating!: number
 }
-
-export const ReviewModel = getModelForClass(Review)
