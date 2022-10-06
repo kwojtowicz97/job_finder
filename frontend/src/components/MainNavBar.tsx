@@ -8,6 +8,7 @@ import {
   NavDropdown,
   Offcanvas,
 } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 import { userContext } from '../App'
 
 const expand = 'sm'
@@ -35,16 +36,20 @@ const MainNavBar = () => {
           <Offcanvas.Body>
             <Container>
               <Nav className='flex-grow-1 pe-3'>
-                <Nav.Link href='/'>Job offers</Nav.Link>
-                <Nav.Link href='/companies'>Companies</Nav.Link>
+                <LinkContainer to='/'>
+                  <Nav.Link>Job offers</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to='/companies'>
+                  <Nav.Link>Companies</Nav.Link>
+                </LinkContainer>
                 {userInfo?.company && (
                   <>
-                    <Nav.Link href={`/company/${userInfo.company._id}`}>
-                      Your company
-                    </Nav.Link>
-                    <Nav.Link href={`/recieved-applications`}>
-                      Recieved Job Applications
-                    </Nav.Link>
+                    <LinkContainer to={`/company/${userInfo.company._id}`}>
+                      <Nav.Link>Your company</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to={`/recieved-applications`}>
+                      <Nav.Link>Recieved Job Applications</Nav.Link>
+                    </LinkContainer>
                   </>
                 )}
               </Nav>
