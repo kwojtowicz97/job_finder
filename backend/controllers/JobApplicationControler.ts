@@ -1,26 +1,18 @@
 import asyncHandler from 'express-async-handler'
-import { application, Response } from 'express'
+import { Response } from 'express'
 import { CustomRequest } from '../middleware/authHandler'
-import JobApplication from '../models/jobApplicationModel'
-import { JobApplication as TJobApplication } from '../models/jobApplicationModel'
-import {
-  OfferClass,
-  OfferModel as Offer,
-  OfferModel,
-} from '../models/offerModel'
-import JobApplicationModel from '../models/jobApplicationModel'
-import { CompanyModel } from '../models/companyModel'
-import mongoose from 'mongoose'
+import { JobApplicationModel, OfferModel } from '../models'
+import { isDocument } from '@typegoose/typegoose'
 
 export const createJobApplication = asyncHandler(
   async (req: CustomRequest, res: Response) => {
-    const jobOffer = await Offer.findById(req.params.id)
+    const jobOffer = await OfferModel.findById(req.params.id)
 
     const { name, email, phoneNumber, country, city, experience, cvFile } =
       req.body
 
     if (jobOffer) {
-      const jobAppliction = await JobApplication.create({
+      const jobAppliction = await JobApplicationModel.create({
         offer: jobOffer._id,
         user: req.user!._id,
         name,
@@ -47,5 +39,39 @@ export const getJobApplications = asyncHandler(
     }).populate('offer')
 
     res.send(jobApplications)
+  }
+)
+
+export const updateStateOfJobApplication = asyncHandler(
+  async (req: CustomRequest, res: Response) => {
+    const jobApplication = await JobApplicationModel.findById(
+      req.params.id
+    ).populate('offer')
+
+    if (!jobApplication) {
+      res.status(400)
+      throw new Error('Bad request')
+    }
+
+    if (!isDocument(jobApplication.offer)) {
+      res.status(400)
+      throw new Error('Bad request')
+    }
+
+    if (!(String(req.user?.company) === String(jobApplication.offer.company))) {
+      res.status(401)
+      throw new Error('Not authorized')
+    }
+
+    jobApplication.status = req.body.status
+
+    const updatedJobApplication = await jobApplication.save()
+
+    if (!updatedJobApplication) {
+      res.status(500)
+      throw new Error('Internal Server Error')
+    }
+
+    res.send(updatedJobApplication)
   }
 )
