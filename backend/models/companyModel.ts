@@ -1,14 +1,18 @@
 import {
-  getModelForClass,
+  isDocument,
   modelOptions,
+  pre,
   prop,
   Ref,
   Severity,
 } from '@typegoose/typegoose'
-import mongoose from 'mongoose'
+import { OfferClass } from './offerModel'
 import { Review } from './reviewModel'
 
-@modelOptions({ options: { allowMixed: Severity.ALLOW } })
+@modelOptions({
+  options: { allowMixed: Severity.ALLOW },
+  schemaOptions: { toJSON: { virtuals: true } },
+})
 export class Company {
   @prop()
   public name?: string
@@ -34,11 +38,29 @@ export class Company {
   @prop()
   public phoneNumber?: string
 
-  @prop({ ref: () => Review })
-  public reviews!: Ref<Review>[]
+  @prop({
+    ref: () => Review,
+    foreignField: 'company',
+    localField: '_id',
+  })
+  public reviews?: Ref<Review>[]
 
-  @prop()
-  public rating?: string
+  public get rating() {
+    const sum =
+      this.reviews?.reduce((prev, curr) => {
+        if (isDocument(curr)) {
+          return prev + curr.rating
+        }
+        return 0
+      }, 0) || 0
+    return sum / this.reviews!.length
+  }
+
+  @prop({
+    ref: 'OfferClass',
+    foreignField: 'company',
+    localField: '_id',
+    count: true,
+  })
+  public offersCount?: number
 }
-
-export const CompanyModel = getModelForClass(Company)

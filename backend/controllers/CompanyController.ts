@@ -1,10 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
 import { CustomRequest } from '../middleware/authHandler'
-import { CompanyModel } from '../models/companyModel'
-import { UserModel } from '../models/userModel'
-import { OfferModel } from '../models/offerModel'
-import { ReviewModel } from '../models/reviewModel'
+import { CompanyModel, OfferModel, UserModel } from '../models'
 
 export const getCompanyById = asyncHandler(
   async (req: Request, res: Response) => {
@@ -13,9 +10,10 @@ export const getCompanyById = asyncHandler(
     )
 
     if (company) {
-      const offers = await OfferModel.find({ company: company._id }).populate(
-        'company'
-      )
+      const offers = await OfferModel.find({ company: company._id }).populate({
+        path: 'company',
+        populate: { path: 'reviews' },
+      })
 
       res.status(201)
       res.json({
@@ -72,7 +70,9 @@ export const updateCompany = asyncHandler(
     if (!req.user!.company) {
       throw new Error("User doesn't have a company")
     }
-    const company = await CompanyModel.findById(req.user?.company)
+    const company = await CompanyModel.findById(req.user?.company).populate(
+      'reviews'
+    )
 
     if (company) {
       company.name = req.body.name || company.name
@@ -94,32 +94,12 @@ export const updateCompany = asyncHandler(
   }
 )
 
-export const createReview = asyncHandler(
-  async (req: CustomRequest, res: Response) => {
-    const company = await CompanyModel.findById(req.params.id)
+export const getAllCompanies = asyncHandler(
+  async (req: Request, res: Response) => {
+    const companies = await CompanyModel.find({})
+      .populate('offersCount')
+      .populate('reviews')
 
-    if (!company) {
-      throw new Error('Company not found')
-    }
-
-    if (company.reviews?.some((review) => review === req.user?._id)) {
-      throw new Error('You can only add one review')
-    }
-
-    if (
-      req.user?._id &&
-      req.body.contents &&
-      req.body.rating &&
-      company.reviews
-    ) {
-      const createdReview = await ReviewModel.create({
-        company: company._id,
-        contents: req.body.contents,
-        rating: req.body.rating,
-      })
-      company.reviews?.push(createdReview._id)
-      const savedCompany = await company.save()
-      res.send(savedCompany)
-    }
+    res.send(companies)
   }
 )
