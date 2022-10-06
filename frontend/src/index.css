@@ -110,3 +110,34 @@ button:not(.stripes-active) .stripes {
 .job-application:last-child {
   border-bottom: none !important;
 }
+
+.carousel-control-prev {
+  left: -20px !important;
+  width: auto !important;
+}
+.carousel-control-next {
+  right: -20px !important;
+  width: auto !important;
+}
+
+.carousel-indicators {
+  bottom: -42px !important;
+}
+
+.carousel-indicators button {
+  background-color: var(--bs-info) !important;
+}
+
+hr {
+  border-top: 1px dashed black !important;
+}
+
+.slick-slider {
+  margin-bottom: 2rem;
+}
+
+@media only screen and (max-width: 1140px) {
+  main {
+    padding: 0 !important;
+  }
+}
