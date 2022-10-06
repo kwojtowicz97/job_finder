@@ -25,6 +25,7 @@ import { NewComapnyScreen } from './screens/NewComapnyScreen'
 import CompanyScreen from './screens/CompanyScreen'
 import MainNavBar from './components/MainNavBar'
 import RecievedJobApplicationsScreen from './screens/RecievedJobApplicationsScreen'
+import CompaniesScreen from './screens/CompaniesScreen'
 
 const queryClient = new QueryClient()
 
@@ -87,6 +88,7 @@ function App() {
                   />
                   <Route path='/register' element={<RegisterScreen />} />
                   <Route path='/company/:id' element={<CompanyScreen />} />
+                  <Route path='/companies' element={<CompaniesScreen />} />
                   <Route path='/login' element={<LoginScreen />} />
                   <Route path='/profile' element={<ProfileScreen />} />
                   <Route
