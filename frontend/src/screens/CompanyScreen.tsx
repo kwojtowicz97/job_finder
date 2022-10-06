@@ -1,5 +1,4 @@
-import { userInfo } from 'os'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import {
   Button,
   Col,
@@ -31,7 +30,6 @@ const CompanyScreen = () => {
   )
 
   const [isEditing, setIsEditing] = useState<boolean>(false)
-  const [isReviewAdded, setIsReviewAdded] = useState<boolean>(false)
 
   return isLoading ? (
     <Loader />
@@ -116,7 +114,6 @@ const CompanyScreen = () => {
               !data.company.reviews.some(
                 (review) => review.user === userInfo?._id
               ) && <NewReview id={params.id!} refetch={refetch} />}
-            {/* <h2 className='mt-2'>All reviews</h2> */}
             {data.company.reviews.reverse().map((review) => (
               <Review key={review._id} review={review} />
             ))}
