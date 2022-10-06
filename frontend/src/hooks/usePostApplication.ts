@@ -41,7 +41,7 @@ const usePostApplication = (offerId: string) => {
   }
 
   const postApplication = useMutation<any, Error, SendApplicationData>(
-    ['registerResponse'],
+    ['postApplication'],
     sendApplication
   )
   const submitHandler = (e: FormEvent) => {

@@ -54,7 +54,7 @@ const useUpdateCompany = (
   }
 
   const updateCompanyMutation = useMutation<any, Error, UpdateCompanyData>(
-    ['registerResponse'],
+    ['updateCompany'],
     updateCompany
   )
   const submitHandler = (e: FormEvent) => {
