@@ -5,6 +5,7 @@ import Rating from './Rating'
 
 interface Props {
   company: Company
+  extended?: boolean
 }
 
 const CompanyCard = ({ company }: Props) => {
@@ -15,7 +16,7 @@ const CompanyCard = ({ company }: Props) => {
         role='button'
         onClick={() => navigate(`/company/${company._id}`)}
         className='border rounded'
-        style={{ minHeight: '195px' }}
+        // style={{ minHeight: '195px' }}
       >
         <Container
           style={{ minHeight: '112px' }}
@@ -32,10 +33,12 @@ const CompanyCard = ({ company }: Props) => {
           </Container>
         </Container>
         <Container>
-          <i className='fas fa-location-dot mb-2' />
-          <p className='d-inline ms-2'>{company.city}</p>
+          <p className='border rounded p-1  d-inline-block bg-info'>{`${company.offersCount} job offers`}</p>
+          <span>
+            <i className='fas fa-location-dot mb-2 ms-3' />
+            <p className='d-inline ms-1'>{company.city}</p>
+          </span>
         </Container>
-        <p className='border rounded p-1 ms-2 d-inline-block bg-info'>{`${company.offersCount} job offers`}</p>
       </Container>
     </Container>
   )
