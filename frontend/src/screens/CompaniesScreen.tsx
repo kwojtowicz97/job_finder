@@ -4,6 +4,8 @@ import Message from '../components/Message'
 import useListAllCompanies from '../hooks/useListAllCompanies'
 import { errorHandler } from '../utils/errorHandler'
 import { CardCarousel } from '../components/CardCarousel'
+import CompanyCard from '../components/CompanyCard'
+import CompanyCardExtended from '../components/CompanyCardExtended'
 
 const CompaniesScreen = () => {
   const { data, isLoading, error, isError } = useListAllCompanies()
@@ -48,6 +50,11 @@ const CompaniesScreen = () => {
           </Col>
         </Row>
       </Form>
+      {data
+        .sort((a, b) => (a.name > b.name ? 1 : -1))
+        .map((company) => (
+          <CompanyCardExtended company={company} />
+        ))}
     </>
   )
 }
