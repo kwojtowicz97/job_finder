@@ -22,7 +22,6 @@ enum Status {
 }
 
 const JobApplicationsGroup = ({ applicationGroup }: Props) => {
-  const [status, setStatus] = useState<Status>(Status.New)
   return (
     <Container className='w-100 border rounded mb-3'>
       <Row className='border-bottom p-3'>

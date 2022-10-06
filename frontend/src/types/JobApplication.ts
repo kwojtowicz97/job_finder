@@ -1,3 +1,4 @@
+import { Status } from '../components/JobApplication'
 import { Review } from '../components/Review'
 import { Offer } from './Offer'
 
@@ -12,4 +13,5 @@ export interface JobApplication {
   city: string
   experience: string
   cvFile: string
+  status: Status
 }
