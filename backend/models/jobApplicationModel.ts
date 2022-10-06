@@ -15,6 +15,14 @@ export interface SendJobApplicationData {
   cvFile: string
 }
 
+export enum Status {
+  New = 'New',
+  Opened = 'Opened',
+  Considering = 'Considering',
+  Rejected = 'Rejected',
+  Accepted = 'Accepted',
+}
+
 export class JobApplication {
   @prop({ ref: () => OfferClass, required: true })
   public offer!: Ref<OfferClass>
@@ -51,8 +59,7 @@ export class JobApplication {
 
   @prop()
   public createdAt?: Date
+
+  @prop({ default: Status.New, required: true })
+  public status!: Status
 }
-
-const JobApplicationModel = getModelForClass(JobApplication)
-
-export default JobApplicationModel
