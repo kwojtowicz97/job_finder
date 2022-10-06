@@ -1,4 +1,5 @@
 import { Review } from '../components/Review'
+import { Offer } from './Offer'
 
 export interface Company {
   _id: string
@@ -13,4 +14,5 @@ export interface Company {
   phoneNumber: string
   reviews: Array<Review>
   rating: number
+  offersCount: number
 }
