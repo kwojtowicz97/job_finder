@@ -54,7 +54,10 @@ const MainNavBar = () => {
                 ) : (
                   <>
                     <LinkContainer to={`/send-applications`}>
-                      <Nav.Link>Send Job Applications</Nav.Link>
+                      <Nav.Link>Send job applications</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to={`/cv-builder`}>
+                      <Nav.Link>CV builder</Nav.Link>
                     </LinkContainer>
                   </>
                 )}

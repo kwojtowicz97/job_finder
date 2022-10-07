@@ -27,6 +27,7 @@ import MainNavBar from './components/MainNavBar'
 import RecievedJobApplicationsScreen from './screens/RecievedJobApplicationsScreen'
 import CompaniesScreen from './screens/CompaniesScreen'
 import SendJobApplicationsScreen from './screens/SendJobApplicationsScreen'
+import CvBuilder from './screens/CvBuilderScreen'
 
 const queryClient = new QueryClient()
 
@@ -106,6 +107,7 @@ function App() {
                     path='/send-applications'
                     element={<SendJobApplicationsScreen />}
                   />
+                  <Route path='/cv-builder' element={<CvBuilder />} />
                 </Routes>
               </Container>
             </main>
