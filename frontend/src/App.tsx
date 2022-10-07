@@ -26,6 +26,7 @@ import CompanyScreen from './screens/CompanyScreen'
 import MainNavBar from './components/MainNavBar'
 import RecievedJobApplicationsScreen from './screens/RecievedJobApplicationsScreen'
 import CompaniesScreen from './screens/CompaniesScreen'
+import SendJobApplicationsScreen from './screens/SendJobApplicationsScreen'
 
 const queryClient = new QueryClient()
 
@@ -100,6 +101,10 @@ function App() {
                   <Route
                     path='/recieved-applications'
                     element={<RecievedJobApplicationsScreen />}
+                  />
+                  <Route
+                    path='/send-applications'
+                    element={<SendJobApplicationsScreen />}
                   />
                 </Routes>
               </Container>
