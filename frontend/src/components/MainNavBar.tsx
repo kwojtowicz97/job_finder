@@ -42,13 +42,19 @@ const MainNavBar = () => {
                 <LinkContainer to='/companies'>
                   <Nav.Link>Companies</Nav.Link>
                 </LinkContainer>
-                {userInfo?.company && (
+                {userInfo?.company ? (
                   <>
                     <LinkContainer to={`/company/${userInfo.company._id}`}>
                       <Nav.Link>Your company</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to={`/recieved-applications`}>
                       <Nav.Link>Recieved Job Applications</Nav.Link>
+                    </LinkContainer>
+                  </>
+                ) : (
+                  <>
+                    <LinkContainer to={`/send-applications`}>
+                      <Nav.Link>Send Job Applications</Nav.Link>
                     </LinkContainer>
                   </>
                 )}
