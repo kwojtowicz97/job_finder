@@ -191,3 +191,47 @@ hr {
 .job-experience-item-button:hover {
   color: var(--bs-info);
 }
+
+
+.skill-item i:hover {
+  cursor: pointer;
+  color: rgb(0, 58, 152);
+  border-radius: 50%;
+}
+
+.label {
+  display: inline-block;
+  width: 15%;
+  flex-shrink: 0;
+}
+
+.label-date {
+  display: inline-block;
+  width: 15%;
+  flex-shrink: 0;
+  font-size: 0.7em;
+  margin-top: 2px;
+}
+
+#cv-preview {
+  min-width: 400px !important;
+  width: 400px !important;
+  box-sizing: content-box;
+  font-size: 7.5px; 
+}
+
+
+@media only screen and (max-width: 992px) {
+  #cv-preview {
+    display: none;
+  }
+} 
+
+/* @media only screen and (max-width: 1200px) {
+  #cv-preview {
+    min-width: 297.5px !important;
+    max-width: 297.5px !important;
+  }
+}  */
+
+

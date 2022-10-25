@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Card, Row, Col, Container } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
-import Rating from './Rating'
-import { Offer as OfferType } from '../types'
-import SaveIcon from './SaveIcon'
-import { userContext } from '../App'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
+import { useContext, useEffect } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import { userContext } from '../App'
+import { Offer as OfferType } from '../types'
+import Rating from './Rating'
+import SaveIcon from './SaveIcon'
 
 interface Props {
   offer: OfferType

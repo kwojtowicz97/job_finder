@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Container, Form, Modal } from 'react-bootstrap'
 import CvBuilderEducationItem from './EducationSection/EducationItem'
 import CvBuilderExperienceItem from './ExperienceSection/ExperienceItem'
@@ -6,16 +6,30 @@ import CvBuilderLanguageItem from './LanguageSection/LanguageItem'
 import CvBuilderNewEducationItem from './EducationSection/NewEducationItem'
 import CvBuilderNewExperience from './ExperienceSection/NewExperience'
 import CvBuilderNewLanguageItem from './LanguageSection/NewLanguageItem'
+import { cvBuilderContext } from '../CvBuilderContextProvider'
 
 export const CvBuilderExperience = () => {
   const [showNewJobExperience, setShowNewJobExperience] = useState(false)
   const [showNewEducation, setShowNewEducation] = useState(false)
   const [showNewLanguage, setShowNewLanguage] = useState(false)
+
+  const {
+    experienceCardState: {
+      jobExperienceItems,
+      setJobExperienceItems,
+      educationItems,
+      setEducationItems,
+      languagesItems,
+      setLanguagesItems,
+    },
+  } = useContext(cvBuilderContext)
+
   return (
-    <Container className='d-flex flex-column justify-content-center'>
+    <Container className='d-flex p-3 flex-column justify-content-center'>
       <h2>Job experience</h2>
-      <CvBuilderExperienceItem />
-      <CvBuilderExperienceItem />
+      {jobExperienceItems.map((item, index) => (
+        <CvBuilderExperienceItem item={item} index={index} />
+      ))}
       <Button
         variant='info'
         className='mx-auto my-3'
@@ -23,12 +37,17 @@ export const CvBuilderExperience = () => {
       >
         Add new
       </Button>
-      <CvBuilderNewExperience
-        show={showNewJobExperience}
-        setShow={setShowNewJobExperience}
-      />
+      {showNewJobExperience && (
+        <CvBuilderNewExperience
+          setItems={setJobExperienceItems}
+          show={showNewJobExperience}
+          setShow={setShowNewJobExperience}
+        />
+      )}
       <h2>Education</h2>
-      <CvBuilderEducationItem />
+      {educationItems.map((item, index) => (
+        <CvBuilderEducationItem item={item} index={index} />
+      ))}
       <Button
         variant='info'
         className='mx-auto my-3'
@@ -37,11 +56,14 @@ export const CvBuilderExperience = () => {
         Add new
       </Button>
       <CvBuilderNewEducationItem
+        setItems={setEducationItems}
         show={showNewEducation}
         setShow={setShowNewEducation}
       />
       <h2>Languages</h2>
-      <CvBuilderLanguageItem />
+      {languagesItems.map((item, index) => (
+        <CvBuilderLanguageItem item={item} index={index} />
+      ))}
       <Button
         variant='info'
         className='mx-auto my-3'
@@ -50,9 +72,15 @@ export const CvBuilderExperience = () => {
         Add new
       </Button>
       <CvBuilderNewLanguageItem
+        setItems={setLanguagesItems}
         show={showNewLanguage}
         setShow={setShowNewLanguage}
       />
+      <Container className='text-end'>
+        <Button variant='info' className='my-3 ms-auto'>
+          Next
+        </Button>
+      </Container>
     </Container>
   )
 }

@@ -1,52 +1,75 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { Container } from 'react-bootstrap'
+import {
+  cvBuilderContext,
+  JobExperienceItem,
+} from '../../CvBuilderContextProvider'
+import CvBuilderNewEducationItem from '../EducationSection/NewEducationItem'
+import CvBuilderNewExperience from './NewExperience'
 
-const CvBuilderExperienceItem = () => {
+interface Props {
+  item: JobExperienceItem
+  index: number
+}
+
+const CvBuilderExperienceItem = ({ item, index }: Props) => {
+  const [isEditing, setIsEditing] = useState(false)
+
+  const {
+    experienceCardState: { setJobExperienceItems },
+  } = useContext(cvBuilderContext)
+
+  const deleteHandler = () => {
+    setJobExperienceItems!((state) => state.filter((i) => i !== item))
+  }
+
+  const editHandler = () => {
+    setIsEditing(true)
+  }
   return (
-    <Container className='border rounded p-3 my-1'>
-      <Container fluid className='d-flex justify-content-end'>
-        <i
-          role='button'
-          className='job-experience-item-button fa-solid fa-pen-to-square'
-        ></i>
-        <i
-          role='button'
-          className='job-experience-item-button fa-solid fa-trash ms-3'
-        ></i>
+    <>
+      <CvBuilderNewExperience
+        show={isEditing}
+        setShow={setIsEditing}
+        item={item}
+        index={index}
+        setItems={setJobExperienceItems}
+      />
+      <Container className='border rounded shadow-sm p-3 my-1'>
+        <Container fluid className='d-flex justify-content-end'>
+          <i
+            role='button'
+            onClick={editHandler}
+            className='job-experience-item-button fa-solid fa-pen-to-square'
+          ></i>
+          <i
+            onClick={deleteHandler}
+            role='button'
+            className='job-experience-item-button fa-solid fa-trash ms-3'
+          ></i>
+        </Container>
+        <label>Period</label>
+        <p>
+          <b>{`${item.startDate} - ${item.endDate}`}</b>
+        </p>
+        <label>Position</label>
+        <p>
+          <b>{item.position}</b>
+        </p>
+        <label>Company</label>
+        <p>
+          <b>{item.company}</b>
+        </p>
+        <label>Location</label>
+        <p>
+          <b>{item.location}</b>
+        </p>
+        <label>Description</label>
+        <p>
+          <b>{item.description}</b>
+        </p>
       </Container>
-      <label>Period</label>
-      <p>
-        <b>2021/08 - 2022/08</b>
-      </p>
-      <label>Position</label>
-      <p>
-        <b>Maintenance engineer</b>
-      </p>
-      <label>Company</label>
-      <p>
-        <b>Ferrero Poland</b>
-      </p>
-      <label>Location</label>
-      <p>
-        <b>05-622 Belsk Duży, ul. Szkolna 6</b>
-      </p>
-      <label>Description</label>
-      <p>
-        <b>
-          -Project implementation: "Analysis of the operation of rolling mill
-          bearings with a central lubrication system installed. Determination of
-          diagnostic and lubrication procedures."
-          <br />
-          -Participate in diagnosing bearings and other machine parts using
-          vibration, ultrasonic and temperature measurements.
-          <br />
-          -Developing test reports. <br />
-          -Determining lubricant dosages for individual bearings. <br />
-          -Determining central lubrication pump settings and progressive
-          distributor configurations.
-        </b>
-      </p>
-    </Container>
+    </>
   )
 }
 

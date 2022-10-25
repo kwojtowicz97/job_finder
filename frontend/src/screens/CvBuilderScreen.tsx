@@ -7,48 +7,41 @@ import CvBuilderPersonalInfo from '../components/CvBuilder/PersonalInfoCard/Pers
 import { CvBuilderSkills } from '../components/CvBuilder/SkillsCard/SkillsCard'
 import StepMenu from '../components/StepMenu'
 import { CvBuilderData } from '../types/CvBuilder'
+import CvBuilderContextProvider, {
+  cvBuilderContext,
+} from '../components/CvBuilder/CvBuilderContextProvider'
+import Preview from '../components/CvBuilder/Preview'
 
 const CvBuilder = () => {
-  const { userInfo } = useContext(userContext)
+  const [step, setStep] = useState<number>(1)
 
-  const initialCvBuilderData: CvBuilderData = {
-    personalInfo: {
-      name: userInfo?.name,
-      city: userInfo?.city,
-      country: userInfo?.country,
-      email: userInfo?.email,
-      phoneNumber: userInfo?.phoneNumber,
-      photo: undefined,
-    },
-  }
-
-  const [step, setStep] = useState(2)
   return (
-    <>
+    <CvBuilderContextProvider>
       <h2>CV builder</h2>
-      <StepMenu setStep={setStep} step={step} />
-      <Row>
-        <Col className='col-7'>
-          <Container className='border rounded shadow p-3'>
-            {(() => {
-              switch (step) {
-                case 1:
-                  return <CvBuilderPersonalInfo />
-                case 2:
-                  return <CvBuilderExperience />
-                case 3:
-                  return <CvBuilderSkills />
-                case 4:
-                  return <CvBuilderDownload />
-              }
-            })()}
-          </Container>
-        </Col>
-        <Col className='col-5'>
-          <Container className='border rounded shadow'>Preview</Container>
-        </Col>
-      </Row>
-    </>
+      <StepMenu setStep={setStep!} step={step} />
+      <Container className='d-flex '>
+        <Container className='border rounded h-100 shadow px-0 m-2'>
+          {(() => {
+            switch (step) {
+              case 1:
+                return <CvBuilderPersonalInfo />
+              case 2:
+                return <CvBuilderExperience />
+              case 3:
+                return <CvBuilderSkills />
+              case 4:
+                return <CvBuilderDownload />
+            }
+          })()}
+        </Container>
+        <Container
+          id='cv-preview'
+          className='border rounded shadow m-2 mb-auto'
+        >
+          <Preview />
+        </Container>
+      </Container>
+    </CvBuilderContextProvider>
   )
 }
 
