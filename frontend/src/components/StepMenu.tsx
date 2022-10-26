@@ -10,7 +10,7 @@ interface Props {
 const StepMenu = ({ step, setStep }: Props) => {
   return (
     <ul>
-      <Row className='step-menu'>
+      <Row className='step-menu d-none d-lg-flex'>
         {Array(4)
           .fill(0)
           .map((_, i) => (

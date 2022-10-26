@@ -38,7 +38,7 @@ const JobOffer = ({ offer }: Props) => {
   }, [isSuccess])
 
   return (
-    <Card className='flex-row my-3'>
+    <Card className='flex-row my-2 my-lg-3'>
       <Card.Img
         className='logo m-3 p-0 align-self-start align-self-md-center'
         src={offer.company.image}
@@ -72,7 +72,7 @@ const JobOffer = ({ offer }: Props) => {
             />
           </span>
         </Card.Title>
-        <Container className='w100 p-0'>
+        <Container className='ms-0 w100 p-0'>
           <i className='fas fa-location-dot mb-2' /> {offer.address}
           <Container>
             <Row>

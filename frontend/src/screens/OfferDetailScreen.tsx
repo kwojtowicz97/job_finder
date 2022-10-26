@@ -77,8 +77,7 @@ const OfferDetailScreen: React.FC = () => {
         offer && (
           <Container>
             <Row>
-              <Col className='col-12 col-md-8'>
-                {' '}
+              <Col className='col-12 col-md-8 p-0'>
                 <Container fluid className='border rounded'>
                   <Row>
                     <Col
@@ -169,7 +168,7 @@ const OfferDetailScreen: React.FC = () => {
                   </Row>
                 </Container>
               </Col>
-              <Col className='col-12 col-md-4'>
+              <Col className='col-12 col-md-4 mt-3 mt-md-0 p-0 px-md-3'>
                 <Container
                   fluid
                   className='border rounded position-sticky'

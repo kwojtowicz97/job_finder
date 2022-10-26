@@ -55,7 +55,7 @@ const HomeScreen = ({ portalContainer }: Props) => {
           )}
           <h2>Newest Job Offers</h2>
           <ListGroup variant='flush'>
-            <ListGroup.Item>
+            <ListGroup.Item className='p-0 p-lg-3'>
               {data.offers.map((offer) => (
                 <JobOffer key={offer._id} offer={offer} />
               ))}

@@ -19,7 +19,7 @@ const MainNavBar = () => {
     <Navbar
       key={expand}
       bg='info'
-      className='m-0 py-1 fs-5 shadow'
+      className='m-0 py-1 fs-5 shadow d-none d-lg-block'
       expand={expand}
     >
       <Container fluid>
