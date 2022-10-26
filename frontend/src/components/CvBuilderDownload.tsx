@@ -10,7 +10,12 @@ import useUploadCV from '../hooks/useUploadCV'
 const CvBuilderDownload = () => {
   const [cvFilePath, setCvFilePath] = useState<string | undefined>('')
   const { isSend, isSending, sendFileHandler } = useUploadCV(setCvFilePath)
-  const { previewDiv } = useContext(cvBuilderContext)
+  const {
+    previewDiv,
+    experienceCardState,
+    personalInfoCardState,
+    skillsCardState,
+  } = useContext(cvBuilderContext)
   const [pdf, setPdf] = useState<any>()
 
   const createPdf = async (element: HTMLDivElement) => {
@@ -33,7 +38,11 @@ const CvBuilderDownload = () => {
       .then((data: Blob) => {
         setPdf(data)
         console.log(pdf)
-        sendFileHandler(pdf)
+        sendFileHandler(pdf, {
+          experienceCardState,
+          personalInfoCardState,
+          skillsCardState,
+        })
       })
 
     return worker

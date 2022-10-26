@@ -9,6 +9,7 @@ export interface UserInfo {
   city: string
   address: string
   isAdmin: boolean
+  cvPath?: string
   token: boolean
   saved: Array<string>
   company?: Company

@@ -1,7 +1,6 @@
 import bcrypt from 'bcryptjs'
 import {
   DocumentType,
-  getModelForClass,
   modelOptions,
   pre,
   prop,
@@ -38,6 +37,12 @@ export class User {
   @prop()
   public isAdmin?: boolean
 
+  @prop()
+  public cvPath?: string
+
+  @prop()
+  public cvData?: any
+
   @prop({ type: () => Array<string>, required: false, default: [] })
   public saved?: Array<string>
 
@@ -66,6 +71,8 @@ export class User {
       city: obj.city,
       address: obj.address,
       isAdmin: obj.isAdmin,
+      cvPath: obj.cvPath,
+      cvData: obj.cvData,
       saved: obj.saved,
       token: generateToken(String(obj._id)),
       company: obj.company,
