@@ -78,7 +78,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Router>
             <Header />
-            <MainNavBar />
+            {/* <MainNavBar /> */}
             <div ref={portalContainer} className='portal-container' />
             <main className='p-0 p-lg-3'>
               <Container fluid='lg' className='cnt py-3'>
