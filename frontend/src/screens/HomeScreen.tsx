@@ -9,6 +9,7 @@ import { Offer } from '../types'
 import { errorHandler } from '../utils/errorHandler'
 import SearchBar from '../components/SearchBar'
 import ReactDOM from 'react-dom'
+import Pagination from '../components/Pagination'
 
 interface ListOffersResponse {
   offers: Offer[]
@@ -24,19 +25,26 @@ const HomeScreen = ({ portalContainer }: Props) => {
   const [position, setPosition] = useState<string | undefined>('')
   const [location, setLocation] = useState<string | undefined>('')
 
+  const [pageNumber, setPageNumber] = useState(1)
+
   console.log('rerender')
 
   const listOffers = async () => {
     const { data } = await axios.get(
-      `/api/offers/?position=${position}&location=${location}`
+      `/api/offers/?position=${position}&location=${location}&pageNumber=${pageNumber}`
     )
     return data
   }
 
-  const { data, isLoading, isError, error, refetch } = useQuery<
+  const { data, isLoading, isFetching, isError, error, refetch } = useQuery<
     ListOffersResponse,
     Error
   >(['listOffers'], listOffers)
+
+  useEffect(() => {
+    refetch()
+    window.scrollTo(0, 0)
+  }, [pageNumber])
 
   return (
     <>
@@ -54,13 +62,26 @@ const HomeScreen = ({ portalContainer }: Props) => {
             portalContainer.current!
           )}
           <h2>Newest Job Offers</h2>
-          <ListGroup variant='flush'>
-            <ListGroup.Item className='p-0 p-lg-3'>
-              {data.offers.map((offer) => (
-                <JobOffer key={offer._id} offer={offer} />
-              ))}
-            </ListGroup.Item>
-          </ListGroup>
+          {isLoading || isFetching ? (
+            <Loader />
+          ) : isError ? (
+            <Message variant='danger'>{errorHandler(error)}</Message>
+          ) : (
+            <>
+              <ListGroup variant='flush'>
+                <ListGroup.Item className='p-0 p-lg-3'>
+                  {data.offers.map((offer) => (
+                    <JobOffer key={offer._id} offer={offer} />
+                  ))}
+                </ListGroup.Item>
+              </ListGroup>
+              <Pagination
+                totalPagesCount={data.pages}
+                pageNumber={pageNumber}
+                setPageNumber={setPageNumber}
+              />
+            </>
+          )}
         </>
       )}
     </>

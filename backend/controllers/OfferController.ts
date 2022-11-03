@@ -6,7 +6,7 @@ import { OfferModel } from '../models'
 // @route   GET /api/products
 // @access  Public
 export const getOffers = asyncHandler(async (req: Request, res: Response) => {
-  const pageSize = 10
+  const pageSize = 3
   const page = Number(req.query.pageNumber) || 1
 
   const position = req.query.position
