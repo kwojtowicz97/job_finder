@@ -104,55 +104,55 @@ export const cvBuilderContext = createContext<CvBuilderContext>({
 })
 
 type Props = {
+  cvData: CvBuilderContext | undefined
   children: JSX.Element | JSX.Element[] | string | string[]
 }
 
-const CvBuilderContextProvider = ({ children }: Props) => {
+const CvBuilderContextProvider = ({ children, cvData }: Props) => {
   const previewDiv = useRef<HTMLDivElement>(null)
-
   const { userInfo } = useContext(userContext)
 
   const [name, setName] = usePersistedState<string | undefined>(
-    userInfo?.name,
+    cvData?.personalInfoCardState?.name || userInfo?.name,
     'name'
   )
   const [dateOfBirth, setDateOfBirth] = usePersistedState<string>(
-    '',
+    cvData?.personalInfoCardState?.dateOfBirth || '',
     'dateOfBirth'
   )
   const [country, setCountry] = usePersistedState<string | undefined>(
-    userInfo?.country,
+    cvData?.personalInfoCardState?.country || userInfo?.country,
     'country'
   )
   const [city, setCity] = usePersistedState<string | undefined>(
-    userInfo?.city,
+    cvData?.personalInfoCardState?.city || userInfo?.city,
     'city'
   )
   const [phoneNumber, setPhoneNumber] = usePersistedState<string | undefined>(
-    userInfo?.phoneNumber,
+    cvData?.personalInfoCardState?.phoneNumber || userInfo?.phoneNumber,
     'phoneNumber'
   )
   const [email, setEmail] = usePersistedState<string | undefined>(
-    userInfo?.email,
+    cvData?.personalInfoCardState?.email || userInfo?.email,
     'email'
   )
 
   const [jobExperienceItems, setJobExperienceItems] = usePersistedState<
     JobExperienceItem[] | []
-  >([], 'jobExperienceItems')
+  >(cvData?.experienceCardState?.jobExperienceItems || [], 'jobExperienceItems')
   const [educationItems, setEducationItems] = usePersistedState<
     EducationItem[] | []
-  >([], 'educationItems')
+  >(cvData?.experienceCardState?.educationItems || [], 'educationItems')
   const [languagesItems, setLanguagesItems] = usePersistedState<
     LanguagesItem[] | []
-  >([], 'languagesItems')
+  >(cvData?.experienceCardState?.languagesItems || [], 'languagesItems')
 
   const [skillsItems, setSkillsItems] = usePersistedState<string[]>(
-    [],
+    cvData?.skillsCardState?.skillsItems || [],
     'skillsItems'
   )
   const [hobbyItems, setHobbyItems] = usePersistedState<string[]>(
-    [],
+    cvData?.skillsCardState?.hobbyItems || [],
     'hobbyItems'
   )
 
