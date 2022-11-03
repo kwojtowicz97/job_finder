@@ -27,8 +27,6 @@ const HomeScreen = ({ portalContainer }: Props) => {
 
   const [pageNumber, setPageNumber] = useState(1)
 
-  console.log('rerender')
-
   const listOffers = async () => {
     const { data } = await axios.get(
       `/api/offers/?position=${position}&location=${location}&pageNumber=${pageNumber}`
