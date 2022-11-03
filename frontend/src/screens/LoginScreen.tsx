@@ -101,7 +101,7 @@ const RegisterScreen = () => {
           </Form>
         </Col>
         <Col
-          className='rounded-end'
+          className='rounded-end d-none d-lg-block'
           style={{
             backgroundImage: 'url("register-side-photo.jpeg")',
             backgroundSize: 'cover',
