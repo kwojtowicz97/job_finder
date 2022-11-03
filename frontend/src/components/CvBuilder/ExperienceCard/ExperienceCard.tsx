@@ -8,10 +8,23 @@ import CvBuilderNewExperience from './ExperienceSection/NewExperience'
 import CvBuilderNewLanguageItem from './LanguageSection/NewLanguageItem'
 import { cvBuilderContext } from '../CvBuilderContextProvider'
 
-export const CvBuilderExperience = () => {
+interface Props {
+  setStep: React.Dispatch<React.SetStateAction<number>>
+}
+
+export const CvBuilderExperience = ({ setStep }: Props) => {
   const [showNewJobExperience, setShowNewJobExperience] = useState(false)
   const [showNewEducation, setShowNewEducation] = useState(false)
   const [showNewLanguage, setShowNewLanguage] = useState(false)
+
+  const nextPageHandler = () => {
+    window.scrollTo(0, 0)
+    setStep((step) => step + 1)
+  }
+  const prevPageHandler = () => {
+    window.scrollTo(0, 0)
+    setStep((step) => step - 1)
+  }
 
   const {
     experienceCardState: {
@@ -76,8 +89,11 @@ export const CvBuilderExperience = () => {
         show={showNewLanguage}
         setShow={setShowNewLanguage}
       />
-      <Container className='text-end'>
-        <Button variant='info' className='my-3 ms-auto'>
+      <Container className='d-flex justify-content-around'>
+        <Button onClick={prevPageHandler} variant='info' className='my-3 '>
+          Back
+        </Button>
+        <Button onClick={nextPageHandler} variant='info' className='my-3 '>
           Next
         </Button>
       </Container>

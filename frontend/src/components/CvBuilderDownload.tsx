@@ -7,7 +7,11 @@ import useUploadFile from '../hooks/useUploadFile'
 import { useMutation } from '@tanstack/react-query'
 import useUploadCV from '../hooks/useUploadCV'
 
-const CvBuilderDownload = () => {
+interface Props {
+  setStep: React.Dispatch<React.SetStateAction<number>>
+}
+
+const CvBuilderDownload = ({ setStep }: Props) => {
   const [cvFilePath, setCvFilePath] = useState<string | undefined>('')
   const { isSend, isSending, sendFileHandler } = useUploadCV(setCvFilePath)
   const {
@@ -48,6 +52,11 @@ const CvBuilderDownload = () => {
     return worker
   }
 
+  const prevPageHandler = () => {
+    window.scrollTo(0, 0)
+    setStep((step) => step - 1)
+  }
+
   return (
     <Container className='p-0 m-0 text-center'>
       <h2 className='p-3  border-bottom m-0'>Your CV is ready!</h2>
@@ -75,6 +84,15 @@ const CvBuilderDownload = () => {
           </Button>
         </Col>
       </Row>
+      <Container className='border-top'>
+        <Button
+          onClick={prevPageHandler}
+          variant='info'
+          className='d-block m-3 me-auto '
+        >
+          Back
+        </Button>
+      </Container>
     </Container>
   )
 }

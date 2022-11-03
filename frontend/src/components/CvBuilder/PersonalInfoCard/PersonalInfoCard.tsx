@@ -3,7 +3,15 @@ import { Button, Container, Form } from 'react-bootstrap'
 import { countries } from '../../../screens/countries'
 import { cvBuilderContext } from '../CvBuilderContextProvider'
 
-const CvBuilderPersonalInfo = () => {
+interface Props {
+  setStep: React.Dispatch<React.SetStateAction<number>>
+}
+
+const CvBuilderPersonalInfo = ({ setStep }: Props) => {
+  const nextPageHandler = () => {
+    window.scrollTo(0, 0)
+    setStep((step) => step + 1)
+  }
   const {
     personalInfoCardState: {
       name,
@@ -40,7 +48,7 @@ const CvBuilderPersonalInfo = () => {
           type='date'
         />
       </Form.Group>
-      <h2>Domicle</h2>
+      <h2 className='pt-3'>Domicle</h2>
       <Form.Group>
         <Form.Label>Country</Form.Label>
         <Form.Select
@@ -66,7 +74,7 @@ const CvBuilderPersonalInfo = () => {
           type='text'
         />
       </Form.Group>
-      <h2>Contact details</h2>
+      <h2 className='pt-3'>Contact details</h2>
       <Form.Group>
         <Form.Label>Phone number</Form.Label>
         <Form.Control
@@ -83,8 +91,8 @@ const CvBuilderPersonalInfo = () => {
           type='text'
         />
       </Form.Group>
-      <Container className='text-end'>
-        <Button variant='info' className='my-3 ms-auto'>
+      <Container className='text-end '>
+        <Button onClick={nextPageHandler} variant='info' className='my-3'>
           Next
         </Button>
       </Container>

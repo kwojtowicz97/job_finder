@@ -6,13 +6,23 @@ import NewHobbyItem from './HobbySection/NewHobbyItem'
 import NewSkillItem from './SkillsSection/NewSkillItem'
 import SkillItem from './SkillsSection/SkillItem'
 
-export const CvBuilderSkills = () => {
+interface Props {
+  setStep: React.Dispatch<React.SetStateAction<number>>
+}
+
+export const CvBuilderSkills = ({ setStep }: Props) => {
   const {
     skillsCardState: { skillsItems, setSkillsItems, hobbyItems, setHobbyItems },
   } = useContext(cvBuilderContext)
 
-  const skillDeleteHandler = (skill: string) => {
-    setSkillsItems!((state) => state.filter((item) => item !== skill))
+  const nextPageHandler = () => {
+    setStep((step) => step + 1)
+    window.scrollTo(0, 0)
+  }
+
+  const prevPageHandler = () => {
+    window.scrollTo(0, 0)
+    setStep((step) => step - 1)
   }
 
   return (
@@ -40,8 +50,11 @@ export const CvBuilderSkills = () => {
             <HobbyItem item={item} index={index} />
           ))}
         </ul>
-        <Container className='text-end'>
-          <Button variant='info' className='my-3 ms-auto'>
+        <Container className='d-flex justify-content-around border-top'>
+          <Button onClick={prevPageHandler} variant='info' className='my-3 '>
+            Back
+          </Button>
+          <Button onClick={nextPageHandler} variant='info' className='my-3 '>
             Next
           </Button>
         </Container>
