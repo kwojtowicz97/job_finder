@@ -1,4 +1,5 @@
-import React from 'react'
+import { useQueryClient } from '@tanstack/react-query'
+import React, { useEffect } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { FetchedCompanyData } from '../hooks/useGetCompanyDetails'
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const CompanyScreenEditCompany = ({ initialState, setIsEditing }: Props) => {
+  const queryClient = useQueryClient()
   const params = useParams()
   const {
     applicationStates,
@@ -18,6 +20,17 @@ const CompanyScreenEditCompany = ({ initialState, setIsEditing }: Props) => {
     submitHandler,
     updateCompanyMutation,
   } = useUpdateCompany(params.id!, initialState)
+
+  const { isSuccess } = updateCompanyMutation
+
+  useEffect(() => {
+    if (isSuccess) {
+      queryClient.invalidateQueries([
+        `listComapnyDetails:${params.id! || undefined}`,
+      ])
+      setIsEditing(false)
+    }
+  }, [isSuccess])
 
   return (
     <Form onSubmit={submitHandler}>
@@ -108,10 +121,12 @@ const CompanyScreenEditCompany = ({ initialState, setIsEditing }: Props) => {
         </Form.Group>
 
         <Container className='d-flex justify-content-center align-items-center my-auto'>
-          <Button onClick={() => setIsEditing(false)}>Cancel</Button>
+          <Button className='mx-3' onClick={() => setIsEditing(false)}>
+            Cancel
+          </Button>
           <Button
             type='submit'
-            className={`position-relative ${
+            className={`mx-3 position-relative ${
               updateCompanyMutation.isLoading ? 'stripes-active' : ''
             }`}
           >
