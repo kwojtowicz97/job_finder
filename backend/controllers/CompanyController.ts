@@ -96,6 +96,9 @@ export const updateCompany = asyncHandler(
 
 export const getAllCompanies = asyncHandler(
   async (req: Request, res: Response) => {
+    const pageSize = 5
+    const page = Number(req.query.pageNumber) || 1
+
     const companySearch = req.query.company
       ? {
           name: {
@@ -114,14 +117,19 @@ export const getAllCompanies = asyncHandler(
           ],
         }
       : {}
-
+    const count = await CompanyModel.countDocuments({
+      ...companySearch,
+      ...locationSearch,
+    })
     const companies = await CompanyModel.find({
       ...companySearch,
       ...locationSearch,
     })
+      .limit(pageSize)
+      .skip(pageSize * (page - 1))
       .populate('offersCount')
       .populate('reviews')
 
-    res.send(companies)
+    res.send({ companies, page, pages: Math.ceil(count / pageSize) })
   }
 )

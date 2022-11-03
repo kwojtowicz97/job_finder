@@ -5,16 +5,26 @@ import useListAllCompanies from '../hooks/useListAllCompanies'
 import { errorHandler } from '../utils/errorHandler'
 import { CardCarousel } from '../components/CardCarousel'
 import CompanyCardExtended from '../components/CompanyCardExtended'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Pagination from '../components/Pagination'
 
 const CompaniesScreen = () => {
   const [companySearch, setCompanySearch] = useState('')
   const [locationSearch, setLoacationSearch] = useState('')
 
-  const { data, isLoading, error, isError, refetch } = useListAllCompanies({
-    companySearch,
-    locationSearch,
-  })
+  const [pageNumber, setPageNumber] = useState(1)
+
+  const { data, isLoading, isFetching, error, isError, refetch } =
+    useListAllCompanies({
+      companySearch,
+      locationSearch,
+      pageNumber,
+    })
+
+  useEffect(() => {
+    refetch()
+    window.scrollTo(0, 0)
+  }, [pageNumber])
 
   return isLoading ? (
     <Loader />
@@ -26,14 +36,16 @@ const CompaniesScreen = () => {
         <b>Most job offers</b>
       </h2>
       <CardCarousel
-        companies={data.sort((a, b) => (a.rating > b.rating ? 1 : -1))}
+        companies={data.companies.sort((a, b) =>
+          a.rating > b.rating ? 1 : -1
+        )}
       />
       <hr />
       <h2>
         <b>Most loved</b>
       </h2>
       <CardCarousel
-        companies={data.sort((a, b) =>
+        companies={data.companies.sort((a, b) =>
           a.offersCount > b.offersCount ? -1 : 1
         )}
       />
@@ -63,11 +75,24 @@ const CompaniesScreen = () => {
           </Col>
         </Row>
       </Form>
-      {data
-        .sort((a, b) => (a.name > b.name ? 1 : -1))
-        .map((company) => (
-          <CompanyCardExtended company={company} />
-        ))}
+      {isLoading || isFetching ? (
+        <Loader />
+      ) : isError ? (
+        <Message variant='danger'>{errorHandler(error)}</Message>
+      ) : (
+        <>
+          {data.companies
+            .sort((a, b) => (a.name > b.name ? 1 : -1))
+            .map((company) => (
+              <CompanyCardExtended company={company} />
+            ))}
+          <Pagination
+            totalPagesCount={data.pages}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+          />
+        </>
+      )}
     </>
   )
 }
