@@ -2,7 +2,11 @@ import React, { useContext, useRef, useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { cvBuilderContext } from './CvBuilderContextProvider'
 
-const Preview = () => {
+interface Props {
+  step: number
+}
+
+const Preview = ({ step }: Props) => {
   const {
     previewDiv,
     experienceCardState: { jobExperienceItems, educationItems, languagesItems },
@@ -13,7 +17,7 @@ const Preview = () => {
   const { name } = personalInfoCardState
   return (
     <div ref={previewDiv}>
-      <Container className='cv-preview p-3 position-relative'>
+      <Container className={'cv-preview p-3 position-relative'}>
         <section className='border-bottom border-top p-1'>
           <h1 style={{ fontSize: '1.8em' }}>
             <b>{name}</b>
