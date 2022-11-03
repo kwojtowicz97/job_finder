@@ -9,45 +9,26 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
   const pageSize = 10
   const page = Number(req.query.pageNumber) || 1
 
-  // const keyword = req.query.position
-  //   ? {
-  //       title: {
-  //         $regex: req.query.position,
-  //         $options: 'i',
-  //       },
-  //       address: {
-  //         $regex: req.query.location,
-  //         $options: 'i',
-  //       },
-  //     }
-  //   : {}
+  const position = req.query.position
+    ? {
+        title: {
+          $regex: req.query.position,
+          $options: 'i',
+        },
+      }
+    : {}
 
-  const keyword = {
-    // title: { $regex: req.query.position, $options: 'i' },
-    $or: [
-      {
+  const location = req.query.location
+    ? {
         address: {
           $regex: req.query.location,
           $options: 'i',
         },
-      },
-      {
-        city: {
-          $regex: req.query.location,
-          $options: 'i',
-        },
-      },
-      {
-        country: {
-          $regex: req.query.location,
-          $options: 'i',
-        },
-      },
-    ],
-  }
+      }
+    : {}
 
-  const count = await OfferModel.countDocuments(keyword)
-  const offers = await OfferModel.find(keyword)
+  const count = await OfferModel.countDocuments({})
+  const offers = await OfferModel.find({ ...position, ...location })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
     .populate({ path: 'company', populate: { path: 'reviews' } })
