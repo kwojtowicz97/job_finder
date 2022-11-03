@@ -96,7 +96,29 @@ export const updateCompany = asyncHandler(
 
 export const getAllCompanies = asyncHandler(
   async (req: Request, res: Response) => {
-    const companies = await CompanyModel.find({})
+    const companySearch = req.query.company
+      ? {
+          name: {
+            $regex: req.query.company,
+            $options: 'i',
+          },
+        }
+      : {}
+
+    const locationSearch = req.query.location
+      ? {
+          $or: [
+            { address: req.query.location },
+            { city: req.query.location },
+            { country: req.query.location },
+          ],
+        }
+      : {}
+
+    const companies = await CompanyModel.find({
+      ...companySearch,
+      ...locationSearch,
+    })
       .populate('offersCount')
       .populate('reviews')
 

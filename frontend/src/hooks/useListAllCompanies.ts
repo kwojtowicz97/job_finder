@@ -5,9 +5,16 @@ import { Company } from '../types/Company'
 
 type DataResponse = Company[]
 
-const useListAllCompanies = () => {
+interface Props {
+  companySearch: string
+  locationSearch: string
+}
+
+const useListAllCompanies = ({ companySearch, locationSearch }: Props) => {
   const listOffers = async () => {
-    const { data } = await axios.get('/api/companies')
+    const { data } = await axios.get(
+      `/api/companies?company=${companySearch}&location=${locationSearch}`
+    )
     return data
   }
 

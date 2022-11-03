@@ -4,11 +4,17 @@ import Message from '../components/Message'
 import useListAllCompanies from '../hooks/useListAllCompanies'
 import { errorHandler } from '../utils/errorHandler'
 import { CardCarousel } from '../components/CardCarousel'
-import CompanyCard from '../components/CompanyCard'
 import CompanyCardExtended from '../components/CompanyCardExtended'
+import { useState } from 'react'
 
 const CompaniesScreen = () => {
-  const { data, isLoading, error, isError } = useListAllCompanies()
+  const [companySearch, setCompanySearch] = useState('')
+  const [locationSearch, setLoacationSearch] = useState('')
+
+  const { data, isLoading, error, isError, refetch } = useListAllCompanies({
+    companySearch,
+    locationSearch,
+  })
 
   return isLoading ? (
     <Loader />
@@ -40,13 +46,20 @@ const CompaniesScreen = () => {
             <Form.Control
               type='text'
               placeholder='enter company name'
+              value={companySearch}
+              onChange={(e) => setCompanySearch(e.target.value)}
             ></Form.Control>
           </Col>
           <Col className='col-3'>
-            <Form.Control type='text' placeholder='enter city'></Form.Control>
+            <Form.Control
+              type='text'
+              placeholder='enter city'
+              value={locationSearch}
+              onChange={(e) => setLoacationSearch(e.target.value)}
+            ></Form.Control>
           </Col>
           <Col className='col-2'>
-            <Button>Find company</Button>
+            <Button onClick={() => refetch()}>Find company</Button>
           </Col>
         </Row>
       </Form>
