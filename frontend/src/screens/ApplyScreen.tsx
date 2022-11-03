@@ -55,6 +55,8 @@ export const ApplyScreen = () => {
             <FormGroup>
               <FormLabel>Name</FormLabel>
               <FormControl
+                required
+                autoComplete='off'
                 type='text'
                 placeholder='Enter your name'
                 value={applicationStates.name}
@@ -64,7 +66,9 @@ export const ApplyScreen = () => {
             <FormGroup className='mt-3'>
               <FormLabel>Email</FormLabel>
               <FormControl
+                required
                 type='text'
+                autoComplete='off'
                 placeholder='Enter your email'
                 value={applicationStates.email}
                 onChange={(e) => applicationStates.setEmail(e.target.value)}
@@ -73,7 +77,9 @@ export const ApplyScreen = () => {
             <FormGroup className='mt-3'>
               <FormLabel>Phone Number</FormLabel>
               <FormControl
+                required
                 type='text'
+                autoComplete='off'
                 placeholder='Enter your phone number'
                 value={applicationStates.phoneNumber}
                 onChange={(e) =>
@@ -84,7 +90,9 @@ export const ApplyScreen = () => {
             <FormGroup className='mt-3'>
               <FormLabel>Country</FormLabel>
               <FormControl
+                required
                 type='text'
+                autoComplete='off'
                 placeholder='Enter your country'
                 value={applicationStates.country}
                 onChange={(e) => applicationStates.setCountry(e.target.value)}
@@ -93,7 +101,9 @@ export const ApplyScreen = () => {
             <FormGroup className='mt-3'>
               <FormLabel>City</FormLabel>
               <FormControl
+                required
                 type='text'
+                autoComplete='off'
                 placeholder='Enter your city'
                 value={applicationStates.city}
                 onChange={(e) => applicationStates.setCity(e.target.value)}
@@ -103,6 +113,7 @@ export const ApplyScreen = () => {
             <FormGroup className='mt-3'>
               <FormLabel>Experience</FormLabel>
               <Form.Select
+                required
                 value={applicationStates.experience}
                 onChange={(e) =>
                   applicationStates.setExperience(e.target.value)
@@ -120,7 +131,11 @@ export const ApplyScreen = () => {
             </FormGroup>
             <FormGroup className='mt-3'>
               <FormLabel>CV</FormLabel>
-              <FormControl type='file' onChange={(e) => sendFileHandler(e)} />
+              <FormControl
+                required
+                type='file'
+                onChange={(e) => sendFileHandler(e)}
+              />
             </FormGroup>
             <Button className='mt-3 w-100' type='submit'>
               Apply
