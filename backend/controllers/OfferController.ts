@@ -27,7 +27,7 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
       }
     : {}
 
-  const count = await OfferModel.countDocuments({})
+  const count = await OfferModel.countDocuments({ ...position, ...location })
   const offers = await OfferModel.find({ ...position, ...location })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
