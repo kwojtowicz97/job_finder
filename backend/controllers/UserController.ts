@@ -115,3 +115,16 @@ export const addToFavourite = asyncHandler(
     }
   }
 )
+
+export const getUserCvData = asyncHandler(
+  async (req: CustomRequest, res: Response) => {
+    const user = await UserModel.findById(req.user?._id)
+
+    if (user) {
+      res.send(user.cvData)
+    } else {
+      res.status(404)
+      throw new Error('User not found')
+    }
+  }
+)

@@ -6,6 +6,7 @@ import {
   updateUser,
   getUserById,
   addToFavourite,
+  getUserCvData,
 } from '../controllers/UserController'
 import { protect } from '../middleware/authHandler'
 
@@ -16,5 +17,6 @@ router
   .put(protect, updateUser)
 router.route('/login').post(authUser)
 router.route('/favourites/:id').put(protect, addToFavourite)
+router.route('/cvData').get(protect, getUserCvData)
 
 export default router
