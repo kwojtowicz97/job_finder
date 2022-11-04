@@ -28,6 +28,7 @@ import RecievedJobApplicationsScreen from './screens/RecievedJobApplicationsScre
 import CompaniesScreen from './screens/CompaniesScreen'
 import SendJobApplicationsScreen from './screens/SendJobApplicationsScreen'
 import CvBuilder from './screens/CvBuilderScreen'
+import Protect from './components/Protect'
 
 const queryClient = new QueryClient()
 
@@ -83,31 +84,110 @@ function App() {
             <main className='p-0 p-lg-3'>
               <Container fluid='lg' className='cnt py-3'>
                 <Routes>
-                  <Route path='/offer/:id' element={<OfferDetailScreen />} />
+                  <Route
+                    path='/offer/:id'
+                    element={
+                      <Protect type='any'>
+                        <OfferDetailScreen />
+                      </Protect>
+                    }
+                  />
                   <Route
                     path='/'
-                    element={<HomeScreen portalContainer={portalContainer} />}
+                    element={
+                      <Protect type='any'>
+                        <HomeScreen portalContainer={portalContainer} />
+                      </Protect>
+                    }
                   />
-                  <Route path='/register' element={<RegisterScreen />} />
-                  <Route path='/company/:id' element={<CompanyScreen />} />
-                  <Route path='/companies' element={<CompaniesScreen />} />
-                  <Route path='/login' element={<LoginScreen />} />
-                  <Route path='/profile' element={<ProfileScreen />} />
+                  <Route
+                    path='/register'
+                    element={
+                      <Protect type='notLogged'>
+                        <RegisterScreen />
+                      </Protect>
+                    }
+                  />
+                  <Route
+                    path='/company/:id'
+                    element={
+                      <Protect type='any'>
+                        <CompanyScreen />
+                      </Protect>
+                    }
+                  />
+                  <Route
+                    path='/companies'
+                    element={
+                      <Protect type='any'>
+                        <CompaniesScreen />
+                      </Protect>
+                    }
+                  />
+                  <Route
+                    path='/login'
+                    element={
+                      <Protect type='notLogged'>
+                        <LoginScreen />
+                      </Protect>
+                    }
+                  />
+                  <Route
+                    path='/profile'
+                    element={
+                      <Protect type='logged'>
+                        <ProfileScreen />
+                      </Protect>
+                    }
+                  />
                   <Route
                     path='/company/newoffer'
-                    element={<NewOfferScreen />}
+                    element={
+                      <Protect type='company'>
+                        <NewOfferScreen />
+                      </Protect>
+                    }
                   />
-                  <Route path='/apply/:id' element={<ApplyScreen />} />
-                  <Route path='/newcompany' element={<NewComapnyScreen />} />
+                  <Route
+                    path='/apply/:id'
+                    element={
+                      <Protect type='user'>
+                        <ApplyScreen />
+                      </Protect>
+                    }
+                  />
+                  <Route
+                    path='/newcompany'
+                    element={
+                      <Protect type='user'>
+                        <NewComapnyScreen />
+                      </Protect>
+                    }
+                  />
                   <Route
                     path='/recieved-applications'
-                    element={<RecievedJobApplicationsScreen />}
+                    element={
+                      <Protect type='company'>
+                        <RecievedJobApplicationsScreen />
+                      </Protect>
+                    }
                   />
                   <Route
                     path='/send-applications'
-                    element={<SendJobApplicationsScreen />}
+                    element={
+                      <Protect type='user'>
+                        <SendJobApplicationsScreen />
+                      </Protect>
+                    }
                   />
-                  <Route path='/cv-builder' element={<CvBuilder />} />
+                  <Route
+                    path='/cv-builder'
+                    element={
+                      <Protect type='user'>
+                        <CvBuilder />
+                      </Protect>
+                    }
+                  />
                 </Routes>
               </Container>
             </main>
