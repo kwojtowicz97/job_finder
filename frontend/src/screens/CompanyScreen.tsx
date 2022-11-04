@@ -101,13 +101,17 @@ const CompanyScreen = () => {
       <Row>
         <Tabs defaultActiveKey='offers' id='uncontrolled-tab-example'>
           <Tab eventKey='offers' title='Offers'>
-            <ListGroup variant='flush'>
-              <ListGroup.Item>
-                {data.offers.map((offer) => (
-                  <JobOffer key={offer._id} offer={offer} />
-                ))}
-              </ListGroup.Item>
-            </ListGroup>
+            {data.offers.length !== 0 ? (
+              <ListGroup variant='flush'>
+                <ListGroup.Item>
+                  {data.offers.map((offer) => (
+                    <JobOffer key={offer._id} offer={offer} />
+                  ))}
+                </ListGroup.Item>
+              </ListGroup>
+            ) : (
+              <p className='my-3'>There are no job offers yet</p>
+            )}
           </Tab>
           <Tab eventKey='reviews' title='Reviews'>
             {userInfo &&
