@@ -4,14 +4,15 @@ import { Alert } from 'react-bootstrap'
 interface Props {
   variant: string
   children: ReactNode
+  className?: string
 }
 
 /**
  * Message component used to format alerts throughout different pages
  */
-const Message = ({ variant, children }: Props) => {
+const Message = ({ variant, children, className }: Props) => {
   return (
-    <Alert data-testid='message-alert' variant={variant}>
+    <Alert className={className} data-testid='message-alert' variant={variant}>
       {children}
     </Alert>
   )

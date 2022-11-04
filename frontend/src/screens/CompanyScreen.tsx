@@ -110,7 +110,9 @@ const CompanyScreen = () => {
                 </ListGroup.Item>
               </ListGroup>
             ) : (
-              <p className='my-3'>There are no job offers yet</p>
+              <Message className='my-3' variant='info'>
+                There are no job offers yet
+              </Message>
             )}
           </Tab>
           <Tab eventKey='reviews' title='Reviews'>
