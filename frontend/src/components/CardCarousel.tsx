@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
 import Slider from 'react-slick'
 import { Company } from '../types/Company'
 import CompanyCard from './CompanyCard'
 
 interface Props {
   companies: Company[]
+  sortBy: 'offersCount' | 'rating'
 }
 
-export const CardCarousel = ({ companies }: Props) => {
+export const CardCarousel = ({ companies, sortBy }: Props) => {
   var settings = {
     dots: true,
     infinite: false,
@@ -42,11 +42,17 @@ export const CardCarousel = ({ companies }: Props) => {
       },
     ],
   }
+
+  const sortedCompanies =
+    sortBy === 'offersCount'
+      ? companies.sort((a, b) => b.offersCount - a.offersCount)
+      : companies.sort((a, b) => b.rating - a.rating)
+
   return (
     <div>
       <Slider {...settings}>
-        {companies.map((company) => (
-          <CompanyCard company={company} />
+        {sortedCompanies.slice(0, 5).map((company) => (
+          <CompanyCard key={company._id} company={company} />
         ))}
       </Slider>
     </div>

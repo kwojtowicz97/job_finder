@@ -35,20 +35,12 @@ const CompaniesScreen = () => {
       <h2>
         <b>Most job offers</b>
       </h2>
-      <CardCarousel
-        companies={data.companies.sort((a, b) =>
-          a.rating > b.rating ? 1 : -1
-        )}
-      />
+      <CardCarousel sortBy='offersCount' companies={data.companies} />
       <hr />
       <h2>
         <b>Most loved</b>
       </h2>
-      <CardCarousel
-        companies={data.companies.sort((a, b) =>
-          a.offersCount > b.offersCount ? -1 : 1
-        )}
-      />
+      <CardCarousel sortBy='rating' companies={data.companies} />
       <h1 className='text-center mt-3'>
         <b>Search for Companies</b>
       </h1>
