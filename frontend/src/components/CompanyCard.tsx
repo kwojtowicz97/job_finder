@@ -33,7 +33,11 @@ const CompanyCard = ({ company }: Props) => {
           </Container>
         </Container>
         <Container>
-          <p className='border rounded p-1  d-inline-block bg-info'>{`${company.offersCount} job offers`}</p>
+          <p className='border rounded p-1  d-inline-block bg-info'>{`${
+            company.offersCount
+          } job offer${
+            company.offersCount > 1 || company.offersCount === 0 ? 's' : ''
+          }`}</p>
           <span>
             <i className='fas fa-location-dot mb-2 ms-3' />
             <p className='d-inline ms-1'>{company.city}</p>

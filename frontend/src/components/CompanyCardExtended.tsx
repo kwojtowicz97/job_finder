@@ -27,43 +27,17 @@ const CompanyCardExtended = ({ company }: Props) => {
           </div>
           <Rating className='d-none d-sm-inline' value={company.rating} />
           <Container className='mt-2 ps-0 fs-6'>
-            <p className='border rounded p-1 m-0 d-inline-block bg-info'>{`${company.offersCount} job offers`}</p>
+            <p className='border rounded p-1 m-0 d-inline-block bg-info'>{`${
+              company.offersCount
+            } job offer${
+              company.offersCount > 1 || company.offersCount === 0 ? 's' : ''
+            }`}</p>
             <span>
               <i className='fas fa-location-dot mb-2 ms-3' />
               <p className='d-inline ms-1'>{company.city}</p>
             </span>
           </Container>
         </Card.Title>
-        {/* <Container className='w100 p-0'>
-          <i className='fas fa-location-dot mb-2' /> {offer.address}
-          <Container>
-            <Row>
-              <Col sm={12} md={3} className='px-0'>
-                <i className='fas fa-file-invoice' /> {offer.contractType}
-              </Col>
-              <Col sm={12} md={3} className='px-0'>
-                <i className='fas fa-clock' /> {offer.time}
-              </Col>
-              <Col
-                sm={12}
-                md={6}
-                className='px-0 d-inline-flex justify-content-between'
-              >
-                <span>
-                  <i className='fas fa-chart-line me-auto' /> {offer.experience}
-                </span>
-                {userInfo && (
-                  <SaveIcon
-                    isSaved={
-                      userInfo?.saved.includes(String(offer._id)) || isLoading
-                    }
-                    onClick={mutateAsync}
-                  />
-                )}
-              </Col>
-            </Row>
-          </Container>
-        </Container> */}
       </Card.Body>
     </Card>
   )
