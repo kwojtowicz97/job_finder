@@ -117,9 +117,13 @@ const CompanyScreen = () => {
           </Tab>
           <Tab eventKey='reviews' title='Reviews'>
             {userInfo &&
-              !data.company.reviews.some(
-                (review) => review.user === userInfo?._id
-              ) && <NewReview id={params.id!} refetch={refetch} />}
+            !data.company.reviews.some(
+              (review) => review.user === userInfo?._id
+            ) ? (
+              <NewReview id={params.id!} refetch={refetch} />
+            ) : (
+              <p className='py-2'>You have already reviewed the company</p>
+            )}
             {data.company.reviews.reverse().map((review) => (
               <Review key={review._id} review={review} />
             ))}
