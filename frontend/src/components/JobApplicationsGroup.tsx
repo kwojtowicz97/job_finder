@@ -27,6 +27,9 @@ const JobApplicationsGroup = ({ application }: Props) => {
           </a>
         </LinkContainer>
       </Row>
+      {application.applications.length === 0 && (
+        <p className='py-2'>No job applications yet</p>
+      )}
       {application.applications.map((application) => (
         <JobApplication application={application} />
       ))}
