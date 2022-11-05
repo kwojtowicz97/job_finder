@@ -179,7 +179,14 @@ const OfferDetailScreen: React.FC = () => {
                       style={{ maxWidth: '80%' }}
                       to={`/apply/${offer._id}`}
                     >
-                      <Button className='mx-auto p-3 my-4' variant='primary'>
+                      <Button
+                        disabled={offer.expiresIn < 0}
+                        data-toggle='tooltip'
+                        data-placement='top'
+                        title='Tooltip on top'
+                        className='mx-auto p-3 my-4'
+                        variant='primary'
+                      >
                         Apply Now
                       </Button>
                     </LinkContainer>

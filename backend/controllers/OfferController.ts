@@ -34,6 +34,13 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
       .skip(pageSize * (page - 1))
       .populate({ path: 'company', populate: { path: 'reviews' } })
 
+    offers.forEach((offer) => {
+      const hours =
+        (new Date(offer.expiresAt!).getTime() - new Date().getTime()) / 3600000
+
+      offer.expiresIn = hours
+    })
+
     res.json({ offers, page, pages: Math.ceil(count / pageSize) })
   } catch (error) {
     res.send(error)
@@ -54,10 +61,7 @@ export const getOfferById = asyncHandler(
       const hours =
         (new Date(offer.expiresAt).getTime() - new Date().getTime()) / 3600000
 
-      offer.expiresIn =
-        hours < 24
-          ? `${Math.round(hours)} hours`
-          : `${Math.round(hours / 24)} days`
+      offer.expiresIn = hours
       res.json(offer)
     } else {
       res.status(404)

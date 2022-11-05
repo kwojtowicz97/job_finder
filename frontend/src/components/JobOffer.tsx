@@ -37,8 +37,15 @@ const JobOffer = ({ offer }: Props) => {
     }
   }, [isSuccess])
 
+  const isExpired = offer.expiresIn < 0
+  console.log(offer.expiresIn)
+  const backgroundColor = isExpired ? '#e9e9e9' : 'white'
+
   return (
-    <Card className='flex-row my-2 my-lg-3'>
+    <Card
+      style={{ background: backgroundColor }}
+      className='flex-row my-2 my-lg-3'
+    >
       <Card.Img
         className='logo m-3 p-0 align-self-start align-self-md-center'
         src={offer.company.image}
@@ -56,8 +63,16 @@ const JobOffer = ({ offer }: Props) => {
               style={{ color: '#feb903' }}
               className='ms-auto fs-6 algin-middle'
             >
-              <i className='pe-1 fa-solid fa-circle-exclamation' />
-              <span className='d-none d-sm-inline'>Recommended For You!</span>
+              {isExpired ? (
+                <i className='text-danger pe-1 fa-solid fa-circle-exclamation' />
+              ) : (
+                <i className='pe-1 fa-solid fa-circle-exclamation' />
+              )}
+              {isExpired ? (
+                <span className='text-danger d-none d-sm-inline'>Expired</span>
+              ) : (
+                <span className='d-none d-sm-inline'>Recommended For You!</span>
+              )}
             </span>
           </div>
           <span className='mb-2'>

@@ -53,7 +53,7 @@ export class OfferClass {
   public expiresAt?: Date
 
   @prop()
-  public expiresIn?: string
+  public expiresIn?: number
 
   @prop({
     ref: 'JobApplication',

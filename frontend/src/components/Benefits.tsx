@@ -7,6 +7,13 @@ interface Props {
 }
 
 export const Benefits = ({ offer }: Props) => {
+  const isExpired = offer.expiresIn < 0
+  const isExpireInLessThanDay = offer.expiresIn / 24 < 1
+  const expiresIn = isExpired
+    ? 'Expired'
+    : !isExpireInLessThanDay
+    ? `Expires in ${Math.round(offer.expiresIn)} hours`
+    : `Expires in ${Math.round(offer.expiresIn / 24)} days`
   return (
     <Row className='border-top d-flex flex-wrap justify-content-between p-0 p-lg-3'>
       <Container
@@ -25,7 +32,11 @@ export const Benefits = ({ offer }: Props) => {
         <span className='benefit-item d-flex align-items-center justify-content-center'>
           <i className='fa-solid fa-clock'></i>
         </span>
-        <span className='ms-3'>{`Expires in ${offer.expiresIn}`}</span>
+        <span
+          className={`ms-3${isExpired ? ' text-danger font-weight-bold' : ''}`}
+        >
+          {expiresIn}
+        </span>
       </Container>
       <Container
         style={{ maxWidth: '40%' }}

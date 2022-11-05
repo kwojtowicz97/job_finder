@@ -16,7 +16,7 @@ export interface Offer {
   tags: Array<string>
   company: Company
   expiresAt: Date
-  expiresIn: string
+  expiresIn: number
   createdAt: Date
   updatedAt: Date
   jobApplications: JobApplication[]
