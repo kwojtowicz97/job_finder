@@ -94,9 +94,17 @@ const OfferDetailScreen: React.FC = () => {
                         <b>{offer.title}</b>
                       </h1>
                       <div className='d-flex align-items-center'>
-                        <h2 className='d-inline m-0 fs-5'>
-                          {offer.company.name}
-                        </h2>
+                        <LinkContainer
+                          role='button'
+                          to={`/company/${offer.company._id}`}
+                        >
+                          <a className='nav-link d-inline'>
+                            <h2 className='d-inline m-0 fs-5'>
+                              {offer.company.name}
+                            </h2>
+                          </a>
+                        </LinkContainer>
+
                         <Rating
                           className='ms-2'
                           value={offer.company.rating}
