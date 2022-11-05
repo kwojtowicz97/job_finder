@@ -27,13 +27,17 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
       }
     : {}
 
-  const count = await OfferModel.countDocuments({ ...position, ...location })
-  const offers = await OfferModel.find({ ...position, ...location })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1))
-    .populate({ path: 'company', populate: { path: 'reviews' } })
+  try {
+    const count = await OfferModel.countDocuments({ ...position, ...location })
+    const offers = await OfferModel.find({ ...position, ...location })
+      .limit(pageSize)
+      .skip(pageSize * (page - 1))
+      .populate({ path: 'company', populate: { path: 'reviews' } })
 
-  res.json({ offers, page, pages: Math.ceil(count / pageSize) })
+    res.json({ offers, page, pages: Math.ceil(count / pageSize) })
+  } catch (error) {
+    res.send(error)
+  }
 })
 
 // @desc    Fetch offer by Id

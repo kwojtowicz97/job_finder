@@ -5,11 +5,12 @@ import JobApplicationGroup from '../components/JobApplicationsGroup'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import useGetRecievedJobApplications from '../hooks/useGetRecievedJobApplications'
+import useGetSendJobApplications from '../hooks/useGetSendJobApplications'
 import { errorHandler } from '../utils/errorHandler'
 
 const SendJobApplicationsScreen = () => {
   const { data, isSuccess, isError, isLoading, error } =
-    useGetRecievedJobApplications()
+    useGetSendJobApplications()
 
   return (
     <>
@@ -22,7 +23,7 @@ const SendJobApplicationsScreen = () => {
           <h2>Send Job Applications</h2>
           <ListGroup variant='flush'>
             {Object.entries(data).map(([key, value]) => (
-              <JobApplicationGroup applicationGroup={value} />
+              <JobApplicationGroup application={value} />
             ))}
           </ListGroup>
         </>

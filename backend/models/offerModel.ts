@@ -6,8 +6,12 @@ import {
   Severity,
 } from '@typegoose/typegoose'
 import { Company } from './companyModel'
+import { JobApplication } from './jobApplicationModel'
 
-@modelOptions({ options: { allowMixed: Severity.ALLOW } })
+@modelOptions({
+  options: { allowMixed: Severity.ALLOW },
+  schemaOptions: { toJSON: { virtuals: true } },
+})
 export class OfferClass {
   @prop()
   public title?: string
@@ -50,4 +54,11 @@ export class OfferClass {
 
   @prop()
   public expiresIn?: string
+
+  @prop({
+    ref: 'JobApplication',
+    foreignField: 'offer',
+    localField: '_id',
+  })
+  public jobApplications?: Ref<JobApplication>[]
 }

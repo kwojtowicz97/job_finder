@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { application } from 'express'
 import { useContext } from 'react'
 import { userContext } from '../App'
 import { JobApplication } from '../types/JobApplication'
@@ -24,7 +23,7 @@ const useGetSendJobApplications = () => {
   }
   const listSendJobApplications = async () => {
     const { data }: { data: JobApplication[] } = await axios.get(
-      `/api/applications/${userInfo?._id}`,
+      `/api/applications`,
       config
     )
 

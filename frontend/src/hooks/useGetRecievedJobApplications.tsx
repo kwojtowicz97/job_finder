@@ -1,16 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { application } from 'express'
+import { off } from 'process'
 import { useContext } from 'react'
 import { userContext } from '../App'
+import { Offer } from '../types'
 import { JobApplication } from '../types/JobApplication'
 
-export interface ApplicationsByOffer {
-  [key: string]: {
-    applications: JobApplication[]
-    offerTitle: string
-    _id: string
-  }
+export interface ApplicationByOffer {
+  applications: JobApplication[]
+  offerTitle: string
+  _id: string
 }
 
 const useGetRecievedJobApplications = () => {
@@ -23,33 +23,21 @@ const useGetRecievedJobApplications = () => {
     },
   }
   const listRecievedJobApplications = async () => {
-    const { data }: { data: JobApplication[] } = await axios.get(
-      `/api/applications`,
+    const { data }: { data: Offer[] } = await axios.get(
+      `/api/applications/received-job-applications`,
       config
     )
 
-    const applicationsByOffer: ApplicationsByOffer = {}
-
-    console.log(data)
-
-    data.forEach((application) => {
-      if (applicationsByOffer.hasOwnProperty(application.offer._id)) {
-        applicationsByOffer[application.offer._id].applications!.push(
-          application
-        )
-      } else {
-        applicationsByOffer[application.offer._id] = {
-          applications: [application],
-          offerTitle: application.offer.title,
-          _id: application.offer._id,
-        }
+    const applicationsByOffer: ApplicationByOffer[] = data.map((offer) => {
+      return {
+        _id: offer._id,
+        applications: offer.jobApplications,
+        offerTitle: offer.title,
       }
     })
-
-    console.log(applicationsByOffer)
     return applicationsByOffer
   }
-  return useQuery<ApplicationsByOffer, Error>(
+  return useQuery<ApplicationByOffer[], Error>(
     [`listRecievedJobApplications`],
     () => listRecievedJobApplications()
   )

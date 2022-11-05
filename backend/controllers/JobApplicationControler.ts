@@ -45,9 +45,18 @@ export const getJobApplications = asyncHandler(
 export const getSendJobApplications = asyncHandler(
   async (req: CustomRequest, res: Response) => {
     const jobApplications = await JobApplicationModel.find({
-      user: req.user,
+      user: req.user?._id,
     }).populate('offer')
 
+    res.send(jobApplications)
+  }
+)
+
+export const getReceivedJobApplications = asyncHandler(
+  async (req: CustomRequest, res: Response) => {
+    const jobApplications = await OfferModel.find({
+      company: req.user?.company,
+    }).populate('jobApplications')
     res.send(jobApplications)
   }
 )

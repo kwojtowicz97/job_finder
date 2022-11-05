@@ -1,4 +1,5 @@
 import { Company } from './Company'
+import { JobApplication } from './JobApplication'
 
 export interface Offer {
   _id: string
@@ -18,4 +19,5 @@ export interface Offer {
   expiresIn: string
   createdAt: Date
   updatedAt: Date
+  jobApplications: JobApplication[]
 }

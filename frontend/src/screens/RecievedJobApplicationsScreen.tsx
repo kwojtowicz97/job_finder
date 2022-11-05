@@ -21,10 +21,9 @@ const RecievedJobApplicationsScreen = () => {
         <>
           <h2>Recieved Job Applications</h2>
           <ListGroup variant='flush'>
-            {Object.entries(data).map(([key, value]) => (
-              <JobApplicationGroup applicationGroup={value} />
+            {data.map((application) => (
+              <JobApplicationGroup application={application} />
             ))}
-            <ListGroup.Item></ListGroup.Item>
           </ListGroup>
         </>
       )}
