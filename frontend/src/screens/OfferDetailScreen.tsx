@@ -79,19 +79,19 @@ const OfferDetailScreen: React.FC = () => {
   const ref = useRef(null)
 
   function createPdf() {
-    const mywindow = window.open('', 'PRINT', 'height=400,width=600')!
+    // const mywindow = window.open('', 'PRINT', 'height=400,width=600')!
 
-    mywindow.document.write('<html><head><title>' + document.title + '</title>')
-    mywindow.document.write('</head><body >')
-    mywindow.document.write('<h1>' + document.title + '</h1>')
-    mywindow.document.write(document.getElementById(ref.current!)!.innerHTML)
-    mywindow.document.write('</body></html>')
+    // mywindow.document.write('<html><head><title>' + document.title + '</title>')
+    // mywindow.document.write('</head><body >')
+    // mywindow.document.write('<h1>' + document.title + '</h1>')
+    // mywindow.document.write(document.getElementById(ref.current!)!.innerHTML)
+    // mywindow.document.write('</body></html>')
 
-    mywindow.document.close() // necessary for IE >= 10
-    mywindow.focus() // necessary for IE >= 10*/
+    // mywindow.document.close() // necessary for IE >= 10
+    // mywindow.focus() // necessary for IE >= 10*/
 
-    mywindow.print()
-    mywindow.close()
+    // mywindow.print()
+    // mywindow.close()
 
     return true
   }
@@ -106,7 +106,7 @@ const OfferDetailScreen: React.FC = () => {
         offer && (
           <Container>
             <Row>
-              <Col ref={ref} className='col-12 col-md-8 p-0'>
+              <Col ref={ref} className='myDivToPrint col-12 col-md-8 p-0'>
                 <Container fluid className='border rounded'>
                   <Row>
                     <Col
@@ -142,7 +142,7 @@ const OfferDetailScreen: React.FC = () => {
                     </Col>
                   </Row>
                   <Benefits offer={offer} />
-                  <Row className='border-top'>
+                  <Row className='border-top print-map'>
                     <MapCallback />
                   </Row>
                 </Container>
@@ -243,7 +243,7 @@ const OfferDetailScreen: React.FC = () => {
                         bodyClass='print-offer'
                         content={() => ref.current}
                         trigger={() => (
-                          <span onClick={createPdf}>
+                          <span onClick={() => true}>
                             <i className='fa-solid fa-print ' />
                             <p className='d-inline'> Print</p>
                           </span>
