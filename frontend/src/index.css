@@ -227,3 +227,7 @@ hr {
   }
 } 
 
+.print-offer {
+  width: 595px;
+  height: 842px;
+}

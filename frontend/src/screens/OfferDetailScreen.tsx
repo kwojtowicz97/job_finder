@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { Col, Row, Image, Container, Button } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
@@ -13,6 +19,9 @@ import { Offer } from '../types'
 import { errorHandler } from '../utils/errorHandler'
 import { userContext } from '../App'
 import { LinkContainer } from 'react-router-bootstrap'
+// @ts-ignore
+import html2pdf from 'html2pdf.js'
+import ReactToPrint from 'react-to-print'
 
 const listOfferDetails = async (id: string) => {
   const { data } = await axios.get(`/api/offers/${id}`)
@@ -67,6 +76,26 @@ const OfferDetailScreen: React.FC = () => {
     return null
   }, [offer])
 
+  const ref = useRef(null)
+
+  function createPdf() {
+    const mywindow = window.open('', 'PRINT', 'height=400,width=600')!
+
+    mywindow.document.write('<html><head><title>' + document.title + '</title>')
+    mywindow.document.write('</head><body >')
+    mywindow.document.write('<h1>' + document.title + '</h1>')
+    mywindow.document.write(document.getElementById(ref.current!)!.innerHTML)
+    mywindow.document.write('</body></html>')
+
+    mywindow.document.close() // necessary for IE >= 10
+    mywindow.focus() // necessary for IE >= 10*/
+
+    mywindow.print()
+    mywindow.close()
+
+    return true
+  }
+
   return (
     <>
       {isLoading ? (
@@ -77,7 +106,7 @@ const OfferDetailScreen: React.FC = () => {
         offer && (
           <Container>
             <Row>
-              <Col className='col-12 col-md-8 p-0'>
+              <Col ref={ref} className='col-12 col-md-8 p-0'>
                 <Container fluid className='border rounded'>
                   <Row>
                     <Col
@@ -210,10 +239,16 @@ const OfferDetailScreen: React.FC = () => {
                       onClick={mutateAsyncFavourite}
                     />
                     <Col className='p-3 offer-sidebar-button'>
-                      <span>
-                        <i className='fa-solid fa-print ' />
-                        <p className='d-inline'> Print</p>
-                      </span>
+                      <ReactToPrint
+                        bodyClass='print-offer'
+                        content={() => ref.current}
+                        trigger={() => (
+                          <span onClick={createPdf}>
+                            <i className='fa-solid fa-print ' />
+                            <p className='d-inline'> Print</p>
+                          </span>
+                        )}
+                      ></ReactToPrint>
                     </Col>
                   </Row>
                 </Container>
