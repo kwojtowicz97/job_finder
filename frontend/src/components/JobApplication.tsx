@@ -59,7 +59,7 @@ const JobApplication = ({
 
   return (
     <Row className='job-application p-3 border-bottom'>
-      <Col>
+      <Col className='col-12 col-md-4'>
         <label>Name</label>
         <p>
           <b>{name}</b>
@@ -73,7 +73,7 @@ const JobApplication = ({
           <b>{phoneNumber}</b>
         </p>
       </Col>
-      <Col>
+      <Col className='col-12 col-md-4'>
         <label>Location</label>
         <p>
           <b>{`${country}, ${city}`}</b>
@@ -104,7 +104,7 @@ const JobApplication = ({
           </Col>
         </>
       ) : (
-        <Col>
+        <Col className='col-12 col-md-4'>
           <label>Status</label>
           <p style={{ color: StatusColors[fetchedStatus] }}>
             <b>{fetchedStatus}</b>
