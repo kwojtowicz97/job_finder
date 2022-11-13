@@ -44,28 +44,26 @@ const CompaniesScreen = () => {
       <h1 className='text-center mt-3'>
         <b>Search for Companies</b>
       </h1>
-      <Form className='m-3'>
-        <Row className='justify-content-center'>
-          <Col className='col-5'>
-            <Form.Control
-              type='text'
-              placeholder='enter company name'
-              value={companySearch}
-              onChange={(e) => setCompanySearch(e.target.value)}
-            ></Form.Control>
-          </Col>
-          <Col className='col-3'>
-            <Form.Control
-              type='text'
-              placeholder='enter city'
-              value={locationSearch}
-              onChange={(e) => setLoacationSearch(e.target.value)}
-            ></Form.Control>
-          </Col>
-          <Col className='col-2'>
-            <Button onClick={() => refetch()}>Find company</Button>
-          </Col>
-        </Row>
+      <Form className='m-3 d-flex flex-md-row flex-column'>
+        <Form.Control
+          className='mx-md-3 my-1 my-md-0'
+          type='text'
+          placeholder='enter company name'
+          value={companySearch}
+          onChange={(e) => setCompanySearch(e.target.value)}
+        ></Form.Control>
+
+        <Form.Control
+          className='mx-md-3 my-1 my-md-0'
+          type='text'
+          placeholder='enter city'
+          value={locationSearch}
+          onChange={(e) => setLoacationSearch(e.target.value)}
+        ></Form.Control>
+
+        <Button className='mx-md-3 my-1 my-md-0' onClick={() => refetch()}>
+          Find company
+        </Button>
       </Form>
       {isLoading || isFetching ? (
         <Loader />
