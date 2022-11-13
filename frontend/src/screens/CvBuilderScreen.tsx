@@ -34,7 +34,7 @@ const CvBuilder = () => {
           <h2>CV builder</h2>
           <StepMenu setStep={setStep!} step={step} />
           <Container className='d-flex flex-column flex-lg-row justify-content-center'>
-            <Container className='border rounded h-100 shadow px-0 m-2'>
+            <Container className='border rounded h-100 shadow px-0 my-2'>
               {(() => {
                 switch (step) {
                   case 1:
