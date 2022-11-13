@@ -23,7 +23,7 @@ const CompanyCard = ({ company }: Props) => {
           className='d-flex align-items-center justify-content-space'
         >
           <Image
-            className='logo p-0 align-self-start align-self-md-center'
+            className='logo p-0 align-self-md-center'
             src={company.image}
             alt={`${company.name} logo`}
           />
