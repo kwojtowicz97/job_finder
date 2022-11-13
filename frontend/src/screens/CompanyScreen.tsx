@@ -46,7 +46,7 @@ const CompanyScreen = () => {
         </Row>
       ) : (
         <Row>
-          <Col>
+          <Col className='col-12 col-md-6'>
             <Container>
               <Container className='d-flex align-items-center '>
                 <Image
@@ -60,7 +60,12 @@ const CompanyScreen = () => {
                 ></Image>
                 <Container className='d-flex flex-column ms-3'>
                   <h1>{data.company.name}</h1>
-                  <Rating className='fs-4' value={data.company.rating}></Rating>
+                  <Rating
+                    className={`${
+                      userInfo?.company?._id === params.id ? '' : 'fs-4'
+                    }`}
+                    value={data.company.rating}
+                  ></Rating>
                 </Container>
                 {userInfo?.company?._id === params.id && (
                   <Button onClick={() => setIsEditing(true)}>Edit</Button>
@@ -86,8 +91,8 @@ const CompanyScreen = () => {
               </Container>
             </Container>
           </Col>
-          <Col className='d-flex align-items-center'>
-            <Container fluid>
+          <Col className='col-12 col-md-6 p-0 p-md-2 d-flex align-items-center'>
+            <Container className='p-0 p-md-2' fluid>
               <Map
                 shadow
                 city={data.company.city}
