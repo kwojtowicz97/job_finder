@@ -29,14 +29,17 @@ const Header = () => {
   return (
     <Navbar collapseOnSelect bg='light' expand='lg'>
       <Container style={{ maxWidth: '2000px' }} fluid>
-        <LinkContainer to='/'>
-          <Navbar.Brand>
-            <b>Job Finder</b>
-          </Navbar.Brand>
-        </LinkContainer>
-        <Navbar.Toggle aria-controls='navbarScroll' />
-        <Navbar.Collapse id='navbarScroll'>
-          <Nav className='my-2 my-lg-0 w-100'>
+        <Nav
+          className='my-2 my-lg-0 w-100 d-contents'
+          style={{ display: 'contents' }}
+        >
+          <LinkContainer to='/'>
+            <Navbar.Brand>
+              <b>Job Finder</b>
+            </Navbar.Brand>
+          </LinkContainer>
+          <Navbar.Toggle aria-controls='navbarScroll' />
+          <Navbar.Collapse id='navbarScroll'>
             <LinkContainer onClick={() => setShow(false)} to='/'>
               <Nav.Link>Job offers</Nav.Link>
             </LinkContainer>
@@ -73,20 +76,18 @@ const Header = () => {
                 className='ms-lg-auto'
               >
                 <LinkContainer to='/profile'>
-                  <NavDropdown.Item>Profile</NavDropdown.Item>
+                  <Nav.Link>Profile</Nav.Link>
                 </LinkContainer>
 
-                <NavDropdown.Item onClick={logoutHandler}>
-                  Logout
-                </NavDropdown.Item>
+                <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
               </NavDropdown>
             ) : (
               <LinkContainer className='ms-lg-auto' to='/login'>
-                <a className='text-decoration-none nav-link'>Login</a>
+                <Nav.Link>Login</Nav.Link>
               </LinkContainer>
             )}
-          </Nav>
-        </Navbar.Collapse>
+          </Navbar.Collapse>
+        </Nav>
       </Container>
     </Navbar>
   )
