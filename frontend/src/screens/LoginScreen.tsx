@@ -29,6 +29,16 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
+  const loginDemoUser = async () => {
+    setEmail('user@example.com')
+    setPassword('abcd1234')
+  }
+
+  const loginDemoCompany = async () => {
+    setEmail('company@example.com')
+    setPassword('abcd1234')
+  }
+
   const { data, isLoading, isError, isSuccess, error, mutateAsync } =
     useMutation<LoginResponse, Error, LoginUserData>(
       ['loginResponse'],
@@ -91,8 +101,24 @@ const RegisterScreen = () => {
             </Button>
             <Form.Text className='margin-auto'>
               <Container className='text-center '>
+                <a
+                  role='button'
+                  onClick={loginDemoCompany}
+                  className='text-decoration-none mx-2'
+                >
+                  <Form.Text>Login as a demo company</Form.Text>
+                </a>
+
+                <a
+                  role='button'
+                  onClick={loginDemoUser}
+                  className='text-decoration-none mx-2'
+                >
+                  <Form.Text>Login as a demo user</Form.Text>
+                </a>
+
                 <LinkContainer to='/register'>
-                  <a className='text-decoration-none'>
+                  <a className='text-decoration-none mx-2'>
                     <Form.Text>Create a new account</Form.Text>
                   </a>
                 </LinkContainer>
