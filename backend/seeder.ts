@@ -2,8 +2,8 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import offers from './data/offers'
 import companies from './data/companies'
-import { OfferModel as Offer } from './models/offerModel'
-import { CompanyModel as Company } from './models/companyModel'
+import { OfferModel as Offer } from './models'
+import { CompanyModel as Company } from './models'
 import { connectDB } from './config/db'
 
 dotenv.config()
