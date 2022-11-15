@@ -1,32 +1,26 @@
-import {
-  getModelForClass,
-  modelOptions,
-  prop,
-  Ref,
-  Severity,
-} from '@typegoose/typegoose'
+import { modelOptions, prop, Ref, Severity } from '@typegoose/typegoose'
 import { Company } from './companyModel'
 import { JobApplication } from './jobApplicationModel'
 
 @modelOptions({
   options: { allowMixed: Severity.ALLOW },
-  schemaOptions: { toJSON: { virtuals: true } },
+  schemaOptions: { toJSON: { virtuals: true }, timestamps: true },
 })
 export class OfferClass {
   @prop()
-  public title?: string
+  public title!: string
 
   @prop()
-  public address?: string
+  public address!: string
 
   @prop()
-  public contractType?: string
+  public contractType!: string
 
   @prop()
-  public time?: string
+  public time!: string
 
   @prop()
-  public experience?: string
+  public experience!: string
 
   @prop()
   public salaryMin?: number
@@ -47,10 +41,13 @@ export class OfferClass {
   public tags?: Array<string>
 
   @prop({ ref: () => Company })
-  public company?: Ref<Company>
+  public company!: Ref<Company>
 
   @prop()
-  public expiresAt?: Date
+  public expiresAt!: Date
+
+  @prop()
+  public createdAt?: Date
 
   @prop()
   public expiresIn?: number

@@ -78,6 +78,7 @@ const NewOfferScreen: React.FC = () => {
         <Form.Group className='my-2'>
           <Form.Label>Title</Form.Label>
           <Form.Control
+            required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             type='text'
@@ -86,6 +87,7 @@ const NewOfferScreen: React.FC = () => {
         <Form.Group className='my-2'>
           <Form.Label>Localization</Form.Label>
           <Form.Control
+            required
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             type='text'
@@ -94,6 +96,7 @@ const NewOfferScreen: React.FC = () => {
         <Form.Group className='my-2'>
           <Form.Label>Contract type</Form.Label>
           <Form.Control
+            required
             value={contractType}
             onChange={(e) => setContractType(e.target.value)}
             type='text'
@@ -102,6 +105,7 @@ const NewOfferScreen: React.FC = () => {
         <Form.Group className='my-2'>
           <Form.Label>Form of employment</Form.Label>
           <Form.Control
+            required
             value={time}
             onChange={(e) => setTime(e.target.value)}
             type='text'
@@ -110,6 +114,7 @@ const NewOfferScreen: React.FC = () => {
         <Form.Group className='my-2'>
           <Form.Label>Experience</Form.Label>
           <Form.Control
+            required
             value={experience}
             onChange={(e) => setExperience(e.target.value)}
             type='text'
@@ -118,6 +123,7 @@ const NewOfferScreen: React.FC = () => {
         <Form.Group className='my-2'>
           <Form.Label>Expires at</Form.Label>
           <Form.Control
+            required
             value={expiresAt}
             onChange={(e) => setExpiresAt(e.target.value)}
             type='date'
