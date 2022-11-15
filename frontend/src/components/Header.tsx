@@ -55,6 +55,9 @@ const Header = () => {
                 <LinkContainer to={`/recieved-applications`}>
                   <Nav.Link>Recieved Job Applications</Nav.Link>
                 </LinkContainer>
+                <LinkContainer to={`/newoffer`}>
+                  <Nav.Link>Create Job Offer</Nav.Link>
+                </LinkContainer>
               </>
             ) : (
               userInfo && (
