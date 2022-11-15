@@ -31,6 +31,7 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
   try {
     const count = await OfferModel.countDocuments({ ...position, ...location })
     const offers = await OfferModel.find({ ...position, ...location })
+      .sort({ createdAt: 'descending' })
       .limit(pageSize)
       .skip(pageSize * (page - 1))
       .populate({ path: 'company', populate: { path: 'reviews' } })
