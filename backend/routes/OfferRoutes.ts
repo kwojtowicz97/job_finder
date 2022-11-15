@@ -1,8 +1,13 @@
 import express from 'express'
 const router = express.Router()
-import { getOffers, getOfferById } from '../controllers/OfferController'
+import {
+  getOffers,
+  getOfferById,
+  createOffer,
+} from '../controllers/OfferController'
+import { protect } from '../middleware/authHandler'
 
-router.route('/').get(getOffers)
+router.route('/').get(getOffers).post(protect, createOffer)
 router.route('/:id').get(getOfferById)
 
 export default router

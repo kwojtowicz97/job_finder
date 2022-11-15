@@ -249,3 +249,8 @@ hr {
     display: none;
   }
 }
+
+.new-offer-list-item {
+  background: #e0e0e0;
+  list-style: none;
+}

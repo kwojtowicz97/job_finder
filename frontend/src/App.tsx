@@ -141,7 +141,7 @@ function App() {
                     }
                   />
                   <Route
-                    path='/company/newoffer'
+                    path='/newoffer'
                     element={
                       <Protect type='company'>
                         <NewOfferScreen />

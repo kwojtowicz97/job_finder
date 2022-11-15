@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
-import { OfferModel } from '../models'
+import { CompanyModel, OfferModel } from '../models'
+import { CustomRequest } from '../middleware/authHandler'
 
 // @desc    Fetch all offers
 // @route   GET /api/products
@@ -66,6 +67,45 @@ export const getOfferById = asyncHandler(
     } else {
       res.status(404)
       throw new Error('Offer not found')
+    }
+  }
+)
+
+export const createOffer = asyncHandler(
+  async (req: CustomRequest, res: Response) => {
+    const userCompany = await CompanyModel.findById(req.user?.company)
+    if (userCompany) {
+      const {
+        body: {
+          title,
+          address,
+          contractType,
+          time,
+          experience,
+          responsibilities,
+          requirements,
+          benefits,
+          expiresAt,
+        },
+      } = req
+
+      const newOffer = await OfferModel.create({
+        title,
+        address,
+        contractType,
+        time,
+        experience,
+        responsibilities,
+        requirements,
+        benefits,
+        expiresAt,
+        company: userCompany._id,
+      })
+
+      res.send(newOffer)
+    } else {
+      res.status(401)
+      throw new Error("Company didn't found")
     }
   }
 )
