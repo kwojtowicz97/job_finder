@@ -29,6 +29,7 @@ import CompaniesScreen from './screens/CompaniesScreen'
 import SendJobApplicationsScreen from './screens/SendJobApplicationsScreen'
 import CvBuilder from './screens/CvBuilderScreen'
 import Protect from './components/Protect'
+import FavouritesScreen from './screens/FavouritesScreen'
 
 const queryClient = new QueryClient()
 
@@ -137,6 +138,14 @@ function App() {
                     element={
                       <Protect type='logged'>
                         <ProfileScreen />
+                      </Protect>
+                    }
+                  />
+                  <Route
+                    path='/favourites'
+                    element={
+                      <Protect type='logged'>
+                        <FavouritesScreen />
                       </Protect>
                     }
                   />

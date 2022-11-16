@@ -110,3 +110,25 @@ export const createOffer = asyncHandler(
     }
   }
 )
+
+export const getAllOffers = asyncHandler(
+  async (req: Request, res: Response) => {
+    try {
+      const offers = await OfferModel.find({})
+        .sort({ createdAt: 'descending' })
+        .populate({ path: 'company', populate: { path: 'reviews' } })
+
+      offers.forEach((offer) => {
+        const hours =
+          (new Date(offer.expiresAt!).getTime() - new Date().getTime()) /
+          3600000
+
+        offer.expiresIn = hours
+      })
+
+      res.json({ offers })
+    } catch (error) {
+      res.send(error)
+    }
+  }
+)
