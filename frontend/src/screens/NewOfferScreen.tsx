@@ -287,10 +287,7 @@ const NewOfferScreen: React.FC = () => {
               />
             </Form.Group>
             <Container className='d-flex justify-content-center'>
-              <Button variant='info' className='mx-3'>
-                Preview
-              </Button>
-              <Button variant='success' className='mx-3' type='submit'>
+              <Button variant='success' className='m-3' type='submit'>
                 Add
               </Button>
             </Container>
