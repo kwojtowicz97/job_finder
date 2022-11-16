@@ -22,7 +22,7 @@ export const Benefits = ({ offer, refs }: Props) => {
     <Row className='border-top d-flex flex-wrap justify-content-between p-0 p-lg-3'>
       <Container
         role={refs && 'button'}
-        onClick={() => refs?.titleRef?.current?.focus()}
+        onClick={() => refs?.addressRef?.current?.focus()}
         style={{ maxWidth: '40%' }}
         className='d-flex align-items-center m-2 ps-0 ps-lg-3'
       >
