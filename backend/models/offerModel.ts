@@ -14,6 +14,9 @@ export class OfferClass {
   public address!: string
 
   @prop()
+  public localization!: string
+
+  @prop()
   public contractType!: string
 
   @prop()
