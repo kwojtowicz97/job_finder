@@ -1,5 +1,5 @@
 import { timeEnd } from 'console'
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Container, Button, Form, Row, Col } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { userContext } from '../App'
@@ -53,7 +53,14 @@ const NewOfferScreen: React.FC = () => {
       setBenefitsInput,
     },
     submitHandler,
+    postOffer: { isSuccess, isLoading, data },
   } = usePostOffer()
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(`/offer/${data._id}`)
+    }
+  }, [isSuccess])
 
   const addResponsibilityHandler = () => {
     if (responsibiltyInput) {
@@ -102,6 +109,7 @@ const NewOfferScreen: React.FC = () => {
     refs: {
       titleRef,
       localizationRef,
+      addressRef,
       expiresInRef,
       contractRef,
       timeRef,
@@ -134,16 +142,6 @@ const NewOfferScreen: React.FC = () => {
               />
             </Form.Group>
             <Form.Group className='my-2'>
-              <Form.Label>Localization</Form.Label>
-              <Form.Control
-                ref={localizationRef}
-                required
-                value={localization}
-                onChange={(e) => setLocalization(e.target.value)}
-                type='text'
-              />
-            </Form.Group>
-            <Form.Group className='my-2'>
               <Form.Label>Address</Form.Label>
               <Form.Control
                 ref={addressRef}
@@ -151,6 +149,16 @@ const NewOfferScreen: React.FC = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 type='text'
+              />
+            </Form.Group>
+            <Form.Group className='my-2'>
+              <Form.Label>Expires at</Form.Label>
+              <Form.Control
+                ref={expiresInRef}
+                required
+                value={expiresAt}
+                onChange={(e) => setExpiresAt(e.target.value)}
+                type='date'
               />
             </Form.Group>
             <Form.Group className='my-2'>
@@ -175,24 +183,33 @@ const NewOfferScreen: React.FC = () => {
             </Form.Group>
             <Form.Group className='my-2'>
               <Form.Label>Experience</Form.Label>
-              <Form.Control
+              <Form.Select
                 ref={experienceRef}
                 required
                 value={experience}
                 onChange={(e) => setExperience(e.target.value)}
+              >
+                <option disabled value={undefined}>
+                  Select your experience
+                </option>
+                <option value='No experience'>No experience</option>
+                <option value='0-1 years'>0-1 years</option>
+                <option value='1-3 years'>1-3 years</option>
+                <option value='3-5 years'>3-5 years</option>
+                <option value='5+ years'>5+ years</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className='my-2'>
+              <Form.Label>Localization</Form.Label>
+              <Form.Control
+                ref={localizationRef}
+                required
+                value={localization}
+                onChange={(e) => setLocalization(e.target.value)}
                 type='text'
               />
             </Form.Group>
-            <Form.Group className='my-2'>
-              <Form.Label>Expires at</Form.Label>
-              <Form.Control
-                ref={expiresInRef}
-                required
-                value={expiresAt}
-                onChange={(e) => setExpiresAt(e.target.value)}
-                type='date'
-              />
-            </Form.Group>
+
             <h4>Responsibilities</h4>
             {responsibilities.length > 0 && (
               <ul className='mx-0 px-0'>
