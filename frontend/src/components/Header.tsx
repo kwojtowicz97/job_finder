@@ -16,6 +16,15 @@ const Header = () => {
 
   const logoutHandler = () => {
     localStorage.removeItem('userData')
+    localStorage.removeItem('jobExperienceItems')
+    localStorage.removeItem('hobbyItems')
+    localStorage.removeItem('educationItems')
+    localStorage.removeItem('languagesItems')
+    localStorage.removeItem('skillsItems')
+    localStorage.removeItem('email')
+    localStorage.removeItem('city')
+    localStorage.removeItem('name')
+    localStorage.removeItem('phoneNumber')
     setUserInfo && setUserInfo(null)
     setToast &&
       setToast({
