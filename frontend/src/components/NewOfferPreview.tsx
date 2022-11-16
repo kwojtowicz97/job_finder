@@ -10,6 +10,7 @@ import Rating from './Rating'
 export interface Refs {
   titleRef: React.RefObject<HTMLElement>
   localizationRef: React.RefObject<HTMLElement>
+  addressRef: React.RefObject<HTMLElement>
   expiresInRef: React.RefObject<HTMLElement>
   contractRef: React.RefObject<HTMLElement>
   timeRef: React.RefObject<HTMLElement>
