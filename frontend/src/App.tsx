@@ -15,7 +15,11 @@ import LoginScreen from './screens/LoginScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import NewOfferScreen from './screens/NewOfferScreen'
 import Footer from './components/Footer'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ToastMessage } from './components/ToastMessage'
 import { UserInfo } from './types/User'
@@ -30,6 +34,7 @@ import SendJobApplicationsScreen from './screens/SendJobApplicationsScreen'
 import CvBuilder from './screens/CvBuilderScreen'
 import Protect from './components/Protect'
 import FavouritesScreen from './screens/FavouritesScreen'
+import { Auth } from './components/Auth'
 
 const queryClient = new QueryClient()
 
@@ -75,138 +80,140 @@ function App() {
 
   const [toast, setToast] = useState<Toast>({ trigger: false })
   return (
-    <userContext.Provider value={{ userInfo, setUserInfo }}>
-      <toastContext.Provider value={{ toast, setToast }}>
-        <QueryClientProvider client={queryClient}>
-          <Router>
-            <Header />
-            {/* <MainNavBar /> */}
-            <div ref={portalContainer} className='portal-container' />
-            <main className='p-0 p-lg-3'>
-              <Container fluid='lg' className='cnt py-3'>
-                <Routes>
-                  <Route
-                    path='/offer/:id'
-                    element={
-                      <Protect type='any'>
-                        <OfferDetailScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/'
-                    element={
-                      <Protect type='any'>
-                        <HomeScreen portalContainer={portalContainer} />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/register'
-                    element={
-                      <Protect type='notLogged'>
-                        <RegisterScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/company/:id'
-                    element={
-                      <Protect type='any'>
-                        <CompanyScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/companies'
-                    element={
-                      <Protect type='any'>
-                        <CompaniesScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/login'
-                    element={
-                      <Protect type='notLogged'>
-                        <LoginScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/profile'
-                    element={
-                      <Protect type='logged'>
-                        <ProfileScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/favourites'
-                    element={
-                      <Protect type='logged'>
-                        <FavouritesScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/newoffer'
-                    element={
-                      <Protect type='company'>
-                        <NewOfferScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/apply/:id'
-                    element={
-                      <Protect type='user'>
-                        <ApplyScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/newcompany'
-                    element={
-                      <Protect type='user'>
-                        <NewComapnyScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/recieved-applications'
-                    element={
-                      <Protect type='company'>
-                        <RecievedJobApplicationsScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/send-applications'
-                    element={
-                      <Protect type='user'>
-                        <SendJobApplicationsScreen />
-                      </Protect>
-                    }
-                  />
-                  <Route
-                    path='/cv-builder'
-                    element={
-                      <Protect type='user'>
-                        <CvBuilder />
-                      </Protect>
-                    }
-                  />
-                </Routes>
-              </Container>
-            </main>
-            <Footer />
-          </Router>
-          {toast.trigger && <ToastMessage />}
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-      </toastContext.Provider>
-    </userContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <userContext.Provider value={{ userInfo, setUserInfo }}>
+        <Auth>
+          <toastContext.Provider value={{ toast, setToast }}>
+            <Router>
+              <Header />
+              {/* <MainNavBar /> */}
+              <div ref={portalContainer} className='portal-container' />
+              <main className='p-0 p-lg-3'>
+                <Container fluid='lg' className='cnt py-3'>
+                  <Routes>
+                    <Route
+                      path='/offer/:id'
+                      element={
+                        <Protect type='any'>
+                          <OfferDetailScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/'
+                      element={
+                        <Protect type='any'>
+                          <HomeScreen portalContainer={portalContainer} />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/register'
+                      element={
+                        <Protect type='notLogged'>
+                          <RegisterScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/company/:id'
+                      element={
+                        <Protect type='any'>
+                          <CompanyScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/companies'
+                      element={
+                        <Protect type='any'>
+                          <CompaniesScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/login'
+                      element={
+                        <Protect type='notLogged'>
+                          <LoginScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/profile'
+                      element={
+                        <Protect type='logged'>
+                          <ProfileScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/favourites'
+                      element={
+                        <Protect type='logged'>
+                          <FavouritesScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/newoffer'
+                      element={
+                        <Protect type='company'>
+                          <NewOfferScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/apply/:id'
+                      element={
+                        <Protect type='user'>
+                          <ApplyScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/newcompany'
+                      element={
+                        <Protect type='user'>
+                          <NewComapnyScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/recieved-applications'
+                      element={
+                        <Protect type='company'>
+                          <RecievedJobApplicationsScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/send-applications'
+                      element={
+                        <Protect type='user'>
+                          <SendJobApplicationsScreen />
+                        </Protect>
+                      }
+                    />
+                    <Route
+                      path='/cv-builder'
+                      element={
+                        <Protect type='user'>
+                          <CvBuilder />
+                        </Protect>
+                      }
+                    />
+                  </Routes>
+                </Container>
+              </main>
+              <Footer />
+            </Router>
+            {toast.trigger && <ToastMessage />}
+            <ReactQueryDevtools />
+          </toastContext.Provider>
+        </Auth>
+      </userContext.Provider>
+    </QueryClientProvider>
   )
 }
 
