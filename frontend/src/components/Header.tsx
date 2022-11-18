@@ -43,15 +43,17 @@ const Header = () => {
           style={{ display: 'contents' }}
         >
           <LinkContainer to='/'>
-            <Navbar.Brand>
-              <b>Job Finder</b>
-            </Navbar.Brand>
+            <Nav.Link>
+              <Navbar.Brand>
+                <b>Job Finder</b>
+              </Navbar.Brand>
+            </Nav.Link>
           </LinkContainer>
           <Navbar.Toggle aria-controls='navbarScroll' />
           <Navbar.Collapse id='navbarScroll'>
-            <LinkContainer onClick={() => setShow(false)} to='/'>
+            {/* <LinkContainer onClick={() => setShow(false)} to='/'>
               <Nav.Link>Job offers</Nav.Link>
-            </LinkContainer>
+            </LinkContainer> */}
 
             <LinkContainer to='/companies'>
               <Nav.Link>Companies</Nav.Link>
