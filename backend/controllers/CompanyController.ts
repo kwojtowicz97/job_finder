@@ -32,22 +32,33 @@ export const createNewCompany = asyncHandler(
       throw new Error('User has already created a company')
     }
 
-    const { name, country, city, address, phoneNumber, image, description } =
-      req.body as {
-        name: string
-        country: string
-        city: string
-        address: string
-        phoneNumber: string
-        image: string | undefined
-        description: string | undefined
-      }
-    const company = await CompanyModel.create({
-      // user: req.user?._id,
+    const {
       name,
       country,
       city,
       address,
+      phoneNumber,
+      image,
+      description,
+      localization,
+    } = req.body as {
+      name: string
+      country: string
+      city: string
+      address: string
+      localization: string
+      phoneNumber: string
+      image: string | undefined
+      description: string | undefined
+    }
+    const company = await CompanyModel.create({
+      // user: req.user?._id,
+
+      name,
+      country,
+      city,
+      address,
+      localization,
       phoneNumber,
       image,
       description,
@@ -74,9 +85,11 @@ export const updateCompany = asyncHandler(
       'reviews'
     )
 
+    console.log(req.body)
+
     if (company) {
       company.name = req.body.name || company.name
-      company.image = req.body.image || company.image
+      company.image = req.body.logoURL || company.image
       company.address = req.body.address || company.address
       company.city = req.body.city || company.city
       company.country = req.body.country || company.country
