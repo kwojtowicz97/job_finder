@@ -49,9 +49,6 @@ export class JobApplication {
   public address?: string
 
   @prop()
-  public isAdmin?: boolean
-
-  @prop()
   public experience?: string
 
   @prop()
