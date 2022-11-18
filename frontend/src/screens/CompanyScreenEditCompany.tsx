@@ -28,6 +28,7 @@ const CompanyScreenEditCompany = ({ initialState, setIsEditing }: Props) => {
       queryClient.invalidateQueries([
         `listComapnyDetails:${params.id! || undefined}`,
       ])
+      queryClient.invalidateQueries(['userInfo'])
       setIsEditing(false)
     }
   }, [isSuccess])

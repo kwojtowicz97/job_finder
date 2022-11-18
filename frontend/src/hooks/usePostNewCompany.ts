@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { useContext } from 'react'
 import { userContext } from '../App'
@@ -14,6 +14,7 @@ interface CompanyCreateData {
 }
 
 export const usePostNewCompany = () => {
+  const queryClient = useQueryClient()
   const { userInfo } = useContext(userContext)
   const configFile = {
     headers: {
@@ -23,6 +24,7 @@ export const usePostNewCompany = () => {
   }
   const postNewCompany = async (company: CompanyCreateData) => {
     const { data } = await axios.post('/api/companies', company, configFile)
+    queryClient.invalidateQueries(['userInfo'])
     return data
   }
 
