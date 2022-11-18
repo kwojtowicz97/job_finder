@@ -7,7 +7,7 @@ import { CustomRequest } from '../middleware/authHandler'
 // @route   GET /api/products
 // @access  Public
 export const getOffers = asyncHandler(async (req: Request, res: Response) => {
-  const pageSize = 3
+  const pageSize = 5
   const page = Number(req.query.pageNumber) || 1
 
   const position = req.query.position
