@@ -92,6 +92,9 @@ const Header = () => {
                 <LinkContainer to='/profile'>
                   <Nav.Link>Profile</Nav.Link>
                 </LinkContainer>
+                <LinkContainer to='/favourites'>
+                  <Nav.Link>Favourites</Nav.Link>
+                </LinkContainer>
 
                 <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
               </NavDropdown>
