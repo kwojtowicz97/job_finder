@@ -1,1 +1,1 @@
-web: nodemon backend/server
+web: node backend/dist/server

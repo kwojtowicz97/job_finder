@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserModel = exports.ReviewModel = exports.OfferModel = exports.JobApplicationModel = exports.CompanyModel = void 0;
+const typegoose_1 = require("@typegoose/typegoose");
+const companyModel_1 = require("./companyModel");
+const jobApplicationModel_1 = require("./jobApplicationModel");
+const offerModel_1 = require("./offerModel");
+const reviewModel_1 = require("./reviewModel");
+const userModel_1 = require("./userModel");
+exports.CompanyModel = (0, typegoose_1.getModelForClass)(companyModel_1.Company);
+exports.JobApplicationModel = (0, typegoose_1.getModelForClass)(jobApplicationModel_1.JobApplication);
+exports.OfferModel = (0, typegoose_1.getModelForClass)(offerModel_1.OfferClass);
+exports.ReviewModel = (0, typegoose_1.getModelForClass)(reviewModel_1.Review);
+exports.UserModel = (0, typegoose_1.getModelForClass)(userModel_1.User);
