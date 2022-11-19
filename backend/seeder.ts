@@ -36,7 +36,6 @@ const importData = async () => {
     //Create companies
 
     const createdCompanies = await Company.insertMany(companies)
-    console.log(createdCompanies.map((company) => String(company._id)))
 
     //Create offers and populate with random company
 
@@ -49,7 +48,6 @@ const importData = async () => {
     })
 
     const createdOffers = await Offer.insertMany(offers)
-    console.log(createdOffers.map((offer) => String(offer._id)))
 
     //Create reviews
     const reviews: TDummyReview[] = []

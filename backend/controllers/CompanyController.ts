@@ -66,7 +66,6 @@ export const createNewCompany = asyncHandler(
 
     if (company) {
       const user = await UserModel.findById(req.user?._id)
-      console.log(user)
       if (user) {
         user.company = company._id
         await user.save()
@@ -84,8 +83,6 @@ export const updateCompany = asyncHandler(
     const company = await CompanyModel.findById(req.user?.company).populate(
       'reviews'
     )
-
-    console.log(req.body)
 
     if (company) {
       company.name = req.body.name || company.name

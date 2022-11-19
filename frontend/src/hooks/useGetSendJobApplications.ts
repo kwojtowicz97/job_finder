@@ -29,8 +29,6 @@ const useGetSendJobApplications = () => {
 
     const applicationsByOffer: ApplicationsByOffer = {}
 
-    console.log(data)
-
     data.forEach((application) => {
       if (applicationsByOffer.hasOwnProperty(application.offer._id)) {
         applicationsByOffer[application.offer._id].applications!.push(
@@ -45,7 +43,6 @@ const useGetSendJobApplications = () => {
       }
     })
 
-    console.log(applicationsByOffer)
     return applicationsByOffer
   }
   return useQuery<ApplicationsByOffer, Error>([`listSendJobApplications`], () =>

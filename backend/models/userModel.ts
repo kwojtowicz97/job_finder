@@ -56,7 +56,6 @@ export class User {
     this: DocumentType<User>,
     enteredPassword: string
   ) {
-    console.log(enteredPassword, this.password)
     return await bcrypt.compare(enteredPassword, this.password!)
   }
 

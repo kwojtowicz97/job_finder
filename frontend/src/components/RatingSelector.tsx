@@ -11,10 +11,8 @@ const RatingSelector = ({ className, setValue, value }: Props) => {
   const [isClicked, setIsClicked] = useState<boolean>(false)
 
   const hoverHandler = (valueNumber: number) => {
-    console.log(value)
     if (isClicked) return
     setValue(valueNumber)
-    console.log(value)
   }
 
   const clickHandler = (valueNumber: number) => {

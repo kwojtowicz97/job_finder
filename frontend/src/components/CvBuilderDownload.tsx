@@ -41,7 +41,6 @@ const CvBuilderDownload = ({ setStep }: Props) => {
       .output('blob')
       .then((data: Blob) => {
         setPdf(data)
-        console.log(pdf)
         sendFileHandler(pdf, {
           experienceCardState,
           personalInfoCardState,
