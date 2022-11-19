@@ -209,7 +209,6 @@ function App() {
               <Footer />
             </Router>
             {toast.trigger && <ToastMessage />}
-            <ReactQueryDevtools />
           </toastContext.Provider>
         </Auth>
       </userContext.Provider>
