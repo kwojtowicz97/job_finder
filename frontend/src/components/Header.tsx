@@ -89,14 +89,16 @@ const Header = () => {
                 id='basic-nav-dropdown'
                 className='ms-lg-auto'
               >
-                <LinkContainer to='/profile'>
-                  <Nav.Link>Profile</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to='/favourites'>
-                  <Nav.Link>Favourites</Nav.Link>
-                </LinkContainer>
+                <Container className='m-0 ms-lg-0 ms-2'>
+                  <LinkContainer to='/profile'>
+                    <Nav.Link>Profile</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to='/favourites'>
+                    <Nav.Link>Favourites</Nav.Link>
+                  </LinkContainer>
 
-                <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
+                  <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
+                </Container>
               </NavDropdown>
             ) : (
               <LinkContainer className='ms-lg-auto' to='/login'>
