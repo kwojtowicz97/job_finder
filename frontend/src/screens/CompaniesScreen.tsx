@@ -58,7 +58,13 @@ const CompaniesScreen = () => {
       <h1 className='text-center mt-3'>
         <b>Search for Companies</b>
       </h1>
-      <Form className='m-3 d-flex flex-md-row flex-column'>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault()
+          fetchCompaniesWithKeywords()
+        }}
+        className='m-3 d-flex flex-md-row flex-column'
+      >
         <Form.Control
           className='mx-md-3 my-1 my-md-0'
           type='text'
@@ -75,10 +81,7 @@ const CompaniesScreen = () => {
           onChange={(e) => setLoacationSearch(e.target.value)}
         ></Form.Control>
 
-        <Button
-          className='mx-md-3 my-1 my-md-0'
-          onClick={() => fetchCompaniesWithKeywords()}
-        >
+        <Button type='submit' className='mx-md-3 my-1 my-md-0'>
           Find company
         </Button>
       </Form>
