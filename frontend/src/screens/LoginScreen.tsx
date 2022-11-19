@@ -2,7 +2,7 @@ import React, { FormEvent, useContext, useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Message from '../components/Message'
 import { errorHandler } from '../utils/errorHandler'
 import { toastContext, userContext } from '../App'
@@ -25,6 +25,12 @@ const RegisterScreen = () => {
   const navigate = useNavigate()
   const { setUserInfo } = useContext(userContext)
   const { setToast } = useContext(toastContext)
+
+  const { search } = useLocation()
+
+  const query = React.useMemo(() => new URLSearchParams(search), [search])
+
+  const redirect = query.get('redirect')
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -54,7 +60,7 @@ const RegisterScreen = () => {
           title: `Hello ${data.name}!`,
           message: 'You have beed logged in!',
         })
-      navigate('/')
+      navigate(redirect ? redirect : '/')
     }
   }, [isSuccess, data, navigate])
 

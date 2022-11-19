@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { Col, Row, Image, Container, Button } from 'react-bootstrap'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Rating from '../components/Rating'
@@ -196,7 +196,11 @@ const OfferDetailScreen: React.FC = () => {
                   <Row className='border-bottom'>
                     <LinkContainer
                       style={{ maxWidth: '80%' }}
-                      to={`/apply/${offer._id}`}
+                      to={
+                        userInfo
+                          ? `/apply/${offer._id}`
+                          : `/login?redirect=/apply/${offer._id}`
+                      }
                     >
                       <Button
                         disabled={offer.expiresIn < 0}
