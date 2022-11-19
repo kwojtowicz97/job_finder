@@ -122,7 +122,9 @@ const CompanyScreen = () => {
             )}
           </Tab>
           <Tab eventKey='reviews' title='Reviews'>
-            {!userInfo ? (
+            {userInfo?.company?._id === data.company._id ? (
+              <></>
+            ) : !userInfo ? (
               <p className='my-2'>
                 <LinkContainer
                   role='button'
@@ -139,9 +141,15 @@ const CompanyScreen = () => {
             ) : (
               <p className='py-2'>You have already reviewed the company</p>
             )}
-            {data.company.reviews.reverse().map((review) => (
-              <Review key={review._id} review={review} />
-            ))}
+            {data.company.reviews.length > 0 ? (
+              data.company.reviews
+                .reverse()
+                .map((review) => <Review key={review._id} review={review} />)
+            ) : (
+              <Message className='my-3' variant='info'>
+                There are no company reviews yet
+              </Message>
+            )}
           </Tab>
         </Tabs>
       </Row>
