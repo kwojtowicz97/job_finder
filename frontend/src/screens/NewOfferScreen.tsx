@@ -123,7 +123,7 @@ const NewOfferScreen: React.FC = () => {
 
   return (
     <Row>
-      <Col className='col-12 col-lg-6 border rounded'>
+      <Col className='col-12 col-lg-6'>
         <Container>
           <h2 className='mt-3 mb-3'>New job offer</h2>
           <Form
