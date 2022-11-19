@@ -69,11 +69,36 @@ const RegisterScreen = () => {
     mutateAsync({ email, password })
   }
 
+  const resetDatabase = async () => {
+    const { data } = await axios.post('/api/resetdata')
+    return data
+  }
+
+  const {
+    data: resetDatabaseData,
+    isLoading: resetDatabaseLoading,
+    isSuccess: resetDatabaseSucces,
+    error: resetDatabaseError,
+    mutateAsync: resetDatabaseMutate,
+  } = useMutation(['reset-database'], resetDatabase)
+
+  const resetDatabaseHandler = async () => {
+    await resetDatabaseMutate()
+  }
+
   return (
     <Container>
       {isError && <Message variant='danger'>{errorHandler(error)}</Message>}
       <Row className='border rounded'>
         <Col className='p-3'>
+          <Message className='my-2' variant='info'>
+            It is recommended to reset the database before login to ensure the
+            best experience of using the site and seeing all the functionality.
+          </Message>
+          <Button className='mb-2 me-3' onClick={resetDatabaseHandler}>
+            Reset database
+          </Button>
+          {resetDatabaseSucces && 'Database successfuly reseted!'}
           <h2 className='mb-3'>Sing Up</h2>
           <Form onSubmit={submitHandler}>
             <Form.Group className='mb-3'>

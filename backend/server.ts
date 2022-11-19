@@ -7,6 +7,7 @@ import CompanyRoutes from './routes/CompanyRoutes'
 import JobApplicationRoutes from './routes/JobApplicationRoutes'
 import FilesRoutes from './routes/FilesRoutes'
 import ReviewsRoutes from './routes/ReviewRoutes'
+import DatabaseRoutes from './routes/DatabaseRoutes'
 import path from 'path'
 import { errorHandler, notFound } from './middleware/errorHandler'
 
@@ -23,6 +24,7 @@ app.use('/api/companies', CompanyRoutes)
 app.use('/api/applications', JobApplicationRoutes)
 app.use('/api/uploads', FilesRoutes)
 app.use('/api/reviews', ReviewsRoutes)
+app.use('/api/resetdata', DatabaseRoutes)
 
 const dirname = path.resolve()
 app.use('/uploads', express.static(path.join(dirname, '/uploads')))

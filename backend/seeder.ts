@@ -1,4 +1,3 @@
-import dotenv from 'dotenv'
 import offers, { offersForDummyCompany } from './data/offers'
 import companies, { demoCompany } from './data/companies'
 import {
@@ -8,7 +7,6 @@ import {
   UserModel as User,
   JobApplicationModel as JobApplication,
 } from './models'
-import { connectDB } from './config/db'
 import { generateReview, TDummyReview } from './data/reviews'
 import { companyCredentials, userCredentials } from './data/users'
 import {
@@ -17,13 +15,9 @@ import {
   getRandomStatus,
   TDummyJobAppliaction,
 } from './data/jobApplications'
-import { deleteModel } from 'mongoose'
 
-dotenv.config()
-
-connectDB()
-
-const importData = async () => {
+export const importData = async () => {
+  console.log('dataimport')
   try {
     await Offer.deleteMany()
     await Company.deleteMany()
@@ -122,10 +116,10 @@ const importData = async () => {
     await Review.insertMany(reviews)
 
     console.log('Data Imported!')
-    process.exit()
+    // process.exit(0)
   } catch (error) {
     console.error(`${error}`)
-    process.exit(1)
+    // process.exit(1)
   }
 }
 
@@ -135,15 +129,13 @@ const destroyData = async () => {
     await Company.deleteMany()
 
     console.log('Data Destroyed!')
-    process.exit()
   } catch (error) {
     console.error(`${error}`)
-    process.exit(1)
   }
 }
 
-if (process.argv[2] === '-d') {
-  destroyData()
-} else {
-  importData()
-}
+// if (process.argv[2] === '-d') {
+//   destroyData()
+// } else {
+//   importData()
+// }
