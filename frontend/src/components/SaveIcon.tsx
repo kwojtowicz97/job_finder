@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface Props {
   isSaved: boolean
@@ -9,6 +9,7 @@ interface Props {
   reverse?: boolean
   className?: string
   spanClassName?: string
+  disabled?: string | false
 }
 
 const SaveIcon = ({
@@ -17,14 +18,25 @@ const SaveIcon = ({
   reverse,
   className,
   spanClassName,
+  disabled,
 }: Props) => {
   const [isHover, setIsHover] = useState(false)
+  const navigate = useNavigate()
+
+  const disabledHandler = () => {
+    if (disabled) {
+      navigate(disabled)
+    }
+  }
+
+  console.log(disabled)
+
   return (
     <button
       className={spanClassName + ' bg-transparent border-0'}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
-      onClick={onClick}
+      onClick={disabled ? disabledHandler : onClick}
     >
       {!reverse ? (
         <span>
@@ -42,7 +54,7 @@ const SaveIcon = ({
           <i
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
-            onClick={onClick}
+            onClick={disabled ? disabledHandler : onClick}
             className={`${
               isHover || isSaved ? 'fa-solid fav-star fav-saved' : 'fa-regular'
             } fa-star`}

@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { Col, Row, Image, Container, Button } from 'react-bootstrap'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Rating from '../components/Rating'
@@ -216,6 +216,9 @@ const OfferDetailScreen: React.FC = () => {
                   </Row>
                   <Row className='text-center'>
                     <SaveIcon
+                      disabled={
+                        !userInfo && `/login?redirect=/offer/${offer!._id}`
+                      }
                       spanClassName='col-6 p-3 border-end d-block'
                       className='black'
                       reverse
