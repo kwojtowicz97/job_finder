@@ -13,19 +13,31 @@ const CompaniesScreen = () => {
   const [companySearch, setCompanySearch] = useState('')
   const [locationSearch, setLoacationSearch] = useState('')
 
+  const [showResetButton, setShowResetButton] = useState(false)
+
+  const resetFiltersHandler = () => {
+    setCompanySearch('')
+    setLoacationSearch('')
+    setTrigger((state) => !state)
+  }
+
   const [pageNumber, setPageNumber] = useState(1)
 
   const {
-    data,
-    isLoading,
-    isFetching,
-    error,
-    isError,
-    refetch: fetchCompaniesWithKeywords,
+    setTrigger,
+    query: {
+      data,
+      isLoading,
+      isFetching,
+      error,
+      isError,
+      refetch: fetchCompaniesWithKeywords,
+    },
   } = useListCompanies({
     companySearch,
     locationSearch,
     pageNumber,
+    setShowResetButton,
   })
 
   const {
@@ -61,6 +73,7 @@ const CompaniesScreen = () => {
       <Form
         onSubmit={(e) => {
           e.preventDefault()
+          setShowResetButton(true)
           fetchCompaniesWithKeywords()
         }}
         className='m-3 d-flex flex-md-row flex-column'
@@ -85,19 +98,24 @@ const CompaniesScreen = () => {
           Find company
         </Button>
       </Form>
+      {showResetButton && (
+        <Button onClick={resetFiltersHandler} className='my-2'>
+          Reset filters
+        </Button>
+      )}
       {isLoading || isFetching ? (
         <Loader />
       ) : isError ? (
         <Message variant='danger'>{errorHandler(error)}</Message>
       ) : (
         <>
-          {data.companies
+          {data!.companies
             .sort((a, b) => (a.name > b.name ? 1 : -1))
             .map((company) => (
               <CompanyCardExtended company={company} />
             ))}
           <Pagination
-            totalPagesCount={data.pages}
+            totalPagesCount={data!.pages}
             pageNumber={pageNumber}
             setPageNumber={setPageNumber}
           />
