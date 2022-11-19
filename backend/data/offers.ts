@@ -86,7 +86,7 @@ const offers = [
     address: '',
     contractType: 'Contract of employment',
     time: 'Full Time',
-    experience: 'Regular/senior',
+    experience: 'Regular',
     responsibilities: [
       'Administration of firewall systems',
       'Monitoring of network links and devices',
