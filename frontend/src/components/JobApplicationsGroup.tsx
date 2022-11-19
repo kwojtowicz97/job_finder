@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { ApplicationByOffer } from '../hooks/useGetRecievedJobApplications'
 import { JobApplication as TJobApplication } from '../types/JobApplication'
 import JobApplication from './JobApplication'
+import Message from './Message'
 
 export interface Props {
   application: ApplicationByOffer
@@ -28,7 +29,9 @@ const JobApplicationsGroup = ({ application }: Props) => {
         </LinkContainer>
       </Row>
       {application.applications.length === 0 && (
-        <p className='py-2'>No job applications yet</p>
+        <Message className='my-3' variant='info'>
+          No job applications yet
+        </Message>
       )}
       {application.applications.map((application) => (
         <JobApplication application={application} />

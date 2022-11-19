@@ -8,23 +8,29 @@ import useGetRecievedJobApplications from '../hooks/useGetRecievedJobApplication
 import { errorHandler } from '../utils/errorHandler'
 
 const RecievedJobApplicationsScreen = () => {
-  const { data, isSuccess, isError, isLoading, error } =
+  const { data, isFetching, isError, isLoading, error } =
     useGetRecievedJobApplications()
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <Loader />
       ) : isError ? (
         <Message variant='danger'>{errorHandler(error)}</Message>
       ) : (
         <>
           <h2>Recieved Job Applications</h2>
-          <ListGroup variant='flush'>
-            {data.map((application) => (
-              <JobApplicationGroup application={application} />
-            ))}
-          </ListGroup>
+          {Object.entries(data).length > 0 ? (
+            <ListGroup variant='flush'>
+              {data.map((application) => (
+                <JobApplicationGroup application={application} />
+              ))}
+            </ListGroup>
+          ) : (
+            <Message className='my-3' variant='info'>
+              You haven't created any job offers yet
+            </Message>
+          )}
         </>
       )}
     </>
