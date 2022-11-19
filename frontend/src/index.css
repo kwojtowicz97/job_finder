@@ -136,7 +136,21 @@ hr {
   margin-bottom: 2rem;
 }
 
+.slick-next::before {
+  color: #000000 !important;
+}
+.slick-prev::before {
+  color: #000000 !important;
+}
+
 @media only screen and (max-width: 1140px) {
+  .slick-next::before {
+      display: none
+    }
+  
+    .slick-prev::before {
+      display: none
+    }
   main {
     padding: 0 !important;
   }
