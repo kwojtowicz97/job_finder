@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { ListGroup } from 'react-bootstrap'
-import Pagination from '../components/Pagination'
 import { userContext } from '../App'
 import JobOffer from '../components/JobOffer'
 import Loader from '../components/Loader'
@@ -37,15 +36,21 @@ const FavouritesScreen = () => {
             <Message variant='danger'>{errorHandler(error)}</Message>
           ) : (
             <>
-              <ListGroup variant='flush'>
-                <ListGroup.Item className='p-0 p-lg-3'>
-                  {data.offers
-                    .filter((offer) => userInfo?.saved.includes(offer._id))
-                    .map((offer) => (
-                      <JobOffer key={offer._id} offer={offer} />
-                    ))}
-                </ListGroup.Item>
-              </ListGroup>
+              {userInfo && userInfo.saved.length > 0 ? (
+                <ListGroup variant='flush'>
+                  <ListGroup.Item className='p-0 p-lg-3'>
+                    {data.offers
+                      .filter((offer) => userInfo?.saved.includes(offer._id))
+                      .map((offer) => (
+                        <JobOffer key={offer._id} offer={offer} />
+                      ))}
+                  </ListGroup.Item>
+                </ListGroup>
+              ) : (
+                <Message className='my-3' variant='info'>
+                  You don't have any favourites job offers yet.
+                </Message>
+              )}
             </>
           )}
         </>
