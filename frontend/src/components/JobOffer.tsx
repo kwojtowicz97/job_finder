@@ -46,7 +46,7 @@ const JobOffer = ({ offer }: Props) => {
       className='flex-row my-2 my-lg-3'
     >
       <Card.Img
-        className='logo m-3 p-0 align-self-start align-self-md-center'
+        className='logo m-3 p-0 align-self-center'
         src={offer.company.image}
         alt={`${offer.company.name} logo`}
       />
