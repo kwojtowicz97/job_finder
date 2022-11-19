@@ -68,11 +68,13 @@ const CompanyScreen = () => {
                     value={data.company.rating}
                   ></Rating>
                 </Container>
-                {userInfo?.company?._id === params.id && (
-                  <Button onClick={() => setIsEditing(true)}>Edit</Button>
-                )}
               </Container>
-              <Container className='p-3 mt-3'>
+              <Container className='p-3 pt-1'>
+                {userInfo?.company?._id === params.id && (
+                  <Button className='my-2' onClick={() => setIsEditing(true)}>
+                    Edit
+                  </Button>
+                )}
                 <h5>
                   <b>Address</b>
                 </h5>
