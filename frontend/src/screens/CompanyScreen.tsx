@@ -9,6 +9,7 @@ import {
   Tab,
   Tabs,
 } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 import { useParams } from 'react-router-dom'
 import { userContext } from '../App'
 import JobOffer from '../components/JobOffer'
@@ -121,10 +122,19 @@ const CompanyScreen = () => {
             )}
           </Tab>
           <Tab eventKey='reviews' title='Reviews'>
-            {userInfo &&
-            !data.company.reviews.some(
-              (review) => review.user === userInfo?._id
-            ) ? (
+            {!userInfo ? (
+              <p className='my-2'>
+                <LinkContainer
+                  role='button'
+                  to={`/login?redirect=/company/${data.company._id}`}
+                >
+                  <a className='nav-link d-inline text-info'>Login</a>
+                </LinkContainer>{' '}
+                to send a review
+              </p>
+            ) : !data.company.reviews.some(
+                (review) => review.user === userInfo?._id
+              ) ? (
               <NewReview id={params.id!} refetch={refetch} />
             ) : (
               <p className='py-2'>You have already reviewed the company</p>
