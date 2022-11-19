@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 
-type TDummyJobAppliaction = {
+export type TDummyJobAppliaction = {
   offer: string
   user: string
   name: string
@@ -11,10 +11,10 @@ type TDummyJobAppliaction = {
   address: string
   experience: string
   cvFile: string
-  expiresAt: string
+  status: string
 }
 
-const getRandomExperience = () => {
+export const getRandomExperience = () => {
   const EXPERIENCE = [
     'No experience',
     '0-1 years',
@@ -25,8 +25,13 @@ const getRandomExperience = () => {
 
   return EXPERIENCE[Math.floor(Math.random() * EXPERIENCE.length)]
 }
+export const getRandomStatus = () => {
+  const STATUS = ['New', 'Opened', 'Considering', 'Rejected', 'Accepted']
 
-export const generateApplications = (
+  return STATUS[Math.floor(Math.random() * STATUS.length)]
+}
+
+export const generateApplication = (
   user: string,
   offer: string
 ): TDummyJobAppliaction => {
@@ -35,12 +40,12 @@ export const generateApplications = (
     user,
     name: faker.name.fullName(),
     email: faker.internet.email(),
-    phoneNumber: faker.phone.number(),
+    phoneNumber: faker.phone.number('###-###-###'),
     country: faker.address.country(),
     city: faker.address.city(),
     address: faker.address.streetAddress(),
     experience: getRandomExperience(),
-    cvFile: './dummy.pdf',
-    expiresAt: String(new Date()),
+    cvFile: '.uploads/dummyCV.pdf',
+    status: getRandomStatus(),
   }
 }

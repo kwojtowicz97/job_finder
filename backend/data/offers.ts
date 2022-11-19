@@ -4,6 +4,34 @@ function addDays(days: number) {
   return result
 }
 
+export const offersForDummyCompany = [
+  {
+    title: 'Demo Offer',
+    localization: 'Hybrid',
+    address: '',
+    contractType: 'B2B',
+    time: 'Full Time',
+    experience: 'Regular',
+    responsibilities: [
+      'Creating schedules, project plans and pricing',
+      'Active management of the project team',
+      'Estimating, assessing and minimizing risks',
+    ],
+    requirements: [
+      'University degree; technical preferred',
+      'Minimum 5 years of experience in project management',
+      'Sound knowledge of project management methodology and theory',
+    ],
+    benefits: [
+      'Attractive salary conditions',
+      'Employment contract or b2b cooperation',
+      'Opportunity to work with professionals with years of experience',
+    ],
+    expiresAt: addDays(Math.ceil(Math.random() * 10)),
+    company: '1',
+  },
+]
+
 const offers = [
   {
     title: 'It Project Manager',

@@ -1,15 +1,23 @@
 import dotenv from 'dotenv'
-import offers from './data/offers'
+import offers, { offersForDummyCompany } from './data/offers'
 import companies, { demoCompany } from './data/companies'
 import {
   OfferModel as Offer,
   CompanyModel as Company,
   ReviewModel as Review,
   UserModel as User,
+  JobApplicationModel as JobApplication,
 } from './models'
 import { connectDB } from './config/db'
 import { generateReview, TDummyReview } from './data/reviews'
 import { companyCredentials, userCredentials } from './data/users'
+import {
+  generateApplication,
+  getRandomExperience,
+  getRandomStatus,
+  TDummyJobAppliaction,
+} from './data/jobApplications'
+import { deleteModel } from 'mongoose'
 
 dotenv.config()
 
@@ -21,17 +29,46 @@ const importData = async () => {
     await Company.deleteMany()
     await Review.deleteMany()
     await User.deleteMany()
+    await JobApplication.deleteMany()
 
     //Create dummy company
-    const { _id: demoCompanyId } = await Company.create(demoCompany)
+    const dummyCompany = await Company.create(demoCompany)
 
-    //Create dummy users
+    //Create dummy user
 
-    const { _id: userId } = await User.create(userCredentials)
+    const demoUser = await User.create(userCredentials)
     const { _id: companyUserId } = await User.create({
       ...companyCredentials,
-      company: demoCompanyId,
+      company: dummyCompany._id,
     })
+
+    //Create dummy offers for dummy company
+
+    offersForDummyCompany.forEach((offer) => {
+      const company = dummyCompany
+
+      offer.company = company._id
+      offer.address = `${company.city}, ${company.address}` || ''
+    })
+
+    const createdOffersForDummyCompany = await Offer.insertMany(
+      offersForDummyCompany
+    )
+
+    //Create dummy applications for dummy offers
+
+    const jobApplications: TDummyJobAppliaction[] = []
+
+    createdOffersForDummyCompany.forEach((offer) => {
+      const numberOfApplications = Math.ceil(Math.random() * 6)
+      for (let i = 0; i <= numberOfApplications; i++) {
+        jobApplications.push(
+          generateApplication('6376c96f3e21d9b4aaa6e9e5', offer._id)
+        )
+      }
+    })
+
+    await JobApplication.insertMany(jobApplications)
 
     //Create companies
 
@@ -49,6 +86,29 @@ const importData = async () => {
 
     const createdOffers = await Offer.insertMany(offers)
 
+    //Create dummy applications for demo offers
+
+    const jobApplicationsSendByDummyUser: TDummyJobAppliaction[] = []
+
+    createdOffers.forEach((offer, index) => {
+      if (index % 3 !== 0) return
+      jobApplicationsSendByDummyUser.push({
+        offer: offer._id,
+        user: demoUser._id,
+        email: demoUser.email!,
+        address: demoUser.address!,
+        city: demoUser.city!,
+        country: demoUser.country!,
+        cvFile: '/uploads/demoUserCv',
+        experience: getRandomExperience(),
+        name: demoUser.name!,
+        phoneNumber: demoUser.phoneNumber!,
+        status: getRandomStatus(),
+      })
+    })
+
+    await JobApplication.insertMany(jobApplicationsSendByDummyUser)
+
     //Create reviews
     const reviews: TDummyReview[] = []
 
@@ -60,8 +120,6 @@ const importData = async () => {
     })
 
     await Review.insertMany(reviews)
-
-    //Create job applications
 
     console.log('Data Imported!')
     process.exit()
