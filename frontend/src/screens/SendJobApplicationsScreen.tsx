@@ -21,11 +21,17 @@ const SendJobApplicationsScreen = () => {
       ) : (
         <>
           <h2>Send Job Applications</h2>
-          <ListGroup variant='flush'>
-            {Object.entries(data).map(([key, value]) => (
-              <JobApplicationGroup application={value} />
-            ))}
-          </ListGroup>
+          {Object.entries(data).length > 0 ? (
+            <ListGroup variant='flush'>
+              {Object.entries(data).map(([key, value]) => (
+                <JobApplicationGroup application={value} />
+              ))}
+            </ListGroup>
+          ) : (
+            <Message className='my-3' variant='info'>
+              You haven't send any job applications yet
+            </Message>
+          )}
         </>
       )}
     </>
