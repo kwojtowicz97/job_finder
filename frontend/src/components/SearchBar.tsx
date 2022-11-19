@@ -9,17 +9,20 @@ interface Props {
     location: string | undefined
     setLocation: React.Dispatch<React.SetStateAction<string | undefined>>
   }
+  setShowButton: React.Dispatch<React.SetStateAction<boolean>>
   refetch: Function
 }
 
-const SearchBar = ({ searchBarProps, refetch }: Props) => {
+const SearchBar = ({ searchBarProps, refetch, setShowButton }: Props) => {
   const navigate = useNavigate()
   const { position, location, setPosition, setLocation } = searchBarProps
   const [show, setShow] = useState(false)
   const submitHandler = (e: FormEvent) => {
     e.preventDefault()
+    if (!position && !location) return
     if (position || location)
       navigate(`/?position=${position}&location=${location}`)
+    setShowButton(true)
     refetch()
   }
 

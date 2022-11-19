@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { ListGroup } from 'react-bootstrap'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { Button, ListGroup } from 'react-bootstrap'
 import JobOffer from '../components/JobOffer'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { Offer } from '../types'
 import { errorHandler } from '../utils/errorHandler'
@@ -24,10 +24,17 @@ interface Props {
 const HomeScreen = ({ portalContainer }: Props) => {
   const [position, setPosition] = useState<string | undefined>('')
   const [location, setLocation] = useState<string | undefined>('')
+  const [refetchTrigger, setRefetchTrigger] = useState(false)
+  const [showResetButton, setShowResetButton] = useState(false)
+
+  const queryClient = useQueryClient()
 
   const [pageNumber, setPageNumber] = useState(1)
 
-  const listOffers = async () => {
+  const listOffers = async (
+    position: string | undefined,
+    location: string | undefined
+  ) => {
     const { data } = await axios.get(
       `/api/offers/?position=${position}&location=${location}&pageNumber=${pageNumber}`
     )
@@ -37,12 +44,19 @@ const HomeScreen = ({ portalContainer }: Props) => {
   const { data, isLoading, isFetching, isError, error, refetch } = useQuery<
     ListOffersResponse,
     Error
-  >(['listOffers'], listOffers)
+  >([`listOffers`, refetchTrigger], () => listOffers(position, location))
 
   useEffect(() => {
     refetch()
     window.scrollTo(0, 0)
   }, [pageNumber])
+
+  const resetFiltersHandler = () => {
+    setPosition('')
+    setLocation('')
+    setShowResetButton(false)
+    setRefetchTrigger((state) => !state)
+  }
 
   return (
     <>
@@ -56,10 +70,16 @@ const HomeScreen = ({ portalContainer }: Props) => {
             <SearchBar
               searchBarProps={{ position, location, setPosition, setLocation }}
               refetch={refetch}
+              setShowButton={setShowResetButton}
             />,
             portalContainer.current!
           )}
           <h2>Newest Job Offers</h2>
+          {showResetButton && (
+            <Button onClick={resetFiltersHandler} className='my-2'>
+              Reset filters
+            </Button>
+          )}
           {isLoading || isFetching ? (
             <Loader />
           ) : isError ? (
