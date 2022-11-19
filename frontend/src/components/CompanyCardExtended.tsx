@@ -12,7 +12,7 @@ const CompanyCardExtended = ({ company }: Props) => {
   return (
     <Card className='flex-row my-3'>
       <Card.Img
-        className='logo m-3 p-0 align-self-start align-self-md-center'
+        className='logo m-3 p-0 align-self-center '
         src={company.image}
         alt={`${company.name} logo`}
       />
