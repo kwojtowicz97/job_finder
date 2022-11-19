@@ -1,12 +1,13 @@
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import useListAllCompanies from '../hooks/useListAllCompanies'
+import useListCompanies from '../hooks/useListCompanies'
 import { errorHandler } from '../utils/errorHandler'
 import { CardCarousel } from '../components/CardCarousel'
 import CompanyCardExtended from '../components/CompanyCardExtended'
 import { useEffect, useState } from 'react'
 import Pagination from '../components/Pagination'
+import useListAllCompanies from '../hooks/useListAllCompanies'
 
 const CompaniesScreen = () => {
   const [companySearch, setCompanySearch] = useState('')
@@ -21,32 +22,39 @@ const CompaniesScreen = () => {
     error,
     isError,
     refetch: fetchCompaniesWithKeywords,
-  } = useListAllCompanies({
+  } = useListCompanies({
     companySearch,
     locationSearch,
     pageNumber,
   })
+
+  const {
+    data: dataAll,
+    isLoading: isLoadingAll,
+    isError: isErrorAll,
+    error: errorAll,
+  } = useListAllCompanies()
 
   useEffect(() => {
     fetchCompaniesWithKeywords()
     window.scrollTo(0, 0)
   }, [pageNumber])
 
-  return isLoading ? (
+  return isLoading || isLoadingAll ? (
     <Loader />
-  ) : isError ? (
-    <Message variant='danger'>{errorHandler(error)}</Message>
+  ) : isError || isErrorAll ? (
+    <Message variant='danger'>{errorHandler(error || errorAll)}</Message>
   ) : (
     <>
       <h2>
         <b>Most job offers</b>
       </h2>
-      <CardCarousel sortBy='offersCount' companies={data.companies} />
+      <CardCarousel sortBy='offersCount' companies={dataAll.companies} />
       <hr />
       <h2>
         <b>Most loved</b>
       </h2>
-      <CardCarousel sortBy='rating' companies={data.companies} />
+      <CardCarousel sortBy='rating' companies={dataAll.companies} />
       <h1 className='text-center mt-3'>
         <b>Search for Companies</b>
       </h1>

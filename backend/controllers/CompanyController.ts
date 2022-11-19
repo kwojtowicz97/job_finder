@@ -107,7 +107,7 @@ export const updateCompany = asyncHandler(
   }
 )
 
-export const getAllCompanies = asyncHandler(
+export const getCompanies = asyncHandler(
   async (req: Request, res: Response) => {
     const pageSize = 5
     const page = Number(req.query.pageNumber) || 1
@@ -144,5 +144,14 @@ export const getAllCompanies = asyncHandler(
       .populate('reviews')
 
     res.send({ companies, page, pages: Math.ceil(count / pageSize) })
+  }
+)
+export const getAllCompanies = asyncHandler(
+  async (req: Request, res: Response) => {
+    const companies = await CompanyModel.find({})
+      .populate('offersCount')
+      .populate('reviews')
+
+    res.send({ companies })
   }
 )
