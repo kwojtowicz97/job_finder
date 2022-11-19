@@ -14,15 +14,21 @@ const CompaniesScreen = () => {
 
   const [pageNumber, setPageNumber] = useState(1)
 
-  const { data, isLoading, isFetching, error, isError, refetch } =
-    useListAllCompanies({
-      companySearch,
-      locationSearch,
-      pageNumber,
-    })
+  const {
+    data,
+    isLoading,
+    isFetching,
+    error,
+    isError,
+    refetch: fetchCompaniesWithKeywords,
+  } = useListAllCompanies({
+    companySearch,
+    locationSearch,
+    pageNumber,
+  })
 
   useEffect(() => {
-    refetch()
+    fetchCompaniesWithKeywords()
     window.scrollTo(0, 0)
   }, [pageNumber])
 
@@ -61,7 +67,10 @@ const CompaniesScreen = () => {
           onChange={(e) => setLoacationSearch(e.target.value)}
         ></Form.Control>
 
-        <Button className='mx-md-3 my-1 my-md-0' onClick={() => refetch()}>
+        <Button
+          className='mx-md-3 my-1 my-md-0'
+          onClick={() => fetchCompaniesWithKeywords()}
+        >
           Find company
         </Button>
       </Form>

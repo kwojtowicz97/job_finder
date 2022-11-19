@@ -18,14 +18,29 @@ export const ApplyScreen = () => {
   const navigate = useNavigate()
   const params = useParams()
 
-  const { applicationStates, submitHandler, postApplication } =
-    usePostApplication(params.id || '')
+  const { data, isLoading, isError, error } = useGetOfferDetails(params.id)
 
-  const { sendFileHandler, isSending, isSend } = usePostCV(
-    applicationStates.setCvFile!
-  )
+  const {
+    applicationStates: {
+      name,
+      setName,
+      email,
+      setEmail,
+      phoneNumber,
+      setPhoneNumber,
+      city,
+      setCity,
+      country,
+      setCountry,
+      experience,
+      setExperience,
+      setCvFile,
+    },
+    submitHandler,
+    postApplication,
+  } = usePostApplication(params.id || '')
 
-  const getApplicationData = useGetOfferDetails(params.id)
+  const { sendFileHandler } = usePostCV(setCvFile!)
 
   useEffect(() => {
     if (postApplication.isSuccess) {
@@ -35,17 +50,16 @@ export const ApplyScreen = () => {
 
   return (
     <>
-      {getApplicationData.isLoading ? (
+      {isLoading ? (
         <Loader />
-      ) : getApplicationData.isError ? (
-        <Message variant='danger'>{getApplicationData.error.message}</Message>
+      ) : isError ? (
+        <Message variant='danger'>{error.message}</Message>
       ) : (
         <Container fluid>
           <Button onClick={() => navigate(-1)}>Back to the offer</Button>
           <h2 className='mt-3 mb-3'>
-            You are applying for the position of{' '}
-            <strong>{getApplicationData.data.title}</strong> in{' '}
-            <strong>{getApplicationData.data.company.name}</strong>
+            You are applying for the position of <strong>{data.title}</strong>{' '}
+            in <strong>{data.company.name}</strong>
           </h2>
           <Form
             className='px-3 pt-3 mx-auto mw-sm-100'
@@ -59,8 +73,8 @@ export const ApplyScreen = () => {
                 autoComplete='off'
                 type='text'
                 placeholder='Enter your name'
-                value={applicationStates.name}
-                onChange={(e) => applicationStates.setName(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </FormGroup>
             <FormGroup className='mt-3'>
@@ -70,8 +84,8 @@ export const ApplyScreen = () => {
                 type='text'
                 autoComplete='off'
                 placeholder='Enter your email'
-                value={applicationStates.email}
-                onChange={(e) => applicationStates.setEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </FormGroup>
             <FormGroup className='mt-3'>
@@ -81,10 +95,8 @@ export const ApplyScreen = () => {
                 type='text'
                 autoComplete='off'
                 placeholder='Enter your phone number'
-                value={applicationStates.phoneNumber}
-                onChange={(e) =>
-                  applicationStates.setPhoneNumber(e.target.value)
-                }
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </FormGroup>
             <FormGroup className='mt-3'>
@@ -94,8 +106,8 @@ export const ApplyScreen = () => {
                 type='text'
                 autoComplete='off'
                 placeholder='Enter your country'
-                value={applicationStates.country}
-                onChange={(e) => applicationStates.setCountry(e.target.value)}
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
               />
             </FormGroup>
             <FormGroup className='mt-3'>
@@ -105,8 +117,8 @@ export const ApplyScreen = () => {
                 type='text'
                 autoComplete='off'
                 placeholder='Enter your city'
-                value={applicationStates.city}
-                onChange={(e) => applicationStates.setCity(e.target.value)}
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
               />
             </FormGroup>
 
@@ -114,10 +126,8 @@ export const ApplyScreen = () => {
               <FormLabel>Experience</FormLabel>
               <Form.Select
                 required
-                value={applicationStates.experience}
-                onChange={(e) =>
-                  applicationStates.setExperience(e.target.value)
-                }
+                value={experience}
+                onChange={(e) => setExperience(e.target.value)}
               >
                 <option disabled value={undefined}>
                   Select your experience
