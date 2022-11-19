@@ -29,8 +29,6 @@ const SaveIcon = ({
     }
   }
 
-  console.log(disabled)
-
   return (
     <button
       className={spanClassName + ' bg-transparent border-0'}

@@ -38,7 +38,6 @@ const JobOffer = ({ offer }: Props) => {
   }, [isSuccess])
 
   const isExpired = offer.expiresIn < 0
-  console.log(offer.expiresIn)
   const backgroundColor = isExpired ? '#e9e9e9' : 'white'
 
   return (
