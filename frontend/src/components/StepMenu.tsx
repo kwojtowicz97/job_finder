@@ -14,7 +14,7 @@ const StepMenu = ({ step, setStep }: Props) => {
         {Array(4)
           .fill(0)
           .map((_, i) => (
-            <Col>
+            <Col key={Math.random()}>
               <StepMenuStep
                 step={step}
                 dataStepCounter={i + 1}

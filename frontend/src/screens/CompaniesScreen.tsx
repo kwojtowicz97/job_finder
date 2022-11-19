@@ -112,7 +112,7 @@ const CompaniesScreen = () => {
           {data!.companies
             .sort((a, b) => (a.name > b.name ? 1 : -1))
             .map((company) => (
-              <CompanyCardExtended company={company} />
+              <CompanyCardExtended key={company._id} company={company} />
             ))}
           <Pagination
             totalPagesCount={data!.pages}

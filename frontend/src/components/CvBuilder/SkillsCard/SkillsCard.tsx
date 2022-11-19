@@ -35,7 +35,7 @@ export const CvBuilderSkills = ({ setStep }: Props) => {
           className='d-flex flex-column justify-content-center px-0'
         >
           {skillsItems.map((item, index) => (
-            <SkillItem item={item} index={index} />
+            <SkillItem key={index} item={item} index={index} />
           ))}
         </ul>
       </Container>
@@ -47,7 +47,7 @@ export const CvBuilderSkills = ({ setStep }: Props) => {
           className='d-flex flex-column justify-content-center px-0'
         >
           {hobbyItems.map((item, index) => (
-            <HobbyItem item={item} index={index} />
+            <HobbyItem key={index} item={item} index={index} />
           ))}
         </ul>
         <Container className='d-flex justify-content-around border-top'>

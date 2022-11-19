@@ -23,7 +23,10 @@ const RecievedJobApplicationsScreen = () => {
           {Object.entries(data).length > 0 ? (
             <ListGroup variant='flush'>
               {data.map((application) => (
-                <JobApplicationGroup application={application} />
+                <JobApplicationGroup
+                  key={application._id}
+                  application={application}
+                />
               ))}
             </ListGroup>
           ) : (

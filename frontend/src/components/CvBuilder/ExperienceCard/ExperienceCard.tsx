@@ -41,7 +41,11 @@ export const CvBuilderExperience = ({ setStep }: Props) => {
     <Container className='d-flex p-3 flex-column justify-content-center'>
       <h2>Job experience</h2>
       {jobExperienceItems.map((item, index) => (
-        <CvBuilderExperienceItem item={item} index={index} />
+        <CvBuilderExperienceItem
+          key={Math.random()}
+          item={item}
+          index={index}
+        />
       ))}
       <Button
         variant='info'
@@ -59,7 +63,7 @@ export const CvBuilderExperience = ({ setStep }: Props) => {
       )}
       <h2>Education</h2>
       {educationItems.map((item, index) => (
-        <CvBuilderEducationItem item={item} index={index} />
+        <CvBuilderEducationItem key={Math.random()} item={item} index={index} />
       ))}
       <Button
         variant='info'
@@ -75,7 +79,7 @@ export const CvBuilderExperience = ({ setStep }: Props) => {
       />
       <h2>Languages</h2>
       {languagesItems.map((item, index) => (
-        <CvBuilderLanguageItem item={item} index={index} />
+        <CvBuilderLanguageItem key={Math.random()} item={item} index={index} />
       ))}
       <Button
         variant='info'

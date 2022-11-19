@@ -53,7 +53,7 @@ const Preview = ({ step }: Props) => {
             style={{ listStyle: 'none' }}
           >
             {jobExperienceItems.map((item) => (
-              <li className='d-flex'>
+              <li key={Math.random()} className='d-flex'>
                 <span className='label-date'>{`${item.startDate
                   .substring(0, item.startDate.length - 3)
                   .replace('-', '/')} - ${item.endDate
@@ -81,7 +81,7 @@ const Preview = ({ step }: Props) => {
             style={{ listStyle: 'none' }}
           >
             {educationItems.map((item) => (
-              <li className='d-flex'>
+              <li key={Math.random()} className='d-flex'>
                 <span className='label-date'>{`${item.startDate
                   .substring(0, item.startDate.length - 3)
                   .replace('-', '/')} - ${item.endDate
@@ -113,7 +113,7 @@ const Preview = ({ step }: Props) => {
             style={{ listStyle: 'none' }}
           >
             {languagesItems.map((item) => (
-              <li>
+              <li key={Math.random()}>
                 <b>{item.language}</b>
                 {`: ${item.level}`}
               </li>

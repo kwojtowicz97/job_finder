@@ -23,8 +23,8 @@ const SendJobApplicationsScreen = () => {
           <h2>Send Job Applications</h2>
           {Object.entries(data).length > 0 ? (
             <ListGroup variant='flush'>
-              {Object.entries(data).map(([key, value]) => (
-                <JobApplicationGroup application={value} />
+              {Object.entries(data).map(([_, value]) => (
+                <JobApplicationGroup key={value._id} application={value} />
               ))}
             </ListGroup>
           ) : (
