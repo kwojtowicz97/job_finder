@@ -29,6 +29,12 @@ app.use('/api/resetdata', DatabaseRoutes)
 const dirname = path.resolve()
 app.use('/uploads', express.static(path.join(dirname, '/uploads')))
 
+app.use(express.static(path.join(__dirname, '../frontend/build')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+})
+
 app.use(notFound)
 app.use(errorHandler)
 
