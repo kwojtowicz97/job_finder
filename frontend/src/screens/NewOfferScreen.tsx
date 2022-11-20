@@ -183,21 +183,13 @@ const NewOfferScreen: React.FC = () => {
             </Form.Group>
             <Form.Group className='my-2'>
               <Form.Label>Experience</Form.Label>
-              <Form.Select
+              <Form.Control
                 ref={experienceRef}
                 required
                 value={experience}
                 onChange={(e) => setExperience(e.target.value)}
-              >
-                <option disabled value={undefined}>
-                  Select your experience
-                </option>
-                <option value='No experience'>No experience</option>
-                <option value='0-1 years'>0-1 years</option>
-                <option value='1-3 years'>1-3 years</option>
-                <option value='3-5 years'>3-5 years</option>
-                <option value='5+ years'>5+ years</option>
-              </Form.Select>
+                type='text'
+              />
             </Form.Group>
             <Form.Group className='my-2'>
               <Form.Label>Localization</Form.Label>

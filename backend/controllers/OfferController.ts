@@ -87,6 +87,7 @@ export const createOffer = asyncHandler(
           requirements,
           benefits,
           expiresAt,
+          localization,
         },
       } = req
 
@@ -96,6 +97,7 @@ export const createOffer = asyncHandler(
         contractType,
         time,
         experience,
+        localization,
         responsibilities,
         requirements,
         benefits,
