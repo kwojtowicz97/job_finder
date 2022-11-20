@@ -8,6 +8,7 @@ import CompanyCardExtended from '../components/CompanyCardExtended'
 import { useEffect, useState } from 'react'
 import Pagination from '../components/Pagination'
 import useListAllCompanies from '../hooks/useListAllCompanies'
+import { Helmet } from 'react-helmet-async'
 
 const CompaniesScreen = () => {
   const [companySearch, setCompanySearch] = useState('')
@@ -58,6 +59,9 @@ const CompaniesScreen = () => {
     <Message variant='danger'>{errorHandler(error || errorAll)}</Message>
   ) : (
     <>
+      <Helmet>
+        <title>Job finder - All companies</title>
+      </Helmet>
       <h2>
         <b>Most job offers</b>
       </h2>

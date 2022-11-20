@@ -1,5 +1,6 @@
 import React from 'react'
 import { ListGroup } from 'react-bootstrap'
+import { Helmet } from 'react-helmet-async'
 import JobApplication from '../components/JobApplication'
 import JobApplicationGroup from '../components/JobApplicationsGroup'
 import Loader from '../components/Loader'
@@ -13,6 +14,9 @@ const RecievedJobApplicationsScreen = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{`Job finder - Revieved job applications`}</title>
+      </Helmet>
       {isLoading || isFetching ? (
         <Loader />
       ) : isError ? (

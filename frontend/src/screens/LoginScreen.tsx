@@ -8,6 +8,7 @@ import { errorHandler } from '../utils/errorHandler'
 import { toastContext, userContext } from '../App'
 import { UserInfo } from '../types/User'
 import { LinkContainer } from 'react-router-bootstrap'
+import { Helmet } from 'react-helmet-async'
 
 interface LoginUserData {
   email: string
@@ -88,6 +89,9 @@ const RegisterScreen = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>Job finder - Login</title>
+      </Helmet>
       {isError && <Message variant='danger'>{errorHandler(error)}</Message>}
       <Row className='border rounded'>
         <Col className='p-3'>

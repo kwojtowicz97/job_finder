@@ -1,5 +1,6 @@
 import React from 'react'
 import { ListGroup } from 'react-bootstrap'
+import { Helmet } from 'react-helmet-async'
 import JobApplication from '../components/JobApplication'
 import JobApplicationGroup from '../components/JobApplicationsGroup'
 import Loader from '../components/Loader'
@@ -14,6 +15,9 @@ const SendJobApplicationsScreen = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{`Job finder - Send job applications`}</title>
+      </Helmet>
       {isLoading ? (
         <Loader />
       ) : isError ? (

@@ -17,6 +17,7 @@ import Loader from '../components/Loader'
 import useGetCvData from '../hooks/useGetCvData'
 import { errorHandler } from '../utils/errorHandler'
 import Message from '../components/Message'
+import { Helmet } from 'react-helmet-async'
 
 const CvBuilder = () => {
   const [step, setStep] = useState<number>(1)
@@ -25,6 +26,9 @@ const CvBuilder = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Job finder - CV creator</title>
+      </Helmet>
       {isLoading ? (
         <Loader />
       ) : isError ? (

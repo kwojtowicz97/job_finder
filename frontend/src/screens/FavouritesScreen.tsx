@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { useContext } from 'react'
 import { ListGroup } from 'react-bootstrap'
+import { Helmet } from 'react-helmet-async'
 import { userContext } from '../App'
 import JobOffer from '../components/JobOffer'
 import Loader from '../components/Loader'
@@ -36,6 +37,9 @@ const FavouritesScreen = () => {
             <Message variant='danger'>{errorHandler(error)}</Message>
           ) : (
             <>
+              <Helmet>
+                <title>Job finder - Saved job offers</title>
+              </Helmet>
               {userInfo && userInfo.saved.length > 0 ? (
                 <ListGroup variant='flush'>
                   <ListGroup.Item className='p-0 p-lg-3'>

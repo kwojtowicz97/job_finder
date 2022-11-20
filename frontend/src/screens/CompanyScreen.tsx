@@ -9,6 +9,7 @@ import {
   Tab,
   Tabs,
 } from 'react-bootstrap'
+import { Helmet } from 'react-helmet-async'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useParams } from 'react-router-dom'
 import { userContext } from '../App'
@@ -38,6 +39,9 @@ const CompanyScreen = () => {
     <Message variant='danger'>{errorHandler(error)}</Message>
   ) : (
     <>
+      <Helmet>
+        <title>{`Job finder - ${data.company.name}`}</title>
+      </Helmet>
       {isEditing ? (
         <Row className='mb-3'>
           <CompanyScreenEditCompany

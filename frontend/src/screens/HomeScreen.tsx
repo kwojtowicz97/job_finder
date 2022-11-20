@@ -10,6 +10,7 @@ import { errorHandler } from '../utils/errorHandler'
 import SearchBar from '../components/SearchBar'
 import ReactDOM from 'react-dom'
 import Pagination from '../components/Pagination'
+import { Helmet } from 'react-helmet-async'
 
 interface ListOffersResponse {
   offers: Offer[]
@@ -75,6 +76,9 @@ const HomeScreen = ({ portalContainer }: Props) => {
         <Message variant='danger'>{errorHandler(error)}</Message>
       ) : (
         <>
+          <Helmet>
+            <title>Job finder - Home page</title>
+          </Helmet>
           <h2>Newest Job Offers</h2>
           {showResetButton && (
             <Button onClick={resetFiltersHandler} className='my-2'>

@@ -3,6 +3,7 @@ import { countries } from './countries'
 import { Button, Col, Container, Form } from 'react-bootstrap'
 import useUploadFile from '../hooks/useUploadFile'
 import { usePostNewCompany } from '../hooks/usePostNewCompany'
+import { Helmet } from 'react-helmet-async'
 
 export const NewComapnyScreen: React.FC = () => {
   const [name, setName] = useState<string>('')
@@ -34,6 +35,9 @@ export const NewComapnyScreen: React.FC = () => {
       className='px-3 pt-3 mx-auto mw-sm-100'
       style={{ minWidth: '300px', maxWidth: '50%' }}
     >
+      <Helmet>
+        <title>Job finder - Create new company</title>
+      </Helmet>
       <Form onSubmit={submitHandler}>
         <Col>
           <h2 className='mb-3'>Create Your Company Profile</h2>

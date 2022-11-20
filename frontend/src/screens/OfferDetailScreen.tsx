@@ -22,6 +22,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 // @ts-ignore
 import html2pdf from 'html2pdf.js'
 import ReactToPrint from 'react-to-print'
+import { Helmet } from 'react-helmet-async'
 
 const listOfferDetails = async (id: string) => {
   const { data } = await axios.get(`/api/offers/${id}`)
@@ -86,164 +87,172 @@ const OfferDetailScreen: React.FC = () => {
         <Message variant='danger'>{errorHandler(error)}</Message>
       ) : (
         offer && (
-          <Container>
-            <Row>
-              <Col ref={ref} className='myDivToPrint col-12 col-md-8 p-0'>
-                <Container fluid className='border rounded'>
-                  <Row>
-                    <Col
-                      className='border-end d-flex justify-content-center align-items-center'
-                      style={{ flex: '0 0 114px' }}
-                    >
-                      <Image
-                        src={offer.company.image}
-                        style={{ width: '80px', height: 'auto' }}
-                      ></Image>
-                    </Col>
-                    <Col className='p-3'>
-                      <h1 className='fs-3'>
-                        <b>{offer.title}</b>
-                      </h1>
-                      <div className='d-flex align-items-center'>
-                        <LinkContainer
-                          role='button'
-                          to={`/company/${offer.company._id}`}
-                        >
-                          <a className='nav-link d-inline'>
-                            <h2 className='d-inline m-0 fs-5'>
-                              {offer.company.name}
-                            </h2>
-                          </a>
-                        </LinkContainer>
-
-                        <Rating
-                          className='ms-2'
-                          value={offer.company.rating}
-                        ></Rating>
-                      </div>
-                    </Col>
-                  </Row>
-                  <Benefits offer={offer} />
-                  <Row className='border-top print-map'>
-                    <MapCallback />
-                  </Row>
-                </Container>
-                <Container fluid className=' mt-3 border rounded'>
-                  <Row className='d-block'>
-                    <Col className='p-4 pe-0'>
-                      <span className='d-flex'>
-                        <span className='benefit-item d-flex align-items-center justify-content-center'>
-                          <i className='fa-solid fa-list-check fs-5'></i>
-                        </span>
-                        <h3 className='mb-3 ms-2 d-inline'>Responsibilities</h3>
-                      </span>
-                      <ul style={{ listStyleType: 'none', padding: '0' }}>
-                        {offer.responsibilities.map((item) => (
-                          <li key={item} className='my-2'>
-                            <span>
-                              <i className='fa-solid fa-play me-1' />
-                              <p className='d-inline'>{item}</p>
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </Col>
-                    <Col className='p-4 pe-0 border-top'>
-                      <span className='d-flex'>
-                        <span className='benefit-item d-flex align-items-center justify-content-center'>
-                          <i className='fa-solid fa-id-card fs-5'></i>
-                        </span>
-                        <h3 className='mb-3 ms-2 d-inline'>Requirements</h3>
-                      </span>
-                      <ul style={{ listStyleType: 'none', padding: '0' }}>
-                        {offer.requirements.map((item) => (
-                          <li key={item} className='my-2'>
-                            <span>
-                              <i className='fa-solid fa-play me-1' />
-                              <p className='d-inline'>{item}</p>
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </Col>
-                    <Col className='p-4 pe-0 border-top'>
-                      <span className='d-flex'>
-                        <span className='benefit-item d-flex align-items-center justify-content-center'>
-                          <i className='fa-regular fa-circle-up fs-5'></i>
-                        </span>
-                        <h3 className='mb-3 ms-2 d-inline'>We Offer</h3>
-                      </span>
-                      <ul style={{ listStyleType: 'none', padding: '0' }}>
-                        {offer.benefits.map((item) => (
-                          <li key={item} className='my-2'>
-                            <span>
-                              <i className='fa-solid fa-play me-1' />
-                              <p className='d-inline'>{item}</p>
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </Col>
-                  </Row>
-                </Container>
-              </Col>
-              <Col className='col-12 col-md-4 mt-3 mt-md-0 p-0 px-md-3'>
-                <Container
-                  fluid
-                  className='border rounded position-sticky'
-                  style={{ top: '24px' }}
-                >
-                  <Row className='border-bottom'>
-                    <LinkContainer
-                      style={{ maxWidth: '80%' }}
-                      to={
-                        userInfo
-                          ? `/apply/${offer._id}`
-                          : `/login?redirect=/apply/${offer._id}`
-                      }
-                    >
-                      <Button
-                        disabled={offer.expiresIn < 0 || !!userInfo?.company}
-                        data-toggle='tooltip'
-                        data-placement='top'
-                        title='Tooltip on top'
-                        className='mx-auto p-3 my-4'
-                        variant='primary'
+          <>
+            <Helmet>
+              <title>{`Job finder - ${offer.title}`}</title>
+            </Helmet>
+            <Container>
+              <Row>
+                <Col ref={ref} className='myDivToPrint col-12 col-md-8 p-0'>
+                  <Container fluid className='border rounded'>
+                    <Row>
+                      <Col
+                        className='border-end d-flex justify-content-center align-items-center'
+                        style={{ flex: '0 0 114px' }}
                       >
-                        Apply Now
-                      </Button>
-                    </LinkContainer>
-                  </Row>
-                  <Row className='text-center'>
-                    <SaveIcon
-                      disabled={
-                        !userInfo && `/login?redirect=/offer/${offer!._id}`
-                      }
-                      spanClassName='col-6 p-3 border-end d-block'
-                      className='black'
-                      reverse
-                      isSaved={
-                        userInfo?.saved.includes(String(offer._id)) || isLoading
-                      }
-                      onClick={mutateAsyncFavourite}
-                    />
-                    <Col className='p-3 offer-sidebar-button'>
-                      <ReactToPrint
-                        bodyClass='print-offer'
-                        content={() => ref.current}
-                        trigger={() => (
-                          <span onClick={() => true}>
-                            <i className='fa-solid fa-print ' />
-                            <p className='d-inline'> Print</p>
+                        <Image
+                          src={offer.company.image}
+                          style={{ width: '80px', height: 'auto' }}
+                        ></Image>
+                      </Col>
+                      <Col className='p-3'>
+                        <h1 className='fs-3'>
+                          <b>{offer.title}</b>
+                        </h1>
+                        <div className='d-flex align-items-center'>
+                          <LinkContainer
+                            role='button'
+                            to={`/company/${offer.company._id}`}
+                          >
+                            <a className='nav-link d-inline'>
+                              <h2 className='d-inline m-0 fs-5'>
+                                {offer.company.name}
+                              </h2>
+                            </a>
+                          </LinkContainer>
+
+                          <Rating
+                            className='ms-2'
+                            value={offer.company.rating}
+                          ></Rating>
+                        </div>
+                      </Col>
+                    </Row>
+                    <Benefits offer={offer} />
+                    <Row className='border-top print-map'>
+                      <MapCallback />
+                    </Row>
+                  </Container>
+                  <Container fluid className=' mt-3 border rounded'>
+                    <Row className='d-block'>
+                      <Col className='p-4 pe-0'>
+                        <span className='d-flex'>
+                          <span className='benefit-item d-flex align-items-center justify-content-center'>
+                            <i className='fa-solid fa-list-check fs-5'></i>
                           </span>
-                        )}
-                      ></ReactToPrint>
-                    </Col>
-                  </Row>
-                </Container>
-              </Col>
-            </Row>
-          </Container>
+                          <h3 className='mb-3 ms-2 d-inline'>
+                            Responsibilities
+                          </h3>
+                        </span>
+                        <ul style={{ listStyleType: 'none', padding: '0' }}>
+                          {offer.responsibilities.map((item) => (
+                            <li key={item} className='my-2'>
+                              <span>
+                                <i className='fa-solid fa-play me-1' />
+                                <p className='d-inline'>{item}</p>
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </Col>
+                      <Col className='p-4 pe-0 border-top'>
+                        <span className='d-flex'>
+                          <span className='benefit-item d-flex align-items-center justify-content-center'>
+                            <i className='fa-solid fa-id-card fs-5'></i>
+                          </span>
+                          <h3 className='mb-3 ms-2 d-inline'>Requirements</h3>
+                        </span>
+                        <ul style={{ listStyleType: 'none', padding: '0' }}>
+                          {offer.requirements.map((item) => (
+                            <li key={item} className='my-2'>
+                              <span>
+                                <i className='fa-solid fa-play me-1' />
+                                <p className='d-inline'>{item}</p>
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </Col>
+                      <Col className='p-4 pe-0 border-top'>
+                        <span className='d-flex'>
+                          <span className='benefit-item d-flex align-items-center justify-content-center'>
+                            <i className='fa-regular fa-circle-up fs-5'></i>
+                          </span>
+                          <h3 className='mb-3 ms-2 d-inline'>We Offer</h3>
+                        </span>
+                        <ul style={{ listStyleType: 'none', padding: '0' }}>
+                          {offer.benefits.map((item) => (
+                            <li key={item} className='my-2'>
+                              <span>
+                                <i className='fa-solid fa-play me-1' />
+                                <p className='d-inline'>{item}</p>
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </Col>
+                    </Row>
+                  </Container>
+                </Col>
+                <Col className='col-12 col-md-4 mt-3 mt-md-0 p-0 px-md-3'>
+                  <Container
+                    fluid
+                    className='border rounded position-sticky'
+                    style={{ top: '24px' }}
+                  >
+                    <Row className='border-bottom'>
+                      <LinkContainer
+                        style={{ maxWidth: '80%' }}
+                        to={
+                          userInfo
+                            ? `/apply/${offer._id}`
+                            : `/login?redirect=/apply/${offer._id}`
+                        }
+                      >
+                        <Button
+                          disabled={offer.expiresIn < 0 || !!userInfo?.company}
+                          data-toggle='tooltip'
+                          data-placement='top'
+                          title='Tooltip on top'
+                          className='mx-auto p-3 my-4'
+                          variant='primary'
+                        >
+                          Apply Now
+                        </Button>
+                      </LinkContainer>
+                    </Row>
+                    <Row className='text-center'>
+                      <SaveIcon
+                        disabled={
+                          !userInfo && `/login?redirect=/offer/${offer!._id}`
+                        }
+                        spanClassName='col-6 p-3 border-end d-block'
+                        className='black'
+                        reverse
+                        isSaved={
+                          userInfo?.saved.includes(String(offer._id)) ||
+                          isLoading
+                        }
+                        onClick={mutateAsyncFavourite}
+                      />
+                      <Col className='p-3 offer-sidebar-button'>
+                        <ReactToPrint
+                          bodyClass='print-offer'
+                          content={() => ref.current}
+                          trigger={() => (
+                            <span onClick={() => true}>
+                              <i className='fa-solid fa-print ' />
+                              <p className='d-inline'> Print</p>
+                            </span>
+                          )}
+                        ></ReactToPrint>
+                      </Col>
+                    </Row>
+                  </Container>
+                </Col>
+              </Row>
+            </Container>
+          </>
         )
       )}
     </>
