@@ -4,8 +4,8 @@
   "description": "MERN shopping cart app",
   "main": "server.ts",
   "scripts": {
-    "start": "node backend/dist/server",
-    "server": "nodemon backend/dist/server",
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "nodemon backend/seeder",
