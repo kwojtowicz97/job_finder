@@ -35,7 +35,7 @@ console.log(__dirname)
 console.log('dir', dirname)
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  res.sendFile(path.resolve(__dirname, '../frontend/build/index.html'))
 })
 
 app.use(notFound)
