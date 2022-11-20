@@ -79,6 +79,7 @@ export const createOffer = asyncHandler(
       const {
         body: {
           title,
+          city,
           address,
           contractType,
           time,
@@ -93,6 +94,7 @@ export const createOffer = asyncHandler(
 
       const newOffer = await OfferModel.create({
         title,
+        city,
         address,
         contractType,
         time,

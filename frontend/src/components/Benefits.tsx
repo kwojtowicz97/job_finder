@@ -29,8 +29,8 @@ export const Benefits = ({ offer, refs }: Props) => {
         <span className='benefit-item d-flex align-items-center justify-content-center'>
           <i className={`fa-solid fa-location-dot `}></i>
         </span>
-        <span className={`ms-3 ${!offer.address ? 'text-muted' : ''}`}>
-          {offer.address || 'Address'}
+        <span className={`ms-3 ${!offer.city ? 'text-muted' : ''}`}>
+          {offer.city || 'City'}
         </span>
       </Container>
       <Container

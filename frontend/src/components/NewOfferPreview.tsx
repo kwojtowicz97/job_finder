@@ -23,6 +23,7 @@ export interface Refs {
 
 export interface OfferPreview {
   title: string
+  city: string
   address: string
   localization: string
   expiresAt: string
@@ -89,7 +90,7 @@ const NewOfferPreview = ({ offer }: Props) => {
         </Row>
         <Benefits offer={offer} refs={offer.refs} />
         <Row className='border-top print-map'>
-          <Map city={offer.address} address='' />
+          <Map city={`${offer.city}, ${offer.address}`} address={''} />
         </Row>
       </Container>
       <Container fluid className=' mt-3 border rounded'>

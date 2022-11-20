@@ -4,6 +4,7 @@ import { JobApplication } from './JobApplication'
 export interface Offer {
   _id: string
   title: string
+  city: string
   address: string
   localization: string
   contractType: string

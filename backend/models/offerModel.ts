@@ -11,6 +11,9 @@ export class OfferClass {
   public title!: string
 
   @prop()
+  public city!: string
+
+  @prop()
   public address!: string
 
   @prop()

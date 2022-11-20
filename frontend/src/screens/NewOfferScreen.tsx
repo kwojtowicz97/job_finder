@@ -27,6 +27,8 @@ const NewOfferScreen: React.FC = () => {
     applicationStates: {
       title,
       setTitle,
+      city,
+      setCity,
       address,
       setAddress,
       localization,
@@ -96,6 +98,7 @@ const NewOfferScreen: React.FC = () => {
 
   const dataForPreview: OfferPreview = {
     title,
+    city,
     address,
     localization,
     expiresAt,
@@ -138,6 +141,16 @@ const NewOfferScreen: React.FC = () => {
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                type='text'
+              />
+            </Form.Group>
+            <Form.Group className='my-2'>
+              <Form.Label>City</Form.Label>
+              <Form.Control
+                ref={localizationRef}
+                required
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
                 type='text'
               />
             </Form.Group>

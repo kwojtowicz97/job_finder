@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 
 interface SendOfferData {
   title: string
+  city: string
   address: string
   localization: string
   contractType: string
@@ -20,6 +21,7 @@ const usePostOffer = () => {
   const { userInfo } = useContext(userContext)
 
   const [title, setTitle] = useState('')
+  const [city, setCity] = useState('')
   const [address, setAddress] = useState('')
   const [localization, setLocalization] = useState('')
   const [contractType, setContractType] = useState('')
@@ -54,6 +56,7 @@ const usePostOffer = () => {
 
     postOffer.mutateAsync({
       title,
+      city,
       address,
       localization,
       contractType,
@@ -68,6 +71,8 @@ const usePostOffer = () => {
   const applicationStates = {
     title,
     setTitle,
+    city,
+    setCity,
     address,
     setAddress,
     localization,
