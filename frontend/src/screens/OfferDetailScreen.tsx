@@ -71,7 +71,7 @@ const OfferDetailScreen: React.FC = () => {
 
   const MapCallback = useCallback(() => {
     if (offer) {
-      return <Map city={offer.company.city} address={offer.company.address} />
+      return <Map city={offer.address} address={''} />
     }
     return null
   }, [offer])
