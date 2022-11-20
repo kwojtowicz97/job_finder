@@ -87,7 +87,7 @@ const JobOffer = ({ offer }: Props) => {
           </span>
         </Card.Title>
         <Container className='ms-0 w100 p-0'>
-          <i className='fas fa-location-dot mb-2' /> {offer.address}
+          <i className='fas fa-location-dot mb-2' /> {offer.city}
           <Container>
             <Row>
               <Col sm={12} md={3} className='px-0'>
