@@ -17,7 +17,7 @@ export const demoCompany = {
   city: 'Warsaw',
   address: 'Marszałkowska 1',
   phoneNumber: '123-345-456',
-  image: '/uploads/file-1668798540132.jpeg',
+  image: '../uploads/Demo.jpeg',
   description: description.generateSentences(6),
   localization: 'Remote',
 }
