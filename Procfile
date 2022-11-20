@@ -1,1 +1,1 @@
-web: node backend/dist/server
+web: node backend/server
