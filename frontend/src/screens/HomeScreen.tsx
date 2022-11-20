@@ -60,20 +60,21 @@ const HomeScreen = ({ portalContainer }: Props) => {
 
   return (
     <>
+      {portalContainer.current &&
+        ReactDOM.createPortal(
+          <SearchBar
+            searchBarProps={{ position, location, setPosition, setLocation }}
+            refetch={refetch}
+            setShowButton={setShowResetButton}
+          />,
+          portalContainer.current!
+        )}
       {isLoading ? (
         <Loader />
       ) : isError ? (
         <Message variant='danger'>{errorHandler(error)}</Message>
       ) : (
         <>
-          {ReactDOM.createPortal(
-            <SearchBar
-              searchBarProps={{ position, location, setPosition, setLocation }}
-              refetch={refetch}
-              setShowButton={setShowResetButton}
-            />,
-            portalContainer.current!
-          )}
           <h2>Newest Job Offers</h2>
           {showResetButton && (
             <Button onClick={resetFiltersHandler} className='my-2'>
