@@ -203,7 +203,7 @@ const OfferDetailScreen: React.FC = () => {
                       }
                     >
                       <Button
-                        disabled={offer.expiresIn < 0}
+                        disabled={offer.expiresIn < 0 || !!userInfo?.company}
                         data-toggle='tooltip'
                         data-placement='top'
                         title='Tooltip on top'
