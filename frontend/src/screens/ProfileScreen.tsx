@@ -95,126 +95,127 @@ const ProfileScreen = () => {
       <Helmet>
         <title>{`Job finder - Profile`}</title>
       </Helmet>
-      isLoading ? (
-      <Loader />) : (
-      <Container>
-        {!userInfo?.company && (
-          <Container className='mb-5 p-3 border rounded'>
-            <p>
-              If you want to add new job offers first you have to create a
-              company profile.
-            </p>
-            <Button onClick={() => navigate('/newcompany')}>
-              Create company profile
-            </Button>
-          </Container>
-        )}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Container>
+          {!userInfo?.company && (
+            <Container className='mb-5 p-3 border rounded'>
+              <p>
+                If you want to add new job offers first you have to create a
+                company profile.
+              </p>
+              <Button onClick={() => navigate('/newcompany')}>
+                Create company profile
+              </Button>
+            </Container>
+          )}
 
-        {isError && <Message variant='danger'>{errorHandler(error)}</Message>}
-        <Form onSubmit={submitHandler}>
-          <Row className='border rounded'>
-            <Col className='p-3 pe-5 border-end col-12 col-lg-6'>
-              <h2 className='mb-3'>Update account</h2>
-              <Form.Group className='mb-3'>
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  autoComplete='off'
-                  type='text'
-                  placeholder='Enter name'
-                />
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label>E-mail</Form.Label>
-                <Form.Control
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete='email'
-                  type='email'
-                  placeholder='Enter e-mail'
-                />
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete='new-password'
-                  type='password'
-                  placeholder='Enter new password'
-                />
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label>Confirm password</Form.Label>
-                <Form.Control
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  autoComplete='new-password'
-                  type='password'
-                  placeholder='Confirm new password'
-                />
-              </Form.Group>
-            </Col>
-            <Col className='p-3 col-12 col-lg-6'>
-              <h2 className='mb-3'>Update your personal information</h2>
-              <Form.Group className='mb-3'>
-                <Form.Label>Phone Number</Form.Label>
-                <Form.Control
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  type='text'
-                  placeholder='Enter your country'
-                />
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label>Country</Form.Label>
-                <Form.Select
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                >
-                  <option disabled selected value={undefined}>
-                    Select your country
-                  </option>
-                  {countries.map((country) => (
-                    <option value={country.name}>{country.name}</option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label>City</Form.Label>
-                <Form.Control
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  type='text'
-                  placeholder='Enter your city'
-                />
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label>Address</Form.Label>
-                <Form.Control
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  type='text'
-                  placeholder='Enter your city'
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Container className='d-flex justify-content-center align-items-center'>
-            <Button
-              type='submit'
-              className={`position-relative mt-3 ${
-                isLoading ? 'stripes-active' : ''
-              }`}
-            >
-              <span>Update</span>
-              <div className='stripes'></div>
-            </Button>
-          </Container>
-        </Form>
-      </Container>
-      )
+          {isError && <Message variant='danger'>{errorHandler(error)}</Message>}
+          <Form onSubmit={submitHandler}>
+            <Row className='border rounded'>
+              <Col className='p-3 pe-5 border-end col-12 col-lg-6'>
+                <h2 className='mb-3'>Update account</h2>
+                <Form.Group className='mb-3'>
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    autoComplete='off'
+                    type='text'
+                    placeholder='Enter name'
+                  />
+                </Form.Group>
+                <Form.Group className='mb-3'>
+                  <Form.Label>E-mail</Form.Label>
+                  <Form.Control
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete='email'
+                    type='email'
+                    placeholder='Enter e-mail'
+                  />
+                </Form.Group>
+                <Form.Group className='mb-3'>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete='new-password'
+                    type='password'
+                    placeholder='Enter new password'
+                  />
+                </Form.Group>
+                <Form.Group className='mb-3'>
+                  <Form.Label>Confirm password</Form.Label>
+                  <Form.Control
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    autoComplete='new-password'
+                    type='password'
+                    placeholder='Confirm new password'
+                  />
+                </Form.Group>
+              </Col>
+              <Col className='p-3 col-12 col-lg-6'>
+                <h2 className='mb-3'>Update your personal information</h2>
+                <Form.Group className='mb-3'>
+                  <Form.Label>Phone Number</Form.Label>
+                  <Form.Control
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    type='text'
+                    placeholder='Enter your country'
+                  />
+                </Form.Group>
+                <Form.Group className='mb-3'>
+                  <Form.Label>Country</Form.Label>
+                  <Form.Select
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                  >
+                    <option disabled selected value={undefined}>
+                      Select your country
+                    </option>
+                    {countries.map((country) => (
+                      <option value={country.name}>{country.name}</option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className='mb-3'>
+                  <Form.Label>City</Form.Label>
+                  <Form.Control
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    type='text'
+                    placeholder='Enter your city'
+                  />
+                </Form.Group>
+                <Form.Group className='mb-3'>
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    type='text'
+                    placeholder='Enter your city'
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Container className='d-flex justify-content-center align-items-center'>
+              <Button
+                type='submit'
+                className={`position-relative mt-3 ${
+                  isLoading ? 'stripes-active' : ''
+                }`}
+              >
+                <span>Update</span>
+                <div className='stripes'></div>
+              </Button>
+            </Container>
+          </Form>
+        </Container>
+      )}
     </>
   )
 }
