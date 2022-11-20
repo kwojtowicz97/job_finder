@@ -55,7 +55,7 @@ const SearchBar = ({ searchBarProps, refetch, setShowButton }: Props) => {
             <Form.Control
               className='my-1'
               type='text'
-              placeholder='position, company'
+              placeholder='position'
               value={position}
               onChange={(e) => setPosition(e.target.value)}
             />
@@ -86,7 +86,7 @@ const SearchBar = ({ searchBarProps, refetch, setShowButton }: Props) => {
           <Col className='col-5'>
             <Form.Control
               type='text'
-              placeholder='positions, companies, keywords'
+              placeholder='position'
               value={position}
               onChange={(e) => setPosition(e.target.value)}
             />
