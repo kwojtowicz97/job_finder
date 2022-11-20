@@ -21,7 +21,7 @@ export const getOffers = asyncHandler(async (req: Request, res: Response) => {
 
   const location = req.query.location
     ? {
-        address: {
+        city: {
           $regex: req.query.location,
           $options: 'i',
         },
