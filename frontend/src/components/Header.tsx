@@ -45,7 +45,7 @@ const Header = () => {
           <LinkContainer to='/'>
             <Nav.Link>
               <Navbar.Brand>
-                <b>Job Finder</b>
+                <b style={{ color: '#1abc9d' }}>Job Finder</b>
               </Navbar.Brand>
             </Nav.Link>
           </LinkContainer>
