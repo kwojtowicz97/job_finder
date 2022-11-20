@@ -42,7 +42,8 @@ export const importData = async () => {
       const company = dummyCompany
 
       offer.company = company._id
-      offer.address = `${company.city}, ${company.address}` || ''
+      offer.address = company.address || ''
+      offer.city = company.city || ''
     })
 
     const createdOffersForDummyCompany = await Offer.insertMany(
@@ -75,7 +76,8 @@ export const importData = async () => {
         createdCompanies[Math.floor(createdCompanies.length * Math.random())]
 
       offer.company = company._id
-      offer.address = `${company.city}, ${company.address}` || ''
+      offer.address = company.address || ''
+      offer.city = company.city || ''
     })
 
     const createdOffers = await Offer.insertMany(offers)
