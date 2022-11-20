@@ -1,1 +1,1 @@
-web: node backend/server
+web: ts-node --transpile-only backend/server
