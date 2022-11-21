@@ -10,14 +10,6 @@ export interface Props {
   application: ApplicationByOffer
 }
 
-enum Status {
-  New = 'New',
-  Opened = 'Opened',
-  Considering = 'Considering',
-  Rejected = 'Rejected',
-  Accepted = 'Accepted',
-}
-
 const JobApplicationsGroup = ({ application }: Props) => {
   return (
     <Container className='w-100 border rounded mb-3'>
