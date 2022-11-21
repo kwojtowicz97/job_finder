@@ -18,7 +18,7 @@ export enum Status {
   Accepted = 'Accepted',
 }
 
-enum StatusColors {
+export enum StatusColors {
   New = 'gray',
   Opened = 'orange',
   Considering = 'blue',
@@ -92,7 +92,11 @@ const JobApplication = ({
           <Col className='d-flex align-items-center'>
             <label>Select status</label>
             <br />
-            <Form.Select value={fetchedStatus} onChange={changeStatusHandler}>
+            <Form.Select
+              style={{ borderColor: StatusColors[fetchedStatus] }}
+              value={fetchedStatus}
+              onChange={changeStatusHandler}
+            >
               <option disabled value={Status.New}>
                 {Status.New}
               </option>
