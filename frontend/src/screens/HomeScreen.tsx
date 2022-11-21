@@ -79,7 +79,7 @@ const HomeScreen = ({ portalContainer }: Props) => {
           <Helmet>
             <title>Job finder - Home page</title>
           </Helmet>
-          <h2>Newest Job Offers</h2>
+          {!showResetButton && <h2>Newest Job Offers</h2>}
           {showResetButton && (
             <Button onClick={resetFiltersHandler} className='my-2'>
               Reset filters
