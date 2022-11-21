@@ -77,7 +77,7 @@ const RegisterScreen = () => {
 
   const {
     data: resetDatabaseData,
-    isLoading: resetDatabaseLoading,
+    isLoading: resetDatabaseIsLoading,
     isSuccess: resetDatabaseSucces,
     error: resetDatabaseError,
     mutateAsync: resetDatabaseMutate,
@@ -98,11 +98,21 @@ const RegisterScreen = () => {
           <Message className='my-2' variant='info'>
             It is recommended to reset the database before login to ensure the
             best experience of using the site and seeing all the functionality.
+            <Button
+              onClick={resetDatabaseHandler}
+              className={`position-relative w-100 my-2 ${
+                resetDatabaseIsLoading ? 'stripes-active' : ''
+              }`}
+            >
+              <span>Reset database</span>
+              <div className='stripes'></div>
+            </Button>
+            {resetDatabaseSucces && (
+              <p className='p-0 m-0 text-warning'>
+                Database successfuly reseted!
+              </p>
+            )}
           </Message>
-          <Button className='mb-2 me-3' onClick={resetDatabaseHandler}>
-            Reset database
-          </Button>
-          {resetDatabaseSucces && 'Database successfuly reseted!'}
           <h2 className='mb-3'>Sing Up</h2>
           <Form onSubmit={submitHandler}>
             <Form.Group className='mb-3'>
